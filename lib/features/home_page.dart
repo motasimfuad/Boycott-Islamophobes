@@ -13,14 +13,28 @@ class HomePage extends StatelessWidget {
         title: const Text('Boycott Islamophobes'),
         backgroundColor: Colors.black,
         centerTitle: true,
+        toolbarHeight: 60.h,
+        flexibleSpace: Container(
+          // height: 300,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                KColors.primary,
+                KColors.primary.shade600,
+              ],
+            ),
+          ),
+        ),
       ),
       body: Container(
         color: KColors.primary.shade50,
         padding: EdgeInsets.only(
-          top: 15.h,
-          left: 15.w,
-          right: 15.w,
-          bottom: 15.h,
+          top: 20.h,
+          left: 20.w,
+          right: 20.w,
+          bottom: 20.h,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -48,9 +62,9 @@ class HomePage extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              height: 70.h,
-            ),
+            // SizedBox(
+            //   height: 70.h,
+            // ),
           ],
         ),
       ),

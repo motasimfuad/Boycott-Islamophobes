@@ -31,8 +31,8 @@ class _BottomNavState extends State<BottomNav> {
         borderRadius: 20.w,
         itemBorderRadius: 15.w,
         margin: EdgeInsets.symmetric(
-          horizontal: 15.h,
-          vertical: 10.w,
+          horizontal: 20.h,
+          vertical: 15.w,
         ),
         iconSize: 24.w,
         onTap: (int val) {
