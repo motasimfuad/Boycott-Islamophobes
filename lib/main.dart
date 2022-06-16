@@ -1,4 +1,4 @@
-import 'package:boycott_islamophobes/features/home_page.dart';
+import 'package:boycott_islamophobes/features/bottom_nav.dart';
 import 'package:boycott_islamophobes/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Boycott Islamophobes',
           theme: AppTheme.lightTheme,
-          home: const HomePage(),
+          home: const BottomNav(),
         );
       },
     );
