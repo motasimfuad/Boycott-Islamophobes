@@ -15,7 +15,7 @@ class KColors {
   static const secondaryLight = Color(0xff383b4e);
   static const secondaryDark = Color(0xff292b38);
 
-  static const primary = Colors.red;
+  static const primary = Colors.deepPurple;
 }
 
 final Map<int, Color> _darkMap = {

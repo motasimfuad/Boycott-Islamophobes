@@ -28,7 +28,7 @@ class _BottomNavState extends State<BottomNav> {
       extendBody: true,
       body: screens[currentIndex],
       bottomNavigationBar: FloatingNavbar(
-        borderRadius: 15.w,
+        borderRadius: 20.w,
         itemBorderRadius: 15.w,
         margin: EdgeInsets.symmetric(
           horizontal: 15.h,

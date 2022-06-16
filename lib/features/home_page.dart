@@ -20,119 +20,73 @@ class HomePage extends StatelessWidget {
           top: 15.h,
           left: 15.w,
           right: 15.w,
+          bottom: 15.h,
         ),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          // mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Expanded(
-              child: Container(
-                color: Colors.amber,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 200.h,
-                      color: Colors.black38,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                color: Colors.black,
-                                height: 100,
-                                width: double.infinity,
-                                child: const Text('Cat'),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Expanded(
-                              child: Container(
-                                color: Colors.black,
-                                height: 100,
-                                width: double.infinity,
-                                child: const Text('Cat'),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                color: Colors.black,
-                                height: 100,
-                                width: double.infinity,
-                                child: const Text('Cat'),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            Expanded(
-                              child: Container(
-                                color: Colors.black,
-                                height: 100,
-                                width: double.infinity,
-                                child: const Text('Cat'),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 100.h,
-                    ),
-                    // Flexible(
-                    //   fit: FlexFit.tight,
-                    //   child: Container(
-                    //     color: Colors.blue,
-                    //     child: GridView.builder(
-                    //       physics: const NeverScrollableScrollPhysics(),
-                    //       gridDelegate:
-                    //           const SliverGridDelegateWithFixedCrossAxisCount(
-                    //         crossAxisCount: 2,
-                    //         childAspectRatio: 1,
-                    //         crossAxisSpacing: 10,
-                    //         mainAxisSpacing: 10,
-                    //       ),
-                    //       itemCount: 4,
-                    //       itemBuilder: (BuildContext context, int index) {
-                    //         return Expanded(
-                    //           child: Container(
-                    //             color: Colors.black,
-                    //             height: double.infinity,
-                    //             child: const Text('Cat'),
-                    //           ),
-                    //         );
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 100.h,
-                    // ),
-                  ],
+            KCard(
+              height: 200.h,
+              width: double.infinity,
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Flexible(
+              fit: FlexFit.tight,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
+                itemCount: 4,
+                itemBuilder: (BuildContext context, int index) {
+                  return const KCard();
+                },
               ),
+            ),
+            SizedBox(
+              height: 70.h,
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class KCard extends StatelessWidget {
+  final String? title;
+  final double? height;
+  final double? width;
+  const KCard({
+    Key? key,
+    this.title,
+    this.height,
+    this.width,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      padding: EdgeInsets.symmetric(
+        vertical: 20.h,
+        horizontal: 20.w,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.r),
+        color: KColors.primary,
+      ),
+      child: Text('Cat',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.sp,
+          )),
     );
   }
 }
