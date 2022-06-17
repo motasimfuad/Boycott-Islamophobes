@@ -12,9 +12,5 @@ class CategoryEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-        imageUrl,
-      ];
+  List<Object> get props => [id, name, imageUrl];
 }
