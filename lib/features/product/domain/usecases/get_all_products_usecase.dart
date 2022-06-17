@@ -10,7 +10,7 @@ class GetAllProductsUsecase implements Usecase<List<ProductEntity>, NoParams> {
   GetAllProductsUsecase(this.repository);
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> call(NoParams params) {
-    return repository.getAllProducts();
+  Future<Either<Failure, List<ProductEntity>>> call(NoParams params) async {
+    return await repository.getAllProducts();
   }
 }
