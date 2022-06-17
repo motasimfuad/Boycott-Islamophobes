@@ -1,6 +1,8 @@
 import 'package:boycott_islamophobes/features/product/data/models/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../core/error/exceptions.dart';
+
 abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
   Future<ProductModel> getProduct(int id);
@@ -26,7 +28,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     if (products.docs.isNotEmpty) {
       return ProductModel.fromMap(products.docs.first.data());
     } else {
-      throw Exception('Product not found');
+      throw RemoteException();
     }
   }
 }

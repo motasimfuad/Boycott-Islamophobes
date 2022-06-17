@@ -1,3 +1,1 @@
-class CacheException implements Exception {}
-
-class LocalException implements Exception {}
+class RemoteException implements Exception {}

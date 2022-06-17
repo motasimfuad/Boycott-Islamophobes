@@ -5,4 +5,7 @@ abstract class Failure extends Equatable {
   List<Object> get props => [];
 }
 
-class LocalFailure extends Failure {}
+class RemoteFailure extends Failure {
+  // final String? message;
+  // RemoteFailure(this.message);
+}
