@@ -41,11 +41,25 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             KCard(
-              height: 200.h,
+              height: 160.h,
               width: double.infinity,
             ),
             SizedBox(
               height: 20.h,
+            ),
+            Row(
+              children: [
+                Text(
+                  'Blacklists',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
             ),
             Flexible(
               fit: FlexFit.tight,

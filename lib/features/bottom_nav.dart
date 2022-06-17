@@ -52,19 +52,15 @@ class _BottomNavState extends State<BottomNav> {
         items: [
           FloatingNavbarItem(
             icon: Icons.home,
-            // title: 'Home',
           ),
           FloatingNavbarItem(
-            icon: Icons.explore,
-            // title: 'Explore',
+            icon: Icons.search_rounded,
           ),
           FloatingNavbarItem(
-            icon: Icons.chat_bubble_outline,
-            // title: 'Chats',
+            icon: Icons.question_answer_outlined,
           ),
           FloatingNavbarItem(
             icon: Icons.settings,
-            // title: 'Settings',
           ),
         ],
       ),
