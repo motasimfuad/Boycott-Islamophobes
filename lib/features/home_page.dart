@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/constants/colors.dart';
 import '../core/router/app_router.dart';
+import '../core/widgets/k_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -97,67 +98,6 @@ class HomePage extends StatelessWidget {
             //   height: 70.h,
             // ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class KCard extends StatelessWidget {
-  final String? title;
-  final double? height;
-  final double? width;
-  final Color? color;
-  final bool? hasShadow;
-  final Function()? onTap;
-  final Widget? child;
-  const KCard({
-    Key? key,
-    this.title,
-    this.height,
-    this.width,
-    this.color,
-    this.hasShadow = true,
-    this.onTap,
-    this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: height,
-        width: width,
-        padding: EdgeInsets.symmetric(
-          vertical: 12.h,
-          horizontal: 12.w,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.r),
-          color: color ?? KColors.primary.shade200,
-          boxShadow: hasShadow == true
-              ? [
-                  BoxShadow(
-                    offset: Offset(0.w, 3.h),
-                    color: Colors.black26,
-                    blurRadius: 2.5.w,
-                    spreadRadius: 0.w,
-                  )
-                ]
-              : null,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.r),
-          clipBehavior: Clip.antiAlias,
-          child: child ??
-              Text(
-                'Cat',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.sp,
-                ),
-              ),
         ),
       ),
     );

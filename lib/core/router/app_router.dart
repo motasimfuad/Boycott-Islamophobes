@@ -1,5 +1,6 @@
 import 'package:boycott_islamophobes/features/bottom_nav.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/all_products_page.dart';
+import 'package:boycott_islamophobes/features/product/presentation/pages/product_page.dart';
 import 'package:boycott_islamophobes/features/search/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -7,13 +8,17 @@ import 'package:go_router/go_router.dart';
 class AppRouter {
   static const String homePage = '/';
   static const String allProductsPage = 'products';
-  static const String productPage = 'productPage';
+  static const String productPage = 'product';
   static const String allCountriesPage = 'allCountriesPage';
   static const String allCategoriesPage = 'allCategoriesPage';
   static const String allCompaniesPage = 'allCompaniesPage';
   static const String searchPage = 'searchPage';
   static const String faqPage = 'faqPage';
   static const String settingsPage = 'settingsPage';
+}
+
+class RouterParams {
+  static const String productId = 'productId';
 }
 
 final router = GoRouter(
@@ -44,12 +49,25 @@ final router = GoRouter(
       name: AppRouter.allProductsPage,
       path: '/${AppRouter.allProductsPage}',
       pageBuilder: (context, state) {
-        print(state.path);
         return MaterialPage(
           key: state.pageKey,
           child: const AllProductsPage(),
         );
       },
+      routes: [
+        GoRoute(
+            name: AppRouter.productPage,
+            path: ':${RouterParams.productId}',
+            pageBuilder: (context, state) {
+              final productId = state.params[RouterParams.productId];
+              return MaterialPage(
+                key: state.pageKey,
+                child: ProductPage(
+                  productId: int.parse(productId.toString()),
+                ),
+              );
+            })
+      ],
     ),
   ],
 );

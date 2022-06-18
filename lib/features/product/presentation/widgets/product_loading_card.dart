@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/widgets/k_card.dart';
 import '../../../../core/widgets/k_shimmer.dart';
-import '../../../home_page.dart';
 
 class ProductLoadingCard extends StatelessWidget {
   final bool? isLoading;

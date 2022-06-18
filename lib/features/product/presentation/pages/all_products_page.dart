@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/features/product/presentation/widgets/product_loading_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,7 @@ class _AllProductsPageState extends State<AllProductsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Products'),
+        title: const Text('Blacklisted Products'),
         elevation: 1,
       ),
       body: SafeArea(
@@ -38,7 +39,6 @@ class _AllProductsPageState extends State<AllProductsPage> {
             if (state is ProductListLoaded) {
               products = state.products;
             }
-
             return Container(
               color: KColors.primary.shade100,
               child: Column(
@@ -49,12 +49,12 @@ class _AllProductsPageState extends State<AllProductsPage> {
                       child: BlocBuilder<ProductBloc, ProductState>(
                         builder: (context, state) {
                           if (state is ProductListLoading) {
-                            return ProductsGrid(products: products);
+                            return ProductsGrid(
+                              products: products,
+                              isLoading: true,
+                            );
                           }
-                          return ProductsGrid(
-                            products: products,
-                            isLoading: true,
-                          );
+                          return ProductsGrid(products: products);
                         },
                       ),
                     ),
@@ -101,7 +101,17 @@ class ProductsGrid extends StatelessWidget {
           return const ProductLoadingCard();
         } else {
           ProductEntity product = products[index];
-          return ProductCard(product: product);
+          return ProductCard(
+            product: product,
+            onTap: () {
+              router.pushNamed(
+                AppRouter.productPage,
+                params: {
+                  RouterParams.productId: product.id.toString(),
+                },
+              );
+            },
+          );
         }
       },
     );

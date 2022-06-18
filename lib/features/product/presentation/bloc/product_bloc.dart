@@ -17,14 +17,25 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     required this.getProduct,
   }) : super(ProductsInitial()) {
     on<ProductEvent>((event, emit) async {
+      // get all products
       if (event is GetAllProductsEvent) {
         emit(ProductListLoading());
         final either = await getAllProducts(NoParams());
         either.fold(
           (failure) => emit(ProductListError(message: failure.toString())),
           (result) {
-            print("Products: $result");
             emit(ProductListLoaded(products: result));
+          },
+        );
+      }
+
+      // get product
+      if (event is GetProductEvent) {
+        final either = await getProduct(Params(id: event.productId));
+        either.fold(
+          (failure) => emit(ProductLoadingError(message: failure.toString())),
+          (result) {
+            emit(ProductLoaded(product: result));
           },
         );
       }
