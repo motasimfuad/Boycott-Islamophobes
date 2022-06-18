@@ -1,4 +1,4 @@
-import 'package:boycott_islamophobes/features/bottom_nav.dart';
+import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +26,14 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return MaterialApp.router(
+          routerDelegate: router.routerDelegate,
+          routeInformationParser: router.routeInformationParser,
+          routeInformationProvider: router.routeInformationProvider,
           debugShowCheckedModeBanner: false,
           title: 'Boycott Islamophobes',
           theme: AppTheme.lightTheme,
-          home: const BottomNav(),
+          // home: const BottomNav(),
         );
       },
     );
