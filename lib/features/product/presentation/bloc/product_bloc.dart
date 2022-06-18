@@ -22,7 +22,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         final either = await getAllProducts(NoParams());
         either.fold(
           (failure) => emit(ProductListError(message: failure.toString())),
-          (result) => emit(ProductListLoaded(products: result)),
+          (result) {
+            print("Products: $result");
+            emit(ProductListLoaded(products: result));
+          },
         );
       }
     });

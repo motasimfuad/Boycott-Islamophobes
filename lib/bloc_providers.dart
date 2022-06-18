@@ -16,7 +16,7 @@ class BlocProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => getIt<ProductBloc>(),
+          create: (context) => getIt<ProductBloc>()..add(GetAllProductsEvent()),
         ),
       ],
       child: child,

@@ -7,6 +7,7 @@ class ProductModel extends ProductEntity {
     required int id,
     required String name,
     required String logoUrl,
+    required String? countryName,
     required int categoryId,
     required int countryId,
     String? reason,
@@ -15,6 +16,7 @@ class ProductModel extends ProductEntity {
           name: name,
           logoUrl: logoUrl,
           categoryId: categoryId,
+          countryName: countryName,
           countryId: countryId,
           reason: reason,
         );
@@ -23,6 +25,7 @@ class ProductModel extends ProductEntity {
     int? id,
     String? name,
     String? logoUrl,
+    String? countryName,
     int? categoryId,
     int? countryId,
     String? reason,
@@ -31,6 +34,7 @@ class ProductModel extends ProductEntity {
       id: id ?? this.id,
       name: name ?? this.name,
       logoUrl: logoUrl ?? this.logoUrl,
+      countryName: countryName ?? this.countryName,
       categoryId: categoryId ?? this.categoryId,
       countryId: countryId ?? this.countryId,
       reason: reason ?? this.reason,
@@ -53,6 +57,7 @@ class ProductModel extends ProductEntity {
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       logoUrl: map['logoUrl'] ?? '',
+      countryName: map['countryName'],
       categoryId: map['categoryId']?.toInt() ?? 0,
       countryId: map['countryId']?.toInt() ?? 0,
       reason: map['reason'],
@@ -66,6 +71,6 @@ class ProductModel extends ProductEntity {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, logoUrl: $logoUrl, categoryId: $categoryId, countryId: $countryId, reason: $reason)';
+    return 'ProductModel(id: $id, name: $name, logoUrl: $logoUrl, categoryId: $categoryId, countryId: $countryId, reason: $reason, countryName: $countryName)';
   }
 }

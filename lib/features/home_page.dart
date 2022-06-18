@@ -76,11 +76,11 @@ class HomePage extends StatelessWidget {
                       end: Alignment.bottomCenter,
                     )),
                 child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 1,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
+                    childAspectRatio: 1.h,
+                    crossAxisSpacing: 12.w,
+                    mainAxisSpacing: 12.w,
                   ),
                   itemCount: 4,
                   itemBuilder: (BuildContext context, int index) {
@@ -108,6 +108,7 @@ class KCard extends StatelessWidget {
   final double? height;
   final double? width;
   final Color? color;
+  final bool? hasShadow;
   final Function()? onTap;
   final Widget? child;
   const KCard({
@@ -116,6 +117,7 @@ class KCard extends StatelessWidget {
     this.height,
     this.width,
     this.color,
+    this.hasShadow = true,
     this.onTap,
     this.child,
   }) : super(key: key);
@@ -134,14 +136,16 @@ class KCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
           color: color ?? KColors.primary.shade200,
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0.w, 3.h),
-              color: Colors.black26,
-              blurRadius: 2.5.w,
-              spreadRadius: 0.w,
-            )
-          ],
+          boxShadow: hasShadow == true
+              ? [
+                  BoxShadow(
+                    offset: Offset(0.w, 3.h),
+                    color: Colors.black26,
+                    blurRadius: 2.5.w,
+                    spreadRadius: 0.w,
+                  )
+                ]
+              : null,
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20.r),

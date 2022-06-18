@@ -4,6 +4,7 @@ class ProductEntity extends Equatable {
   final int id;
   final String name;
   final String logoUrl;
+  final String? countryName;
   final int categoryId;
   final int countryId;
   final String? reason;
@@ -12,6 +13,7 @@ class ProductEntity extends Equatable {
     required this.id,
     required this.name,
     required this.logoUrl,
+    this.countryName,
     required this.categoryId,
     required this.countryId,
     this.reason,
