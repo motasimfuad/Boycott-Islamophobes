@@ -59,7 +59,7 @@ class AllProductsPage extends StatelessWidget {
                                 height: 8.h,
                               ),
                               Text(
-                                'Name adfsadhs adhsfkl asd adhsfl ',
+                                'Name adfsadhs adhsfkl asd adhsfl adgfad',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.center,
