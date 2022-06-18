@@ -1,4 +1,6 @@
+import 'package:boycott_islamophobes/bloc_providers.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
+import 'package:boycott_islamophobes/dependency_injection.dart' as di;
 import 'package:boycott_islamophobes/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await di.init();
   runApp(const MyApp());
 }
 
@@ -26,15 +29,17 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp.router(
-          routerDelegate: router.routerDelegate,
-          routeInformationParser: router.routeInformationParser,
-          routeInformationProvider: router.routeInformationProvider,
+        return BlocProviders(
+          child: MaterialApp.router(
+            routerDelegate: router.routerDelegate,
+            routeInformationParser: router.routeInformationParser,
+            routeInformationProvider: router.routeInformationProvider,
 
-          debugShowCheckedModeBanner: false,
-          title: 'Boycott Islamophobes',
-          theme: AppTheme.lightTheme,
-          // home: const BottomNav(),
+            debugShowCheckedModeBanner: false,
+            title: 'Boycott Islamophobes',
+            theme: AppTheme.lightTheme,
+            // home: const BottomNav(),
+          ),
         );
       },
     );
