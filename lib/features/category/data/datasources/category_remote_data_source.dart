@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/error/exceptions.dart';
 import 'package:boycott_islamophobes/features/category/data/models/category_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -25,8 +26,11 @@ class CategoryRemoteDataSourceImpl implements CategoryRemoteDataSource {
         .collection('categories')
         .where('id', isEqualTo: id)
         .get();
-    var category =
-        catCollections.docs.map((e) => CategoryModel.fromMap(e.data())).first;
-    return category;
+
+    if (catCollections.docs.isNotEmpty) {
+      return CategoryModel.fromMap(catCollections.docs.first.data());
+    } else {
+      throw RemoteException();
+    }
   }
 }

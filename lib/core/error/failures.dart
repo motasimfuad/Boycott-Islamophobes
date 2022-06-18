@@ -6,6 +6,6 @@ abstract class Failure extends Equatable {
 }
 
 class RemoteFailure extends Failure {
-  // final String? message;
-  // RemoteFailure(this.message);
+  final String? message;
+  RemoteFailure({this.message});
 }
