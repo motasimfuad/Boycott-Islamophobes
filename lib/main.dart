@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
           routerDelegate: router.routerDelegate,
           routeInformationParser: router.routeInformationParser,
           routeInformationProvider: router.routeInformationProvider,
+
           debugShowCheckedModeBanner: false,
           title: 'Boycott Islamophobes',
           theme: AppTheme.lightTheme,

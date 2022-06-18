@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/constants/colors.dart';
+import '../core/router/app_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: Container(
-        color: KColors.primary.shade50,
+        color: KColors.primary.shade100,
         padding: EdgeInsets.only(
           top: 20.h,
           left: 20.w,
@@ -61,19 +62,35 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Flexible(
-              fit: FlexFit.tight,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(15.w),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.w),
+                    gradient: LinearGradient(
+                      colors: [
+                        KColors.primary,
+                        KColors.primary.shade600,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    )),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                  ),
+                  itemCount: 4,
+                  itemBuilder: (BuildContext context, int index) {
+                    return KCard(
+                      onTap: () {
+                        router.pushNamed(AppRouter.allProductsPage);
+                      },
+                    );
+                  },
                 ),
-                itemCount: 4,
-                itemBuilder: (BuildContext context, int index) {
-                  return const KCard();
-                },
               ),
             ),
             // SizedBox(
@@ -90,31 +107,39 @@ class KCard extends StatelessWidget {
   final String? title;
   final double? height;
   final double? width;
+  final Function()? onTap;
   const KCard({
     Key? key,
     this.title,
     this.height,
     this.width,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      padding: EdgeInsets.symmetric(
-        vertical: 20.h,
-        horizontal: 20.w,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.r),
-        color: KColors.primary,
-      ),
-      child: Text('Cat',
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: height,
+        width: width,
+        padding: EdgeInsets.symmetric(
+          vertical: 15.h,
+          horizontal: 20.w,
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.r),
+          color: KColors.primary.shade200,
+          // color: Colors.black,
+        ),
+        child: Text(
+          'Cat',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20.sp,
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
