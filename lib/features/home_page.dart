@@ -107,13 +107,17 @@ class KCard extends StatelessWidget {
   final String? title;
   final double? height;
   final double? width;
+  final Color? color;
   final Function()? onTap;
+  final Widget? child;
   const KCard({
     Key? key,
     this.title,
     this.height,
     this.width,
+    this.color,
     this.onTap,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -124,20 +128,32 @@ class KCard extends StatelessWidget {
         height: height,
         width: width,
         padding: EdgeInsets.symmetric(
-          vertical: 15.h,
-          horizontal: 20.w,
+          vertical: 12.h,
+          horizontal: 12.w,
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.r),
-          color: KColors.primary.shade200,
-          // color: Colors.black,
+          color: color ?? KColors.primary.shade200,
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0.w, 3.h),
+              color: Colors.black26,
+              blurRadius: 2.5.w,
+              spreadRadius: 0.w,
+            )
+          ],
         ),
-        child: Text(
-          'Cat',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.sp,
-          ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20.r),
+          clipBehavior: Clip.antiAlias,
+          child: child ??
+              Text(
+                'Cat',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.sp,
+                ),
+              ),
         ),
       ),
     );
