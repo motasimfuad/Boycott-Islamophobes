@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget {
                         SizedBox(width: 20.w),
                         const HomePageCard(
                           title: 'Companies',
-                          imageName: Images.countryIcon,
+                          imageName: Images.companyIcon,
                         ),
                       ],
                     )
@@ -171,7 +171,7 @@ class HomePageCard extends StatelessWidget {
           router.pushNamed(AppRouter.allProductsPage);
         },
         child: Container(
-          height: 150.h,
+          height: 140.h,
           // color: Colors.grey,
           padding: EdgeInsets.symmetric(
             vertical: 5.h,
@@ -185,10 +185,10 @@ class HomePageCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 45.w,
-                    width: 45.w,
+                    height: 40.w,
+                    width: 40.w,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: KColors.primary.shade50,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     padding: EdgeInsets.symmetric(
@@ -197,11 +197,12 @@ class HomePageCard extends StatelessWidget {
                     ),
                     child: Image.asset(imageName),
                   ),
-                  SizedBox(height: 8.h),
+                  SizedBox(height: 10.h),
                   Text(
                     title ?? '',
                     maxLines: 2,
                     style: TextStyle(
+                      color: KColors.primary.shade800,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -210,8 +211,9 @@ class HomePageCard extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               Text(
-                'Title',
+                '${totalItems ?? 0} listed',
                 style: TextStyle(
+                  color: KColors.primary.shade800,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                 ),
