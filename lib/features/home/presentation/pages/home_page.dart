@@ -1,13 +1,28 @@
 import 'package:boycott_islamophobes/core/constants/strings.dart';
+import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../core/constants/colors.dart';
-import '../core/router/app_router.dart';
-import '../core/widgets/k_card.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/router/app_router.dart';
+import '../../../../core/widgets/k_card.dart';
+import '../../../product/presentation/bloc/product_bloc.dart';
+import '../widgets/home_page_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    context.read<ProductBloc>().add(GetAllProductsEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +101,27 @@ class HomePage extends StatelessWidget {
                           imageName: Images.countryIcon,
                         ),
                         SizedBox(width: 20.w),
-                        const HomePageCard(
-                          title: 'Products',
-                          imageName: Images.productIcon,
+                        BlocBuilder<ProductBloc, ProductState>(
+                          builder: (context, state) {
+                            List<ProductEntity> products = [];
+                            String totalProds = '';
+
+                            if (state is ProductListLoading) {
+                              totalProds = '...';
+                            } else if (state is ProductListLoaded) {
+                              products = state.products;
+                              totalProds = products.length.toString();
+                            }
+
+                            return HomePageCard(
+                              title: 'Products',
+                              totalItems: totalProds,
+                              imageName: Images.productIcon,
+                              onTap: () {
+                                router.pushNamed(AppRouter.allProductsPage);
+                              },
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -146,80 +179,6 @@ class HomePage extends StatelessWidget {
             //   height: 70.h,
             // ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class HomePageCard extends StatelessWidget {
-  final String? title;
-  final String? totalItems;
-  final String imageName;
-  const HomePageCard({
-    Key? key,
-    this.title,
-    this.totalItems,
-    required this.imageName,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: KCard(
-        onTap: () {
-          router.pushNamed(AppRouter.allProductsPage);
-        },
-        child: Container(
-          height: 140.h,
-          // color: Colors.grey,
-          padding: EdgeInsets.symmetric(
-            vertical: 5.h,
-            horizontal: 5.w,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 40.w,
-                    width: 40.w,
-                    decoration: BoxDecoration(
-                      color: KColors.primary.shade50,
-                      borderRadius: BorderRadius.circular(15.r),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 10.h,
-                    ),
-                    child: Image.asset(imageName),
-                  ),
-                  SizedBox(height: 10.h),
-                  Text(
-                    title ?? '',
-                    maxLines: 2,
-                    style: TextStyle(
-                      color: KColors.primary.shade800,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10.h),
-              Text(
-                '${totalItems ?? 0} listed',
-                style: TextStyle(
-                  color: KColors.primary.shade800,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
