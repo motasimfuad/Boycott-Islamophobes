@@ -4,6 +4,7 @@ import 'package:boycott_islamophobes/features/product/presentation/bloc/product_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/widgets/k_badge.dart';
@@ -21,6 +22,7 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+  ScreenshotController screenshotController = ScreenshotController();
   late ProductEntity product;
 
   @override
@@ -48,7 +50,19 @@ class _ProductPageState extends State<ProductPage> {
             Text('Product Card'),
           ],
         ),
-        onPressed: () {},
+        onPressed: () async {
+          //   await screenshotController
+          //       .capture(delay: const Duration(milliseconds: 10))
+          //       .then((Uint8List image) async {
+          //     final directory = await getApplicationDocumentsDirectory();
+          //     final imagePath =
+          //         await File('${directory.path}/image.png').create();
+          //     await imagePath.writeAsBytes(image);
+
+          //     /// Share Plugin
+          //     await Share.shareFiles([imagePath.path]);
+          //   });
+        },
       ),
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
@@ -60,11 +74,14 @@ class _ProductPageState extends State<ProductPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Hero(
-                    tag: product.id,
-                    child: KImageContainer(
-                      imageUrl: product.logoUrl,
-                      height: 300.h,
+                  Screenshot(
+                    controller: screenshotController,
+                    child: Hero(
+                      tag: product.id,
+                      child: KImageContainer(
+                        imageUrl: product.logoUrl,
+                        height: 300.h,
+                      ),
                     ),
                   ),
                   SizedBox(height: 15.h),
