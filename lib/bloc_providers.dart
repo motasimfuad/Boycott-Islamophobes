@@ -2,6 +2,7 @@ import 'package:boycott_islamophobes/dependency_injection.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'features/category/presentation/bloc/category_bloc.dart';
 import 'features/product/presentation/bloc/product_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
@@ -18,6 +19,9 @@ class BlocProviders extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<ProductBloc>()..add(GetAllProductsEvent()),
         ),
+        BlocProvider(
+          create: (context) => getIt<CategoryBloc>(),
+        )
       ],
       child: child,
     );

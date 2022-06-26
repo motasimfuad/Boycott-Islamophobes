@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/k_card.dart';
+import '../../../category/domain/entities/category_entity.dart';
+import '../../../category/presentation/bloc/category_bloc.dart';
 import '../../../product/presentation/bloc/product_bloc.dart';
 import '../widgets/home_page_card.dart';
 
@@ -19,10 +21,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<ProductEntity> products = [];
+  List<CategoryEntity> categories = [];
 
   @override
   void initState() {
     context.read<ProductBloc>().add(GetAllProductsEvent());
+    context.read<CategoryBloc>().add(GetAllCategories());
     super.initState();
   }
 
@@ -98,11 +102,6 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Row(
                       children: [
-                        const HomePageCard(
-                          title: 'Countries',
-                          imageName: Images.countryIcon,
-                        ),
-                        SizedBox(width: 20.w),
                         BlocBuilder<ProductBloc, ProductState>(
                           builder: (context, state) {
                             if (state is ProductListLoaded) {
@@ -119,14 +118,27 @@ class _HomePageState extends State<HomePage> {
                             );
                           },
                         ),
+                        SizedBox(width: 20.w),
+                        BlocBuilder<CategoryBloc, CategoryState>(
+                          builder: (context, state) {
+                            if (state is CategoriesLoaded) {
+                              categories = state.categories;
+                            }
+                            return HomePageCard(
+                              title: 'Categories',
+                              totalItems: categories.length.toString(),
+                              imageName: Images.categoryIcon,
+                            );
+                          },
+                        ),
                       ],
                     ),
                     SizedBox(height: 20.w),
                     Row(
                       children: [
                         const HomePageCard(
-                          title: 'Categories',
-                          imageName: Images.categoryIcon,
+                          title: 'Countries',
+                          imageName: Images.countryIcon,
                         ),
                         SizedBox(width: 20.w),
                         const HomePageCard(
