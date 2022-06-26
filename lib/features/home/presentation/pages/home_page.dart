@@ -26,67 +26,69 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     context.read<ProductBloc>().add(GetAllProductsEvent());
-    context.read<CategoryBloc>().add(GetAllCategories());
+    context.read<CategoryBloc>().add(GetAllCategoriesEvent());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: KColors.primary.shade100,
       appBar: AppBar(
         title: const Text('Boycott Islamophobes'),
         backgroundColor: Colors.black,
         centerTitle: true,
-        toolbarHeight: 60.h,
-        flexibleSpace: Container(
-          // height: 300,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                KColors.primary,
-                KColors.primary.shade600,
-              ],
-            ),
-          ),
-        ),
+        // toolbarHeight: 60.h,
+        // flexibleSpace: Container(
+        //   // height: 300,
+        //   decoration: BoxDecoration(
+        //     gradient: LinearGradient(
+        //       begin: Alignment.topCenter,
+        //       end: Alignment.bottomCenter,
+        //       colors: [
+        //         KColors.primary,
+        //         KColors.primary.shade600,
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ),
-      body: Container(
-        color: KColors.primary.shade100,
-        padding: EdgeInsets.only(
-          top: 20.h,
-          left: 20.w,
-          right: 20.w,
-          bottom: 20.h,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            KCard(
-              height: 160.h,
-              width: double.infinity,
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            Row(
-              children: [
-                Text(
-                  'Blacklists',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        primary: true,
+        child: Container(
+          // color: KColors.primary.shade100,
+          padding: EdgeInsets.only(
+            top: 20.h,
+            left: 20.w,
+            right: 20.w,
+            bottom: 100.h,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              KCard(
+                height: 160.h,
+                width: double.infinity,
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Blacklists',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            Expanded(
-              child: Container(
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Container(
                 padding: EdgeInsets.all(15.w),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.w),
@@ -153,43 +155,43 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-            ),
 
-            // Expanded(
-            //   child: Container(
-            //     padding: EdgeInsets.all(15.w),
-            //     decoration: BoxDecoration(
-            //         borderRadius: BorderRadius.circular(30.w),
-            //         gradient: LinearGradient(
-            //           colors: [
-            //             KColors.primary,
-            //             KColors.primary.shade600,
-            //           ],
-            //           begin: Alignment.topCenter,
-            //           end: Alignment.bottomCenter,
-            //         )),
-            //     child: GridView.builder(
-            //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 2,
-            //         childAspectRatio: 1.h,
-            //         crossAxisSpacing: 12.w,
-            //         mainAxisSpacing: 12.w,
-            //       ),
-            //       itemCount: 4,
-            //       itemBuilder: (BuildContext context, int index) {
-            //         return KCard(
-            //           onTap: () {
-            //             router.pushNamed(AppRouter.allProductsPage);
-            //           },
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 70.h,
-            // ),
-          ],
+              // Expanded(
+              //   child: Container(
+              //     padding: EdgeInsets.all(15.w),
+              //     decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(30.w),
+              //         gradient: LinearGradient(
+              //           colors: [
+              //             KColors.primary,
+              //             KColors.primary.shade600,
+              //           ],
+              //           begin: Alignment.topCenter,
+              //           end: Alignment.bottomCenter,
+              //         )),
+              //     child: GridView.builder(
+              //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //         crossAxisCount: 2,
+              //         childAspectRatio: 1.h,
+              //         crossAxisSpacing: 12.w,
+              //         mainAxisSpacing: 12.w,
+              //       ),
+              //       itemCount: 4,
+              //       itemBuilder: (BuildContext context, int index) {
+              //         return KCard(
+              //           onTap: () {
+              //             router.pushNamed(AppRouter.allProductsPage);
+              //           },
+              //         );
+              //       },
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 70.h,
+              // ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:boycott_islamophobes/features/bottom_nav.dart';
-import 'package:boycott_islamophobes/features/category/domain/entities/category_entity.dart';
 import 'package:boycott_islamophobes/features/category/presentation/pages/all_categories_page.dart';
+import 'package:boycott_islamophobes/features/category/presentation/pages/category_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/all_products_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/product_page.dart';
 import 'package:boycott_islamophobes/features/search/presentation/pages/search_page.dart';
@@ -13,6 +13,7 @@ class AppRouter {
   static const String productPage = 'product';
   static const String allCountriesPage = 'allCountriesPage';
   static const String allCategoriesPage = 'categories';
+  static const String categoryPage = 'category';
   static const String allCompaniesPage = 'allCompaniesPage';
   static const String searchPage = 'searchPage';
   static const String faqPage = 'faqPage';
@@ -20,7 +21,7 @@ class AppRouter {
 }
 
 class RouterParams {
-  static const String productId = 'productId';
+  static const String id = 'id';
 }
 
 final router = GoRouter(
@@ -59,9 +60,9 @@ final router = GoRouter(
       routes: [
         GoRoute(
             name: AppRouter.productPage,
-            path: ':${RouterParams.productId}',
+            path: ':${RouterParams.id}',
             pageBuilder: (context, state) {
-              final productId = state.params[RouterParams.productId];
+              final productId = state.params[RouterParams.id];
               return MaterialPage(
                 key: state.pageKey,
                 child: ProductPage(
@@ -80,20 +81,20 @@ final router = GoRouter(
           child: const AllCategoriesPage(),
         );
       },
-      // routes: [
-      //   GoRoute(
-      //       name: AppRouter.productPage,
-      //       path: ':${RouterParams.productId}',
-      //       pageBuilder: (context, state) {
-      //         final productId = state.params[RouterParams.productId];
-      //         return MaterialPage(
-      //           key: state.pageKey,
-      //           child: ProductPage(
-      //             productId: int.parse(productId.toString()),
-      //           ),
-      //         );
-      //       })
-      // ],
+      routes: [
+        GoRoute(
+            name: AppRouter.categoryPage,
+            path: ':${RouterParams.id}',
+            pageBuilder: (context, state) {
+              final categoryId = state.params[RouterParams.id];
+              return MaterialPage(
+                key: state.pageKey,
+                child: CategoryPage(
+                  categoryId: int.parse(categoryId.toString()),
+                ),
+              );
+            })
+      ],
     ),
   ],
 );

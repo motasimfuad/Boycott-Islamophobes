@@ -31,7 +31,12 @@ class CategoryCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10.h),
+            padding: EdgeInsets.only(
+              top: 10.h,
+              left: 10.w,
+              right: 10.w,
+              bottom: 5.h,
+            ),
             child: Text(
               category.name,
               maxLines: 2,

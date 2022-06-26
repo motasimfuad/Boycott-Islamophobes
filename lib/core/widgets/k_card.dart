@@ -34,11 +34,11 @@ class KCard extends StatelessWidget {
         height: height,
         width: width,
         padding: EdgeInsets.symmetric(
-          vertical: yPadding ?? 12.h,
-          horizontal: xPadding ?? 12.w,
+          vertical: yPadding ?? 8.w,
+          horizontal: xPadding ?? 8.w,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.r),
+          borderRadius: BorderRadius.circular(26.r),
           color: color ?? KColors.primary.shade200,
           boxShadow: hasShadow == true
               ? [
@@ -52,7 +52,7 @@ class KCard extends StatelessWidget {
               : null,
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(18.r),
           clipBehavior: Clip.antiAlias,
           child: child ??
               Text(

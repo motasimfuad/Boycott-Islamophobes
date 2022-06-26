@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/k_grid.dart';
 import '../widgets/category_card.dart';
 
@@ -22,7 +23,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
 
   @override
   void initState() {
-    context.read<CategoryBloc>().add(GetAllCategories());
+    context.read<CategoryBloc>().add(GetAllCategoriesEvent());
     super.initState();
   }
 
@@ -30,7 +31,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Browse by Categories'),
+        title: const Text('Categories'),
         elevation: 1,
       ),
       body: SafeArea(
@@ -60,12 +61,12 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
                           return CategoryCard(
                             category: category,
                             onTap: () {
-                              // router.pushNamed(
-                              //   AppRouter.productPage,
-                              //   params: {
-                              //     RouterParams.productId: product.id.toString()
-                              //   },
-                              // );
+                              router.pushNamed(
+                                AppRouter.categoryPage,
+                                params: {
+                                  RouterParams.id: category.id.toString()
+                                },
+                              );
                             },
                           );
                         },

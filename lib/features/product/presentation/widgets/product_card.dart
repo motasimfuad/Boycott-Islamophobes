@@ -22,14 +22,20 @@ class ProductCard extends StatelessWidget {
       onTap: onTap,
       child: Column(
         children: [
-          Hero(
-            tag: product.id,
-            child: KImageContainer(
-              imageUrl: product.logoUrl,
+          Expanded(
+            child: Hero(
+              tag: product.id,
+              child: KImageContainer(
+                imageUrl: product.logoUrl,
+              ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 8.h),
+            padding: EdgeInsets.only(
+              top: 8.h,
+              left: 10.w,
+              right: 10.w,
+            ),
             child: Text(
               product.name,
               maxLines: 2,
@@ -42,7 +48,10 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 8.h),
+            padding: EdgeInsets.only(
+              top: 5.h,
+              bottom: 5.h,
+            ),
             child: KBadge(
               badgeText: product.countryName ?? 'Not specified',
             ),

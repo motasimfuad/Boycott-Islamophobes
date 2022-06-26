@@ -62,7 +62,7 @@ class _AllProductsPageState extends State<AllProductsPage> {
                               router.pushNamed(
                                 AppRouter.productPage,
                                 params: {
-                                  RouterParams.productId: product.id.toString()
+                                  RouterParams.id: product.id.toString()
                                 },
                               );
                             },
