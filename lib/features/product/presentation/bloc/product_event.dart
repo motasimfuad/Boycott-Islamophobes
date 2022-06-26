@@ -13,3 +13,12 @@ class GetProductEvent extends ProductEvent {
   final int productId;
   const GetProductEvent({required this.productId});
 }
+
+class GetFilteredProductsEvent extends ProductEvent {
+  final int? categoryId;
+  final String? searchText;
+  const GetFilteredProductsEvent({
+    this.categoryId,
+    this.searchText,
+  });
+}

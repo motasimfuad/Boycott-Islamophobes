@@ -42,3 +42,21 @@ class ProductLoaded extends ProductState {
   @override
   List<Object> get props => [product];
 }
+
+class FilteredProductListLoading extends ProductState {}
+
+class FilteredProductListError extends ProductState {
+  final String message;
+  const FilteredProductListError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class FilteredProductListLoaded extends ProductState {
+  final List<ProductEntity> products;
+  const FilteredProductListLoaded({required this.products});
+
+  @override
+  List<Object> get props => [products];
+}

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:boycott_islamophobes/core/constants/colors.dart';
+import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/core/widgets/k_grid.dart';
 import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
 import 'package:boycott_islamophobes/core/widgets/k_shimmer.dart';
@@ -194,6 +195,13 @@ class _CategoryPageState extends State<CategoryPage> {
                                     product: product,
                                     onTap: () {
                                       log(product.name);
+                                      router.pushNamed(
+                                        AppRouter.productPage,
+                                        params: {
+                                          RouterParams.id:
+                                              product.id.toString(),
+                                        },
+                                      );
                                     },
                                   );
                                 },
