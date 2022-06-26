@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/widgets/k_badge.dart';
 import '../../../../core/widgets/k_card.dart';
 import '../../../../core/widgets/k_image_container.dart';
-import '../../domain/entities/product_entity.dart';
+import '../../domain/entities/category_entity.dart';
 
-class ProductCard extends StatelessWidget {
-  final ProductEntity product;
+class CategoryCard extends StatelessWidget {
+  final CategoryEntity category;
   final Function()? onTap;
-  const ProductCard({
+  const CategoryCard({
     Key? key,
-    required this.product,
+    required this.category,
     this.onTap,
   }) : super(key: key);
 
@@ -22,16 +21,19 @@ class ProductCard extends StatelessWidget {
       onTap: onTap,
       child: Column(
         children: [
-          Hero(
-            tag: product.id,
-            child: KImageContainer(
-              imageUrl: product.logoUrl,
+          Expanded(
+            child: Hero(
+              tag: category.id,
+              child: KImageContainer(
+                height: 80.h,
+                imageUrl: category.imageUrl,
+              ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 8.h),
+            padding: EdgeInsets.only(top: 10.h),
             child: Text(
-              product.name,
+              category.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -39,12 +41,6 @@ class ProductCard extends StatelessWidget {
                 fontSize: 17.sp,
                 fontWeight: FontWeight.w500,
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8.h),
-            child: KBadge(
-              badgeText: product.countryName ?? 'Not specified',
             ),
           ),
         ],

@@ -1,8 +1,7 @@
 import 'package:boycott_islamophobes/core/router/app_router.dart';
-import 'package:boycott_islamophobes/features/product/presentation/widgets/product_loading_card.dart';
+import 'package:boycott_islamophobes/core/widgets/k_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 
@@ -19,6 +18,7 @@ class AllProductsPage extends StatefulWidget {
 
 class _AllProductsPageState extends State<AllProductsPage> {
   List<ProductEntity> products = [];
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -36,8 +36,12 @@ class _AllProductsPageState extends State<AllProductsPage> {
       body: SafeArea(
         child: BlocBuilder<ProductBloc, ProductState>(
           builder: (context, state) {
+            if (state is ProductListLoading) {
+              isLoading = true;
+            }
             if (state is ProductListLoaded) {
               products = state.products;
+              isLoading = false;
             }
             return Container(
               color: KColors.primary.shade100,
@@ -46,15 +50,23 @@ class _AllProductsPageState extends State<AllProductsPage> {
                 children: [
                   Expanded(
                     child: SingleChildScrollView(
-                      child: BlocBuilder<ProductBloc, ProductState>(
-                        builder: (context, state) {
-                          if (state is ProductListLoading) {
-                            return ProductsGrid(
-                              products: products,
-                              isLoading: true,
-                            );
-                          }
-                          return ProductsGrid(products: products);
+                      child: KGrid(
+                        isLoading: isLoading,
+                        items: products,
+                        itemBuilder: (context, index) {
+                          final product = products[index];
+
+                          return ProductCard(
+                            product: product,
+                            onTap: () {
+                              router.pushNamed(
+                                AppRouter.productPage,
+                                params: {
+                                  RouterParams.productId: product.id.toString()
+                                },
+                              );
+                            },
+                          );
                         },
                       ),
                     ),
@@ -65,55 +77,6 @@ class _AllProductsPageState extends State<AllProductsPage> {
           },
         ),
       ),
-    );
-  }
-}
-
-class ProductsGrid extends StatelessWidget {
-  final bool? isLoading;
-  final List<ProductEntity> products;
-  const ProductsGrid({
-    Key? key,
-    this.isLoading,
-    required this.products,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      padding: EdgeInsets.only(
-        left: 20.w,
-        right: 20.w,
-        top: 20.h,
-        bottom: 20.h,
-      ),
-      primary: false,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.8.h,
-        crossAxisSpacing: 15.w,
-        mainAxisSpacing: 15.w,
-      ),
-      itemCount: isLoading == true ? 5 : products.length,
-      itemBuilder: (BuildContext context, int index) {
-        if (isLoading == true) {
-          return const ProductLoadingCard();
-        } else {
-          ProductEntity product = products[index];
-          return ProductCard(
-            product: product,
-            onTap: () {
-              router.pushNamed(
-                AppRouter.productPage,
-                params: {
-                  RouterParams.productId: product.id.toString(),
-                },
-              );
-            },
-          );
-        }
-      },
     );
   }
 }

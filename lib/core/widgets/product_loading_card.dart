@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/widgets/k_card.dart';
-import '../../../../core/widgets/k_shimmer.dart';
+import 'k_card.dart';
+import 'k_shimmer.dart';
 
-class ProductLoadingCard extends StatelessWidget {
+class KLoadingCard extends StatelessWidget {
   final bool? isLoading;
-  const ProductLoadingCard({
+  const KLoadingCard({
     Key? key,
     this.isLoading,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class ProductLoadingCard extends StatelessWidget {
         children: [
           KShimmer(
             child: Container(
-              height: 100.h,
+              // height: 100.h,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.grey.shade100,

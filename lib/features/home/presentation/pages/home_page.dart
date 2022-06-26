@@ -128,6 +128,9 @@ class _HomePageState extends State<HomePage> {
                               title: 'Categories',
                               totalItems: categories.length.toString(),
                               imageName: Images.categoryIcon,
+                              onTap: () {
+                                router.pushNamed(AppRouter.allCategoriesPage);
+                              },
                             );
                           },
                         ),

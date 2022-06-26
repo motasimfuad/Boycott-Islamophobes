@@ -1,4 +1,6 @@
 import 'package:boycott_islamophobes/features/bottom_nav.dart';
+import 'package:boycott_islamophobes/features/category/domain/entities/category_entity.dart';
+import 'package:boycott_islamophobes/features/category/presentation/pages/all_categories_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/all_products_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/product_page.dart';
 import 'package:boycott_islamophobes/features/search/presentation/pages/search_page.dart';
@@ -10,7 +12,7 @@ class AppRouter {
   static const String allProductsPage = 'products';
   static const String productPage = 'product';
   static const String allCountriesPage = 'allCountriesPage';
-  static const String allCategoriesPage = 'allCategoriesPage';
+  static const String allCategoriesPage = 'categories';
   static const String allCompaniesPage = 'allCompaniesPage';
   static const String searchPage = 'searchPage';
   static const String faqPage = 'faqPage';
@@ -68,6 +70,30 @@ final router = GoRouter(
               );
             })
       ],
+    ),
+    GoRoute(
+      name: AppRouter.allCategoriesPage,
+      path: '/${AppRouter.allCategoriesPage}',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: const AllCategoriesPage(),
+        );
+      },
+      // routes: [
+      //   GoRoute(
+      //       name: AppRouter.productPage,
+      //       path: ':${RouterParams.productId}',
+      //       pageBuilder: (context, state) {
+      //         final productId = state.params[RouterParams.productId];
+      //         return MaterialPage(
+      //           key: state.pageKey,
+      //           child: ProductPage(
+      //             productId: int.parse(productId.toString()),
+      //           ),
+      //         );
+      //       })
+      // ],
     ),
   ],
 );

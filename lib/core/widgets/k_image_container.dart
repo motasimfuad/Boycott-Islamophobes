@@ -29,6 +29,15 @@ class KImageContainer extends StatelessWidget {
             child: CupertinoActivityIndicator(),
           );
         },
+        errorBuilder: (context, exception, stack) {
+          return Center(
+              child: Text(
+            'Image not loaded!',
+            style: TextStyle(
+              fontSize: 12.sp,
+            ),
+          ));
+        },
       ),
     );
   }
