@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<ProductEntity> products = [];
+
   @override
   void initState() {
     context.read<ProductBloc>().add(GetAllProductsEvent());
@@ -103,19 +105,13 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(width: 20.w),
                         BlocBuilder<ProductBloc, ProductState>(
                           builder: (context, state) {
-                            List<ProductEntity> products = [];
-                            String totalProds = '';
-
-                            if (state is ProductListLoading) {
-                              totalProds = '...';
-                            } else if (state is ProductListLoaded) {
+                            if (state is ProductListLoaded) {
                               products = state.products;
-                              totalProds = products.length.toString();
                             }
 
                             return HomePageCard(
                               title: 'Products',
-                              totalItems: totalProds,
+                              totalItems: products.length.toString(),
                               imageName: Images.productIcon,
                               onTap: () {
                                 router.pushNamed(AppRouter.allProductsPage);
