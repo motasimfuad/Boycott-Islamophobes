@@ -6,3 +6,5 @@ abstract class QuoteEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetAllQuotesEvent extends QuoteEvent {}
