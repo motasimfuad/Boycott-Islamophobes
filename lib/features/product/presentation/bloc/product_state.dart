@@ -27,6 +27,8 @@ class ProductListLoaded extends ProductState {
   List<Object> get props => [products];
 }
 
+class ProductLoading extends ProductState {}
+
 class ProductLoadingError extends ProductState {
   final String message;
   const ProductLoadingError({required this.message});

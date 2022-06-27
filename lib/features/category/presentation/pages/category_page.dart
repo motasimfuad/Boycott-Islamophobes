@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:boycott_islamophobes/core/constants/colors.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/core/widgets/k_grid.dart';
@@ -118,6 +116,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                       ),
                                       child: KImageContainer(
                                         imageUrl: '',
+                                        padding: 10.h,
                                         height: 35.h,
                                         fallBackText: 'All',
                                         radius: 15.w,
@@ -195,7 +194,6 @@ class _CategoryPageState extends State<CategoryPage> {
                               return ProductCard(
                                 product: product,
                                 onTap: () {
-                                  log(product.name);
                                   router.pushNamed(
                                     AppRouter.productPage,
                                     params: {

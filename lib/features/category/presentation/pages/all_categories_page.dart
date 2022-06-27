@@ -33,6 +33,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
       appBar: AppBar(
         title: const Text('Categories'),
         elevation: 1,
+        backgroundColor: Colors.black,
       ),
       body: SafeArea(
         child: BlocBuilder<CategoryBloc, CategoryState>(

@@ -66,6 +66,15 @@ class _ProductPageState extends State<ProductPage> {
       ),
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
+          if (state is ProductLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is ProductLoadingError) {
+            return const Center(
+              child: Text('Product details not found!'),
+            );
+          }
           if (state is ProductLoaded) {
             product = state.product;
 
@@ -140,10 +149,6 @@ class _ProductPageState extends State<ProductPage> {
                   )
                 ],
               ),
-            );
-          } else if (state is ProductLoadingError) {
-            return const Center(
-              child: Text('Product details not found!'),
             );
           } else {
             return const Center(

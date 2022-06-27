@@ -34,6 +34,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
       // get product
       if (event is GetProductEvent) {
+        emit(ProductLoading());
         final either = await getProduct(Params(id: event.productId));
         either.fold(
           (failure) => emit(ProductLoadingError(message: failure.toString())),

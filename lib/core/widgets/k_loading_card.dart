@@ -7,10 +7,12 @@ import 'k_shimmer.dart';
 class KLoadingCard extends StatelessWidget {
   final bool? isLoading;
   final bool? showOnlyCard;
+  final double? height;
   const KLoadingCard({
     Key? key,
     this.isLoading,
     this.showOnlyCard = false,
+    this.height,
   }) : super(key: key);
 
   @override
@@ -30,15 +32,14 @@ class KLoadingCard extends StatelessWidget {
             hasShadow: false,
             child: Column(
               children: [
-                KShimmer(
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(20.r),
-                    ),
-                  ),
-                ),
+                height == null
+                    ? Expanded(
+                        child: _buildShimmer(),
+                      )
+                    : SizedBox(
+                        height: height,
+                        child: _buildShimmer(),
+                      ),
                 Padding(
                   padding: EdgeInsets.only(top: 8.h),
                   child: KShimmer(
@@ -72,5 +73,17 @@ class KLoadingCard extends StatelessWidget {
               ],
             ),
           );
+  }
+
+  KShimmer _buildShimmer() {
+    return KShimmer(
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade100,
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+      ),
+    );
   }
 }
