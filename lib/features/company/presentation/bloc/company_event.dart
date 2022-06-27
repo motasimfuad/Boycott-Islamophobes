@@ -6,3 +6,13 @@ abstract class CompanyEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetAllCompaniesEvent extends CompanyEvent {}
+
+class GetCompanyEvent extends CompanyEvent {
+  final int companyId;
+  const GetCompanyEvent({required this.companyId});
+
+  @override
+  List<Object> get props => [companyId];
+}

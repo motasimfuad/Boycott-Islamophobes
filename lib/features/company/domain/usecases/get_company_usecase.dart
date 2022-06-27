@@ -5,9 +5,9 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/company_entity.dart';
 import '../repositories/company_repository.dart';
 
-class GetCompany implements Usecase<CompanyEntity, Params> {
+class GetCompanyUsecase implements Usecase<CompanyEntity, Params> {
   final CompanyRepository repository;
-  GetCompany(this.repository);
+  GetCompanyUsecase(this.repository);
 
   @override
   Future<Either<Failure, CompanyEntity>> call(Params params) async {

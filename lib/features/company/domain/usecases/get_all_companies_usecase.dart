@@ -4,9 +4,9 @@ import 'package:boycott_islamophobes/features/company/domain/entities/company_en
 import 'package:boycott_islamophobes/features/company/domain/repositories/company_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class GetAllCompanies implements Usecase<List<CompanyEntity>, NoParams> {
+class GetAllCompaniesUsecase implements Usecase<List<CompanyEntity>, NoParams> {
   final CompanyRepository repository;
-  GetAllCompanies(this.repository);
+  GetAllCompaniesUsecase(this.repository);
 
   @override
   Future<Either<Failure, List<CompanyEntity>>> call(NoParams params) async {
