@@ -33,11 +33,15 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   void initState() {
-    // _selectedIndex = 0;
     context
         .read<CategoryBloc>()
         .add(GetCategoryEvent(categoryId: widget.categoryId));
+    context
+        .read<ProductBloc>()
+        .add(GetFilteredProductsEvent(categoryId: widget.categoryId));
+
     context.read<CategoryBloc>().add(GetAllCategoriesEvent());
+
     // var selectedCat =
     //     categories.firstWhere((element) => element.id == widget.categoryId);
     super.initState();
@@ -72,7 +76,6 @@ class _CategoryPageState extends State<CategoryPage> {
             if (state is CategorySelected) {
               _selectedIndex = categories
                   .indexWhere((element) => element.id == state.category.id);
-              context.read<ProductBloc>().add(GetAllProductsEvent());
             }
             if (state is CategoriesLoading) {
               return const Center(
@@ -97,14 +100,15 @@ class _CategoryPageState extends State<CategoryPage> {
                                 child: NavigationRail(
                                   backgroundColor: KColors.primary.shade100,
                                   extended: false,
-                                  // minWidth: 72,
-                                  // minExtendedWidth: 72,
                                   leading: GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        _selectedIndex = null;
-                                      });
-                                      log(_selectedIndex.toString());
+                                      _selectedIndex = null;
+                                      context.read<CategoryBloc>().add(
+                                          const GetCategoryEvent(
+                                              categoryId: -1));
+                                      context
+                                          .read<ProductBloc>()
+                                          .add(GetAllProductsEvent());
                                     },
                                     child: Container(
                                       padding: EdgeInsets.only(
@@ -117,10 +121,12 @@ class _CategoryPageState extends State<CategoryPage> {
                                         height: 35.h,
                                         fallBackText: 'All',
                                         radius: 15.w,
+                                        hasBorder: _selectedIndex == null
+                                            ? true
+                                            : false,
                                       ),
                                     ),
                                   ),
-
                                   selectedIndex: _selectedIndex,
                                   onDestinationSelected: (int index) {
                                     var selectedCat = categories[index];
@@ -129,7 +135,9 @@ class _CategoryPageState extends State<CategoryPage> {
                                         GetCategoryEvent(
                                             categoryId: selectedCat.id));
 
-                                    // context.read<ProductBloc>().add(GetAllProductsEvent());
+                                    context.read<ProductBloc>().add(
+                                        GetFilteredProductsEvent(
+                                            categoryId: selectedCat.id));
                                   },
                                   labelType: NavigationRailLabelType.all,
                                   destinations: (state is CategoriesLoading)
@@ -143,72 +151,62 @@ class _CategoryPageState extends State<CategoryPage> {
                       });
                     },
                   ),
-                  // const VerticalDivider(thickness: 1, width: 1),
-                  // SizedBox(
-                  //   width: 100.w,
-                  //   child: KGrid(
-                  //     crossAxisCount: 1,
-                  //     childAspectRatio: 1,
-                  //     leftPadding: 15.w,
-                  //     rightPadding: 15.w,
-                  //     // isLoading: true,
-                  //     showOnlyCard: true,
-                  //     items: categories,
-                  //     itemBuilder: (context, index) {
-                  //       return KShimmer(
-                  //         child: KImageContainer(
-                  //           imageUrl: '',
-                  //           fallBackText: '',
-                  //           height: 80.h,
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
                   const VerticalDivider(
                     thickness: 1,
                     width: 1,
-                    // color: KColors.primary.shade400,
                   ),
-                  // This is the main content.
                   Expanded(
                     child: Container(
                       color: KColors.primary.shade100,
-                      child: Column(
-                        children: [
-                          // Text(
-                          //   categories[_selectedIndex ?? 0].name,
-                          // ),
-                          BlocBuilder<ProductBloc, ProductState>(
-                            builder: (context, state) {
-                              if (state is ProductListLoaded) {
-                                products = state.products;
-                              }
+                      child: BlocBuilder<ProductBloc, ProductState>(
+                        builder: (context, state) {
+                          if (state is ProductListLoaded) {
+                            products = state.products;
+                          }
+                          if (state is FilteredProductListLoaded) {
+                            products = state.products;
+                          }
+                          if (products.isEmpty) {
+                            return Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'No Product Found!',
+                                    style: TextStyle(
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
 
-                              return KGrid(
-                                items: products,
-                                childAspectRatio: 0.65.w,
-                                itemBuilder: (context, index) {
-                                  ProductEntity product = products[index];
-
-                                  return ProductCard(
-                                    product: product,
-                                    onTap: () {
-                                      log(product.name);
-                                      router.pushNamed(
-                                        AppRouter.productPage,
-                                        params: {
-                                          RouterParams.id:
-                                              product.id.toString(),
-                                        },
-                                      );
+                          return KGrid(
+                            items: products,
+                            isLoading: (state is FilteredProductListLoading)
+                                ? true
+                                : false,
+                            loadingItems: 3,
+                            childAspectRatio: 0.65.w,
+                            itemBuilder: (context, index) {
+                              ProductEntity product = products[index];
+                              return ProductCard(
+                                product: product,
+                                onTap: () {
+                                  log(product.name);
+                                  router.pushNamed(
+                                    AppRouter.productPage,
+                                    params: {
+                                      RouterParams.id: product.id.toString(),
                                     },
                                   );
                                 },
                               );
                             },
-                          )
-                        ],
+                          );
+                        },
                       ),
                     ),
                   )
@@ -240,7 +238,6 @@ class _CategoryPageState extends State<CategoryPage> {
                 height: 75.h,
               ),
             ),
-            // selectedIcon: const Icon(Icons.book),
             label: Text(
               category.name,
               textAlign: TextAlign.center,

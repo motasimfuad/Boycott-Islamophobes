@@ -15,7 +15,11 @@ class NoParams extends Equatable {
 //! check if the usecase is called with the correct params
 class Params extends Equatable {
   final int? id;
-  const Params({this.id});
+  final String? searchText;
+  const Params({
+    this.id,
+    this.searchText,
+  });
   @override
   List<Object> get props => [];
 }

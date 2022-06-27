@@ -12,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 
 import 'features/product/domain/usecases/get_all_products_usecase.dart';
+import 'features/product/domain/usecases/get_filtered_products_usecase.dart';
 import 'features/product/domain/usecases/get_product_usecase.dart';
 
 final getIt = GetIt.instance;
@@ -23,6 +24,7 @@ Future<void> init() async {
     () => ProductBloc(
       getAllProducts: getIt(),
       getProduct: getIt(),
+      getFilteredProducts: getIt(),
     ),
   );
 
@@ -36,6 +38,8 @@ Future<void> init() async {
   // usecases
   getIt.registerLazySingleton(() => GetAllProductsUsecase(getIt()));
   getIt.registerLazySingleton(() => GetProductUsecase(getIt()));
+  getIt.registerLazySingleton(() => GetFilteredProductsUsecase(getIt()));
+
   getIt.registerLazySingleton(() => GetAllCategoriesUsecase(getIt()));
   getIt.registerLazySingleton(() => GetCategoryUsecase(getIt()));
 

@@ -23,10 +23,10 @@ class HomePageCard extends StatelessWidget {
       child: KCard(
         onTap: onTap,
         child: Container(
-          height: 140.h,
-          // color: Colors.grey,
+          constraints: BoxConstraints(minHeight: 140.h),
+          width: double.infinity,
           padding: EdgeInsets.symmetric(
-            vertical: 5.h,
+            vertical: 5.w,
             horizontal: 5.w,
           ),
           child: Column(
@@ -45,7 +45,7 @@ class HomePageCard extends StatelessWidget {
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: 10.w,
-                      vertical: 10.h,
+                      vertical: 10.w,
                     ),
                     child: Image.asset(imageName),
                   ),

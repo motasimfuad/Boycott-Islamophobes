@@ -6,6 +6,8 @@ import '../constants/colors.dart';
 class KCard extends StatelessWidget {
   final String? title;
   final double? height;
+  final double? minHeight;
+  final double? maxHeight;
   final double? width;
   final double? xPadding;
   final double? yPadding;
@@ -17,6 +19,8 @@ class KCard extends StatelessWidget {
     Key? key,
     this.title,
     this.height,
+    this.minHeight,
+    this.maxHeight,
     this.width,
     this.xPadding,
     this.yPadding,
@@ -33,6 +37,10 @@ class KCard extends StatelessWidget {
       child: Container(
         height: height,
         width: width,
+        constraints: BoxConstraints(
+          minHeight: minHeight ?? 0.0,
+          maxHeight: maxHeight ?? double.infinity,
+        ),
         padding: EdgeInsets.symmetric(
           vertical: yPadding ?? 8.w,
           horizontal: xPadding ?? 8.w,

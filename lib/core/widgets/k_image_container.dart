@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:boycott_islamophobes/core/constants/colors.dart';
 
 class KImageContainer extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final double? height;
   final double? radius;
   final String? fallBackText;
@@ -23,7 +23,7 @@ class KImageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height ?? 100.h,
-      padding: EdgeInsets.all(10.w),
+      padding: EdgeInsets.all(15.w),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
@@ -38,7 +38,8 @@ class KImageContainer extends StatelessWidget {
               ),
       ),
       child: Image.network(
-        imageUrl,
+        imageUrl ?? '',
+        scale: 1.0,
         fit: BoxFit.contain,
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
@@ -48,13 +49,14 @@ class KImageContainer extends StatelessWidget {
         },
         errorBuilder: (context, exception, stack) {
           return Center(
-              child: Text(
-            fallBackText ?? 'Image not loaded!',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 10.sp,
+            child: Text(
+              fallBackText ?? 'Image not loaded!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 10.sp,
+              ),
             ),
-          ));
+          );
         },
       ),
     );

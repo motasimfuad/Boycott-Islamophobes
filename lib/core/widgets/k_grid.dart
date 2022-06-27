@@ -10,6 +10,7 @@ class KGrid extends StatelessWidget {
   final List<dynamic> items;
   final Widget Function(BuildContext, int) itemBuilder;
   final int crossAxisCount;
+  final int? loadingItems;
   final double? childAspectRatio;
   final double? leftPadding;
   final double? rightPadding;
@@ -20,6 +21,7 @@ class KGrid extends StatelessWidget {
     required this.items,
     required this.itemBuilder,
     this.crossAxisCount = 2,
+    this.loadingItems,
     this.childAspectRatio,
     this.leftPadding,
     this.rightPadding,
@@ -42,7 +44,7 @@ class KGrid extends StatelessWidget {
         crossAxisSpacing: 15.w,
         mainAxisSpacing: 15.w,
       ),
-      itemCount: isLoading == true ? 5 : items.length,
+      itemCount: (isLoading == true) ? (loadingItems ?? 5) : items.length,
       itemBuilder: isLoading == true
           ? (BuildContext context, int index) {
               return KLoadingCard(

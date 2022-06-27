@@ -38,25 +38,10 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Boycott Islamophobes'),
         backgroundColor: Colors.black,
         centerTitle: true,
-        // toolbarHeight: 60.h,
-        // flexibleSpace: Container(
-        //   // height: 300,
-        //   decoration: BoxDecoration(
-        //     gradient: LinearGradient(
-        //       begin: Alignment.topCenter,
-        //       end: Alignment.bottomCenter,
-        //       colors: [
-        //         KColors.primary,
-        //         KColors.primary.shade600,
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
       body: SingleChildScrollView(
         primary: true,
         child: Container(
-          // color: KColors.primary.shade100,
           padding: EdgeInsets.only(
             top: 20.h,
             left: 20.w,
@@ -68,7 +53,9 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               KCard(
-                height: 160.h,
+                // minHeight: 160.h,
+                height: 160.w,
+                maxHeight: 200,
                 width: double.infinity,
               ),
               SizedBox(
@@ -91,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 padding: EdgeInsets.all(15.w),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.w),
+                    borderRadius: BorderRadius.circular(30.r),
                     gradient: LinearGradient(
                       colors: [
                         KColors.primary,

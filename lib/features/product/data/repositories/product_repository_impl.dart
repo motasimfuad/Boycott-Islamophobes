@@ -29,4 +29,16 @@ class ProductRepositoryImpl implements ProductRepository {
       return Left(RemoteFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<ProductEntity>>> getFilteredProducts(
+      int? categoryId, String? searchText) async {
+    try {
+      final List<ProductEntity> products =
+          await productDataSource.getFilteredProducts(categoryId, searchText);
+      return Right(products);
+    } on RemoteException {
+      return Left(RemoteFailure());
+    }
+  }
 }
