@@ -15,7 +15,7 @@ class AppRouter {
   static const String allCountriesPage = 'countries';
   static const String allCategoriesPage = 'categories';
   static const String categoryPage = 'category';
-  static const String allCompaniesPage = 'allCompaniesPage';
+  static const String allCompaniesPage = 'companies';
   static const String searchPage = 'searchPage';
   static const String faqPage = 'faqPage';
   static const String settingsPage = 'settingsPage';
@@ -100,12 +100,21 @@ final router = GoRouter(
 
     // countries
     GoRoute(
-        name: AppRouter.allCountriesPage,
-        path: '/${AppRouter.allCountriesPage}',
+      name: AppRouter.allCountriesPage,
+      path: '/${AppRouter.allCountriesPage}',
+      pageBuilder: (context, state) {
+        return const MaterialPage(
+          child: AllCountriesPage(),
+        );
+      },
+    ),
+
+    // companies
+    GoRoute(
+        name: AppRouter.allCompaniesPage,
+        path: '/${AppRouter.allCompaniesPage}',
         pageBuilder: (context, state) {
-          return const MaterialPage(
-            child: AllCountriesPage(),
-          );
-        }),
+          return MaterialPage(child: Container());
+        })
   ],
 );

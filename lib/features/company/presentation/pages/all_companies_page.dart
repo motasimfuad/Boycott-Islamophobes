@@ -1,28 +1,28 @@
 import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
 import 'package:boycott_islamophobes/core/widgets/k_item_card.dart';
+import 'package:boycott_islamophobes/features/company/domain/entities/company_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/widgets/k_grid.dart';
-import '../../domain/entities/country_entity.dart';
-import '../bloc/country_bloc.dart';
+import '../bloc/company_bloc.dart';
 
-class AllCountriesPage extends StatefulWidget {
-  const AllCountriesPage({
+class AllCompaniesPage extends StatefulWidget {
+  const AllCompaniesPage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<AllCountriesPage> createState() => _AllCountriesPageState();
+  State<AllCompaniesPage> createState() => _AllCompaniesPageState();
 }
 
-class _AllCountriesPageState extends State<AllCountriesPage> {
-  List<CountryEntity> countries = [];
+class _AllCompaniesPageState extends State<AllCompaniesPage> {
+  List<CompanyEntity> companies = [];
 
   @override
   void initState() {
-    context.read<CountryBloc>().add(GetAllCountriesEvent());
+    context.read<CompanyBloc>().add(GetAllCompaniesEvent());
     super.initState();
   }
 
@@ -30,13 +30,13 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const KAppbar(
-        title: 'Blacklisted Countries',
+        title: 'Blacklisted Companies',
       ),
       body: SafeArea(
-        child: BlocBuilder<CountryBloc, CountryState>(
+        child: BlocBuilder<CompanyBloc, CompanyState>(
           builder: (context, state) {
-            if (state is CountryListLoaded) {
-              countries = state.countries;
+            if (state is CompanyListLoaded) {
+              companies = state.companies;
             }
             return Container(
               color: KColors.primary.shade100,
@@ -46,18 +46,18 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                   Expanded(
                     child: SingleChildScrollView(
                       child: KGrid(
-                        isLoading: (state is CountryListLoading) ? true : false,
-                        items: countries,
+                        isLoading: (state is CompanyListLoading) ? true : false,
+                        items: companies,
                         childAspectRatio: 1,
                         itemBuilder: (context, index) {
-                          final country = countries[index];
+                          final company = companies[index];
 
                           return KItemCard(
-                            tag: country.id,
-                            name: country.name,
-                            imageUrl: country.flagUrl,
-                            imageFit: BoxFit.cover,
-                            padding: 0,
+                            tag: company.id,
+                            name: company.name,
+                            imageUrl: company.logoUrl,
+                            // imageFit: BoxFit.cover,
+                            // padding: 0,
                           );
                         },
                       ),
