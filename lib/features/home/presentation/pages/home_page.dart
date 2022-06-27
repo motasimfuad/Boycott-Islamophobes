@@ -2,6 +2,7 @@ import 'package:boycott_islamophobes/core/constants/strings.dart';
 import 'package:boycott_islamophobes/features/company/domain/entities/company_entity.dart';
 import 'package:boycott_islamophobes/features/company/presentation/bloc/company_bloc.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,28 +60,118 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              // KCard(
+              //   // minHeight: 160.h,
+              //   height: 160.w,
+              //   maxHeight: 200,
+              //   width: double.infinity,
+              //   color: Colors.white,
+              // ),
+
               KCard(
                 // minHeight: 160.h,
                 height: 160.w,
                 maxHeight: 200,
+                xPadding: 0,
+                yPadding: 0,
+                hasShadow: false,
+                radius: 0,
+                color: Colors.transparent,
                 width: double.infinity,
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Row(
-                children: [
-                  Text(
-                    'Blacklists',
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 10),
+                    disableCenter: true,
+                    viewportFraction: 1,
+                    enlargeCenterPage: true,
+                    height: double.infinity,
                   ),
-                ],
+                  items: [1, 2, 3, 4, 5].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          // width: MediaQuery.of(context).size.width,
+                          // margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 5.h,
+                            horizontal: 5.w,
+                          ),
+                          // decoration: const BoxDecoration(color: Colors.amber),
+                          child: KCard(
+                            // minHeight: 160.h,
+                            // height: 160.w,
+                            // maxHeight: 200,
+                            width: double.infinity,
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Those who revile the Prophet (peace be upon him), whether a Muslim or Kafir, must be killed. This is the view of the majority of scholars.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                    // color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                Text(
+                                  '- Ibn Taymiyyah (rahi) $i',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
               ),
               SizedBox(
-                height: 10.h,
+                height: 40.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Blacklists',
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                        color: KColors.primary.shade800,
+                      ),
+                    ),
+                    KCard(
+                      hasShadow: false,
+                      radius: 12.r,
+                      onTap: () {
+                        router.pushNamed(AppRouter.searchPage);
+                      },
+                      color: KColors.primary.shade500,
+                      // color: Colors.black,
+                      child: Icon(
+                        Icons.search,
+                        size: 22.h,
+                        color: KColors.primary.shade100,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 8.h,
               ),
               Container(
                 padding: EdgeInsets.all(15.w),

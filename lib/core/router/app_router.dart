@@ -17,7 +17,7 @@ class AppRouter {
   static const String allCategoriesPage = 'categories';
   static const String categoryPage = 'category';
   static const String allCompaniesPage = 'companies';
-  static const String searchPage = 'searchPage';
+  static const String searchPage = 'search';
   static const String faqPage = 'faqPage';
   static const String settingsPage = 'settingsPage';
 }
