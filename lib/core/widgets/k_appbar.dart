@@ -17,10 +17,10 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 1,
       backgroundColor: Colors.black,
       centerTitle: true,
-      toolbarHeight: height ?? 60.h,
+      toolbarHeight: height ?? 55.h,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(height ?? 60.h);
+  Size get preferredSize => Size.fromHeight(height ?? 55.h);
 }
