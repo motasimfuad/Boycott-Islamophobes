@@ -20,12 +20,17 @@ import 'package:boycott_islamophobes/features/product/data/datasources/product_r
 import 'package:boycott_islamophobes/features/product/data/repositories/product_repository_impl.dart';
 import 'package:boycott_islamophobes/features/product/domain/repositories/product_repository.dart';
 import 'package:boycott_islamophobes/features/product/presentation/bloc/product_bloc.dart';
+import 'package:boycott_islamophobes/features/quote/domain/usecases/get_all_quotes_usecase.dart';
+import 'package:boycott_islamophobes/features/quote/presentation/bloc/quote_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 
 import 'features/product/domain/usecases/get_all_products_usecase.dart';
 import 'features/product/domain/usecases/get_filtered_products_usecase.dart';
 import 'features/product/domain/usecases/get_product_usecase.dart';
+import 'features/quote/data/datasources/quote_remote_dara_source.dart';
+import 'features/quote/data/repositories/quote_repository_impl.dart';
+import 'features/quote/domain/repositories/quote_repository.dart';
 
 final getIt = GetIt.instance;
 
@@ -61,6 +66,12 @@ Future<void> init() async {
     ),
   );
 
+  getIt.registerFactory(
+    () => QuoteBloc(
+      getQuotes: getIt(),
+    ),
+  );
+
   // usecases
   // --- products
   getIt.registerLazySingleton(() => GetAllProductsUsecase(getIt()));
@@ -75,6 +86,8 @@ Future<void> init() async {
   // --- companies
   getIt.registerLazySingleton(() => GetAllCompaniesUsecase(getIt()));
   getIt.registerLazySingleton(() => GetCompanyUsecase(getIt()));
+  // --- quotes
+  getIt.registerLazySingleton(() => GetAllQuotesUsecase(getIt()));
 
   // repositories
   getIt.registerLazySingleton<ProductRepository>(
@@ -85,6 +98,8 @@ Future<void> init() async {
       () => CountryRepositoryImpl(getIt()));
   getIt.registerLazySingleton<CompanyRepository>(
       () => CompanyRepositoryImpl(getIt()));
+  getIt.registerLazySingleton<QuoteRepository>(
+      () => QuoteRepositoryImpl(getIt()));
 
   //! core
   //! data
@@ -97,6 +112,8 @@ Future<void> init() async {
       () => CountryRemoteDataSourceImpl(getIt()));
   getIt.registerLazySingleton<CompanyRemoteDataSource>(
       () => CompanyRemoteDataSourceImpl(getIt()));
+  getIt.registerLazySingleton<QuoteRemoteDataSource>(
+      () => QuoteRemoteDataSourceImpl(getIt()));
 
   //! external
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);
