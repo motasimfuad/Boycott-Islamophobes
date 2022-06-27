@@ -7,11 +7,11 @@ class CountryEntity extends Equatable {
   final String? reason;
   const CountryEntity({
     required this.id,
-    required this.flagUrl,
     required this.name,
+    required this.flagUrl,
     this.reason,
   });
 
   @override
-  List<Object?> get props => [id, name, flagUrl];
+  List<Object> get props => [id, name, flagUrl];
 }
