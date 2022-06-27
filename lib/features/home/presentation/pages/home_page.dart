@@ -16,6 +16,8 @@ import '../../../category/presentation/bloc/category_bloc.dart';
 import '../../../country/domain/entities/country_entity.dart';
 import '../../../country/presentation/bloc/country_bloc.dart';
 import '../../../product/presentation/bloc/product_bloc.dart';
+import '../../../quote/domain/entities/quote_entity.dart';
+import '../../../quote/presentation/bloc/quote_bloc.dart';
 import '../widgets/home_page_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,9 +32,11 @@ class _HomePageState extends State<HomePage> {
   List<CategoryEntity> categories = [];
   List<CountryEntity> countries = [];
   List<CompanyEntity> companies = [];
+  List<QuoteEntity> quotes = [];
 
   @override
   void initState() {
+    context.read<QuoteBloc>().add(GetAllQuotesEvent());
     context.read<ProductBloc>().add(GetAllProductsEvent());
     context.read<CategoryBloc>().add(GetAllCategoriesEvent());
     context.read<CountryBloc>().add(GetAllCountriesEvent());
@@ -78,63 +82,86 @@ class _HomePageState extends State<HomePage> {
                 radius: 0,
                 color: Colors.transparent,
                 width: double.infinity,
-                child: CarouselSlider(
-                  options: CarouselOptions(
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 10),
-                    disableCenter: true,
-                    viewportFraction: 1,
-                    enlargeCenterPage: true,
-                    height: double.infinity,
-                  ),
-                  items: [1, 2, 3, 4, 5].map((i) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          // width: MediaQuery.of(context).size.width,
-                          // margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          padding: EdgeInsets.symmetric(
-                            vertical: 5.h,
-                            horizontal: 5.w,
-                          ),
-                          // decoration: const BoxDecoration(color: Colors.amber),
-                          child: KCard(
-                            // minHeight: 160.h,
-                            // height: 160.w,
-                            // maxHeight: 200,
-                            width: double.infinity,
-                            color: Colors.white,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Those who revile the Prophet (peace be upon him), whether a Muslim or Kafir, must be killed. This is the view of the majority of scholars.',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                    // color: Colors.white,
+                child: BlocBuilder<QuoteBloc, QuoteState>(
+                  builder: (context, state) {
+                    if (state is QuoteListLoaded) {
+                      quotes = state.quotes;
+                    }
+
+                    return CarouselSlider(
+                      options: CarouselOptions(
+                        autoPlay: (quotes.length > 1) ? true : false,
+                        autoPlayInterval: const Duration(seconds: 10),
+                        disableCenter: true,
+                        viewportFraction: 1,
+                        enlargeCenterPage: true,
+                        height: double.infinity,
+                      ),
+                      items: quotes.map((quote) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              // width: MediaQuery.of(context).size.width,
+                              // margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5.h,
+                                horizontal: 5.w,
+                              ),
+                              child: KCard(
+                                // minHeight: 160.h,
+                                // height: 160.w,
+                                // maxHeight: 200,
+                                xPadding: 5.w,
+                                yPadding: 5.w,
+                                width: double.infinity,
+                                color: Colors.white,
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 15.w),
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          'https://www.vandelaydesign.com/wp-content/uploads/webb-pattern.jpg'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '" ${quote.quote} "',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: KColors.primary.shade600,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        '- ${quote.by}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w400,
+                                          fontStyle: FontStyle.italic,
+                                          color: KColors.primary.shade400,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  '- Ibn Taymiyyah (rahi) $i',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w500,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          },
                         );
-                      },
+                      }).toList(),
                     );
-                  }).toList(),
+                  },
                 ),
               ),
               SizedBox(
@@ -164,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                       child: Icon(
                         Icons.search,
                         size: 22.h,
-                        color: KColors.primary.shade100,
+                        color: KColors.primary.shade50,
                       ),
                     ),
                   ],
@@ -265,41 +292,6 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-
-              // Expanded(
-              //   child: Container(
-              //     padding: EdgeInsets.all(15.w),
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(30.w),
-              //         gradient: LinearGradient(
-              //           colors: [
-              //             KColors.primary,
-              //             KColors.primary.shade600,
-              //           ],
-              //           begin: Alignment.topCenter,
-              //           end: Alignment.bottomCenter,
-              //         )),
-              //     child: GridView.builder(
-              //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //         crossAxisCount: 2,
-              //         childAspectRatio: 1.h,
-              //         crossAxisSpacing: 12.w,
-              //         mainAxisSpacing: 12.w,
-              //       ),
-              //       itemCount: 4,
-              //       itemBuilder: (BuildContext context, int index) {
-              //         return KCard(
-              //           onTap: () {
-              //             router.pushNamed(AppRouter.allProductsPage);
-              //           },
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 70.h,
-              // ),
             ],
           ),
         ),
