@@ -9,6 +9,8 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/k_card.dart';
 import '../../../category/domain/entities/category_entity.dart';
 import '../../../category/presentation/bloc/category_bloc.dart';
+import '../../../country/domain/entities/country_entity.dart';
+import '../../../country/presentation/bloc/country_bloc.dart';
 import '../../../product/presentation/bloc/product_bloc.dart';
 import '../widgets/home_page_card.dart';
 
@@ -22,11 +24,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<ProductEntity> products = [];
   List<CategoryEntity> categories = [];
+  List<CountryEntity> countries = [];
 
   @override
   void initState() {
     context.read<ProductBloc>().add(GetAllProductsEvent());
     context.read<CategoryBloc>().add(GetAllCategoriesEvent());
+    context.read<CountryBloc>().add(GetAllCountriesEvent());
     super.initState();
   }
 
@@ -128,9 +132,18 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(height: 20.w),
                     Row(
                       children: [
-                        const HomePageCard(
-                          title: 'Countries',
-                          imageName: Images.countryIcon,
+                        BlocBuilder<CountryBloc, CountryState>(
+                          builder: (context, state) {
+                            if (state is CountryListLoaded) {
+                              countries = state.countries;
+                            }
+
+                            return HomePageCard(
+                              title: 'Countries',
+                              totalItems: countries.length.toString(),
+                              imageName: Images.countryIcon,
+                            );
+                          },
                         ),
                         SizedBox(width: 20.w),
                         const HomePageCard(
