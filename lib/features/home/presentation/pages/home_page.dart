@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/widgets/k_appbar.dart';
 import '../../../../core/widgets/k_card.dart';
 import '../../../category/domain/entities/category_entity.dart';
 import '../../../category/presentation/bloc/category_bloc.dart';
@@ -38,10 +39,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KColors.primary.shade100,
-      appBar: AppBar(
-        title: const Text('Boycott Islamophobes'),
-        backgroundColor: Colors.black,
-        centerTitle: true,
+      appBar: const KAppbar(
+        title: 'Boycott Islamophobes',
       ),
       body: SingleChildScrollView(
         primary: true,
@@ -142,6 +141,9 @@ class _HomePageState extends State<HomePage> {
                               title: 'Countries',
                               totalItems: countries.length.toString(),
                               imageName: Images.countryIcon,
+                              onTap: () {
+                                router.pushNamed(AppRouter.allCountriesPage);
+                              },
                             );
                           },
                         ),
