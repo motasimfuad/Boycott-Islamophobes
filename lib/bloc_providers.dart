@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/category/presentation/bloc/category_bloc.dart';
+import 'features/country/presentation/bloc/country_bloc.dart';
 import 'features/product/presentation/bloc/product_bloc.dart';
 
 class BlocProviders extends StatelessWidget {
@@ -21,7 +22,10 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<CategoryBloc>(),
-        )
+        ),
+        BlocProvider(
+          create: (context) => getIt<CountryBloc>(),
+        ),
       ],
       child: child,
     );
