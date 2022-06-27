@@ -4,9 +4,9 @@ import 'package:boycott_islamophobes/features/country/domain/entities/country_en
 import 'package:boycott_islamophobes/features/country/domain/repositories/country_repository.dart';
 import 'package:dartz/dartz.dart';
 
-class GetCountry implements Usecase<CountryEntity, Params> {
+class GetCountryUsecase implements Usecase<CountryEntity, Params> {
   final CountryRepository countryRepository;
-  GetCountry(this.countryRepository);
+  GetCountryUsecase(this.countryRepository);
 
   @override
   Future<Either<Failure, CountryEntity>> call(Params params) async {
