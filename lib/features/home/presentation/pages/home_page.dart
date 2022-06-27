@@ -85,15 +85,16 @@ class _HomePageState extends State<HomePage> {
               Container(
                 padding: EdgeInsets.all(15.w),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.r),
-                    gradient: LinearGradient(
-                      colors: [
-                        KColors.primary,
-                        KColors.primary.shade600,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    )),
+                  borderRadius: BorderRadius.circular(30.r),
+                  gradient: LinearGradient(
+                    colors: [
+                      KColors.primary,
+                      KColors.primary.shade600,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
                 child: Column(
                   children: [
                     Row(
@@ -162,7 +163,9 @@ class _HomePageState extends State<HomePage> {
                               title: 'Companies',
                               imageName: Images.companyIcon,
                               totalItems: companies.length.toString(),
-                              onTap: () {},
+                              onTap: () {
+                                router.pushNamed(AppRouter.allCompaniesPage);
+                              },
                             );
                           },
                         ),

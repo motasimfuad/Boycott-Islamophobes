@@ -1,6 +1,7 @@
 import 'package:boycott_islamophobes/features/bottom_nav.dart';
 import 'package:boycott_islamophobes/features/category/presentation/pages/all_categories_page.dart';
 import 'package:boycott_islamophobes/features/category/presentation/pages/category_page.dart';
+import 'package:boycott_islamophobes/features/company/presentation/pages/all_companies_page.dart';
 import 'package:boycott_islamophobes/features/country/presentation/pages/all_countries_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/all_products_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/product_page.dart';
@@ -111,10 +112,13 @@ final router = GoRouter(
 
     // companies
     GoRoute(
-        name: AppRouter.allCompaniesPage,
-        path: '/${AppRouter.allCompaniesPage}',
-        pageBuilder: (context, state) {
-          return MaterialPage(child: Container());
-        })
+      name: AppRouter.allCompaniesPage,
+      path: '/${AppRouter.allCompaniesPage}',
+      pageBuilder: (context, state) {
+        return const MaterialPage(
+          child: AllCompaniesPage(),
+        );
+      },
+    )
   ],
 );

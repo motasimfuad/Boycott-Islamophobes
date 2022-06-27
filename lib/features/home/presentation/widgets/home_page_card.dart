@@ -21,6 +21,8 @@ class HomePageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: KCard(
+        xPadding: 10.w,
+        yPadding: 10.w,
         onTap: onTap,
         child: Container(
           constraints: BoxConstraints(minHeight: 140.h),
