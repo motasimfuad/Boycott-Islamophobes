@@ -4,6 +4,12 @@ import 'package:boycott_islamophobes/features/category/domain/repositories/categ
 import 'package:boycott_islamophobes/features/category/domain/usecases/get_all_categories_usecase.dart';
 import 'package:boycott_islamophobes/features/category/domain/usecases/get_category_usecase.dart';
 import 'package:boycott_islamophobes/features/category/presentation/bloc/category_bloc.dart';
+import 'package:boycott_islamophobes/features/company/data/datasources/company_remote_data_source.dart';
+import 'package:boycott_islamophobes/features/company/data/repositories/company_repository_impl.dart';
+import 'package:boycott_islamophobes/features/company/domain/repositories/company_repository.dart';
+import 'package:boycott_islamophobes/features/company/domain/usecases/get_all_companies_usecase.dart';
+import 'package:boycott_islamophobes/features/company/domain/usecases/get_company_usecase.dart';
+import 'package:boycott_islamophobes/features/company/presentation/bloc/company_bloc.dart';
 import 'package:boycott_islamophobes/features/country/data/datasources/country_remote_data_source.dart';
 import 'package:boycott_islamophobes/features/country/data/repositories/country_repository_impl.dart';
 import 'package:boycott_islamophobes/features/country/domain/repositories/country_repository.dart';
@@ -48,6 +54,13 @@ Future<void> init() async {
     ),
   );
 
+  getIt.registerFactory(
+    () => CompanyBloc(
+      getCompanies: getIt(),
+      getCompany: getIt(),
+    ),
+  );
+
   // usecases
   // --- products
   getIt.registerLazySingleton(() => GetAllProductsUsecase(getIt()));
@@ -59,6 +72,9 @@ Future<void> init() async {
   // --- categories
   getIt.registerLazySingleton(() => GetAllCountriesUsecase(getIt()));
   getIt.registerLazySingleton(() => GetCountryUsecase(getIt()));
+  // --- companies
+  getIt.registerLazySingleton(() => GetAllCompaniesUsecase(getIt()));
+  getIt.registerLazySingleton(() => GetCompanyUsecase(getIt()));
 
   // repositories
   getIt.registerLazySingleton<ProductRepository>(
@@ -67,6 +83,8 @@ Future<void> init() async {
       () => CategoryRepositoryImpl(getIt()));
   getIt.registerLazySingleton<CountryRepository>(
       () => CountryRepositoryImpl(getIt()));
+  getIt.registerLazySingleton<CompanyRepository>(
+      () => CompanyRepositoryImpl(getIt()));
 
   //! core
   //! data
@@ -77,6 +95,8 @@ Future<void> init() async {
       () => CategoryRemoteDataSourceImpl(getIt()));
   getIt.registerLazySingleton<CountryRemoteDataSource>(
       () => CountryRemoteDataSourceImpl(getIt()));
+  getIt.registerLazySingleton<CompanyRemoteDataSource>(
+      () => CompanyRemoteDataSourceImpl(getIt()));
 
   //! external
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);
