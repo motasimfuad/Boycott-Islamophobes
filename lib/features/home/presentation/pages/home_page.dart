@@ -1,4 +1,6 @@
 import 'package:boycott_islamophobes/core/constants/strings.dart';
+import 'package:boycott_islamophobes/features/company/domain/entities/company_entity.dart';
+import 'package:boycott_islamophobes/features/company/presentation/bloc/company_bloc.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,12 +28,14 @@ class _HomePageState extends State<HomePage> {
   List<ProductEntity> products = [];
   List<CategoryEntity> categories = [];
   List<CountryEntity> countries = [];
+  List<CompanyEntity> companies = [];
 
   @override
   void initState() {
     context.read<ProductBloc>().add(GetAllProductsEvent());
     context.read<CategoryBloc>().add(GetAllCategoriesEvent());
     context.read<CountryBloc>().add(GetAllCountriesEvent());
+    context.read<CompanyBloc>().add(GetAllCompaniesEvent());
     super.initState();
   }
 
@@ -148,9 +152,19 @@ class _HomePageState extends State<HomePage> {
                           },
                         ),
                         SizedBox(width: 20.w),
-                        const HomePageCard(
-                          title: 'Companies',
-                          imageName: Images.companyIcon,
+                        BlocBuilder<CompanyBloc, CompanyState>(
+                          builder: (context, state) {
+                            if (state is CompanyListLoaded) {
+                              companies = state.companies;
+                            }
+
+                            return HomePageCard(
+                              title: 'Companies',
+                              imageName: Images.companyIcon,
+                              totalItems: companies.length.toString(),
+                              onTap: () {},
+                            );
+                          },
                         ),
                       ],
                     )
