@@ -104,8 +104,9 @@ final router = GoRouter(
       name: AppRouter.allCountriesPage,
       path: '/${AppRouter.allCountriesPage}',
       pageBuilder: (context, state) {
-        return const MaterialPage(
-          child: AllCountriesPage(),
+        return MaterialPage(
+          key: state.pageKey,
+          child: const AllCountriesPage(),
         );
       },
     ),
@@ -115,8 +116,9 @@ final router = GoRouter(
       name: AppRouter.allCompaniesPage,
       path: '/${AppRouter.allCompaniesPage}',
       pageBuilder: (context, state) {
-        return const MaterialPage(
-          child: AllCompaniesPage(),
+        return MaterialPage(
+          key: state.pageKey,
+          child: const AllCompaniesPage(),
         );
       },
     )

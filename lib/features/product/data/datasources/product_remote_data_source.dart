@@ -37,13 +37,31 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   @override
   Future<List<ProductModel>> getFilteredProducts(
       int? categoryId, String? searchText) async {
-    var products = await firestore
-        .collection('products')
-        .where('categoryId', isEqualTo: categoryId)
-        .where('name', isEqualTo: searchText)
-        .get();
+    print('searchText $searchText');
+    QuerySnapshot<Map<String, dynamic>> products;
+    if (searchText != null) {
+      products = await firestore
+          .collection('products')
+          .where(
+            'name',
+            isGreaterThanOrEqualTo: searchText.toLowerCase(),
+            isLessThan: searchText
+                    .toLowerCase()
+                    .substring(0, searchText.length - 1) +
+                String.fromCharCode(
+                    searchText.toLowerCase().codeUnitAt(searchText.length - 1) +
+                        1),
+          )
+          .get();
+    } else {
+      products = await firestore
+          .collection('products')
+          .where('categoryId', isEqualTo: categoryId)
+          .get();
+    }
     List<ProductModel> productList =
         products.docs.map((e) => ProductModel.fromMap(e.data())).toList();
+    print('productList $productList');
     return productList;
   }
 }

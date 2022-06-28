@@ -52,13 +52,14 @@ class _HomePageState extends State<HomePage> {
         title: 'Boycott Islamophobes',
       ),
       body: SingleChildScrollView(
-        primary: true,
+        // primary: true,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Container(
           padding: EdgeInsets.only(
             top: 20.h,
             left: 20.w,
             right: 20.w,
-            bottom: 100.h,
+            // bottom: 100.h,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -73,7 +74,6 @@ class _HomePageState extends State<HomePage> {
               // ),
 
               KCard(
-                // minHeight: 160.h,
                 height: 160.w,
                 maxHeight: 200,
                 xPadding: 0,
@@ -108,9 +108,6 @@ class _HomePageState extends State<HomePage> {
                                 horizontal: 5.w,
                               ),
                               child: KCard(
-                                // minHeight: 160.h,
-                                // height: 160.w,
-                                // maxHeight: 200,
                                 xPadding: 5.w,
                                 yPadding: 5.w,
                                 width: double.infinity,
@@ -120,8 +117,10 @@ class _HomePageState extends State<HomePage> {
                                       EdgeInsets.symmetric(horizontal: 15.w),
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
+                                      // image: NetworkImage(
+                                      //     'https://www.vandelaydesign.com/wp-content/uploads/webb-pattern.jpg'),
                                       image: NetworkImage(
-                                          'https://www.vandelaydesign.com/wp-content/uploads/webb-pattern.jpg'),
+                                          'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F24aa43e7-f4c7-49c1-b7dc-8a3d5c8628ed%2Fquote_background.png?table=block&id=80ec1b5f-a392-44d2-b2c8-77d1971d4a93&spaceId=3107c0c8-1d6e-462e-8ab2-26ba76caa796&width=600&userId=73918c78-f0a6-467b-83c8-c747d80076b1&cache=v2'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

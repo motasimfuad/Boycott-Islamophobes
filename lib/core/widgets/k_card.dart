@@ -62,7 +62,7 @@ class KCard extends StatelessWidget {
               : null,
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(18.r),
+          borderRadius: BorderRadius.circular(20.r),
           clipBehavior: Clip.antiAlias,
           child: child ??
               Text(

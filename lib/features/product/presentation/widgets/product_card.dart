@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/constants/extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -23,11 +24,8 @@ class ProductCard extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: Hero(
-              tag: product.id,
-              child: KImageContainer(
-                imageUrl: product.logoUrl,
-              ),
+            child: KImageContainer(
+              imageUrl: product.logoUrl,
             ),
           ),
           Padding(
@@ -37,7 +35,7 @@ class ProductCard extends StatelessWidget {
               right: 10.w,
             ),
             child: Text(
-              product.name,
+              product.name.toCapitalized(),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

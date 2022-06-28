@@ -14,6 +14,8 @@ class KGrid extends StatelessWidget {
   final double? childAspectRatio;
   final double? leftPadding;
   final double? rightPadding;
+  final double? topPadding;
+  final double? bottomPadding;
   const KGrid({
     Key? key,
     this.isLoading = false,
@@ -25,17 +27,20 @@ class KGrid extends StatelessWidget {
     this.childAspectRatio,
     this.leftPadding,
     this.rightPadding,
+    this.topPadding,
+    this.bottomPadding,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: EdgeInsets.only(
         left: leftPadding ?? 20.w,
         right: rightPadding ?? 20.w,
-        top: 20.h,
-        bottom: 20.h,
+        top: topPadding ?? 20.h,
+        bottom: bottomPadding ?? 20.h,
       ),
       primary: false,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

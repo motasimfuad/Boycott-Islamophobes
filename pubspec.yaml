@@ -36,6 +36,7 @@ dependencies:
   dartz: ^0.10.1
   equatable: ^2.0.3
   firebase_core: ^1.17.1
+  flash: ^2.0.3+2
   floating_bottom_navigation_bar: ^1.5.2
   flutter:
     sdk: flutter
