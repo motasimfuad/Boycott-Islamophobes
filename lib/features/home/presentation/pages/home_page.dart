@@ -37,11 +37,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     context.read<QuoteBloc>().add(GetAllQuotesEvent());
+    _getAllBlacklists();
+    super.initState();
+  }
+
+  void _getAllBlacklists() {
     context.read<ProductBloc>().add(GetAllProductsEvent());
     context.read<CategoryBloc>().add(GetAllCategoriesEvent());
     context.read<CountryBloc>().add(GetAllCountriesEvent());
     context.read<CompanyBloc>().add(GetAllCompaniesEvent());
-    super.initState();
   }
 
   @override
@@ -65,14 +69,6 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // KCard(
-              //   // minHeight: 160.h,
-              //   height: 160.w,
-              //   maxHeight: 200,
-              //   width: double.infinity,
-              //   color: Colors.white,
-              // ),
-
               KCard(
                 height: 160.w,
                 maxHeight: 200,
@@ -117,10 +113,8 @@ class _HomePageState extends State<HomePage> {
                                       EdgeInsets.symmetric(horizontal: 15.w),
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
-                                      // image: NetworkImage(
-                                      //     'https://www.vandelaydesign.com/wp-content/uploads/webb-pattern.jpg'),
-                                      image: NetworkImage(
-                                          'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F24aa43e7-f4c7-49c1-b7dc-8a3d5c8628ed%2Fquote_background.png?table=block&id=80ec1b5f-a392-44d2-b2c8-77d1971d4a93&spaceId=3107c0c8-1d6e-462e-8ab2-26ba76caa796&width=600&userId=73918c78-f0a6-467b-83c8-c747d80076b1&cache=v2'),
+                                      image: AssetImage(
+                                          'assets/backgrounds/quote_background.png'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -183,12 +177,11 @@ class _HomePageState extends State<HomePage> {
                       hasShadow: false,
                       radius: 12.r,
                       onTap: () {
-                        router.pushNamed(AppRouter.searchPage);
+                        _getAllBlacklists();
                       },
                       color: KColors.primary.shade500,
-                      // color: Colors.black,
                       child: Icon(
-                        Icons.search,
+                        Icons.sync_rounded,
                         size: 22.h,
                         color: KColors.primary.shade50,
                       ),
