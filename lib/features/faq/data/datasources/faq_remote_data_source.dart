@@ -8,9 +8,9 @@ abstract class FaqRemoteDataSource {
 
 class FaqRemoteDataSourceImpl implements FaqRemoteDataSource {
   final FirebaseFirestore firestore;
-  FaqRemoteDataSourceImpl({
-    required this.firestore,
-  });
+  FaqRemoteDataSourceImpl(
+    this.firestore,
+  );
 
   @override
   Future<List<FaqModel>> getAllFaqs() async {

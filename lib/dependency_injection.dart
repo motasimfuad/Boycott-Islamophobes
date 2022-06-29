@@ -16,6 +16,8 @@ import 'package:boycott_islamophobes/features/country/domain/repositories/countr
 import 'package:boycott_islamophobes/features/country/domain/usecases/get_all_countries_usecase.dart';
 import 'package:boycott_islamophobes/features/country/domain/usecases/get_country_usecase.dart';
 import 'package:boycott_islamophobes/features/country/presentation/bloc/country_bloc.dart';
+import 'package:boycott_islamophobes/features/faq/domain/usecases/get_all_faqs_usecase.dart';
+import 'package:boycott_islamophobes/features/faq/presentation/bloc/faq_bloc.dart';
 import 'package:boycott_islamophobes/features/product/data/datasources/product_remote_data_source.dart';
 import 'package:boycott_islamophobes/features/product/data/repositories/product_repository_impl.dart';
 import 'package:boycott_islamophobes/features/product/domain/repositories/product_repository.dart';
@@ -25,6 +27,9 @@ import 'package:boycott_islamophobes/features/quote/presentation/bloc/quote_bloc
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 
+import 'features/faq/data/datasources/faq_remote_data_source.dart';
+import 'features/faq/data/repositories/faq_repository_impl.dart';
+import 'features/faq/domain/repositories/faq_repository.dart';
 import 'features/product/domain/usecases/get_all_products_usecase.dart';
 import 'features/product/domain/usecases/get_filtered_products_usecase.dart';
 import 'features/product/domain/usecases/get_product_usecase.dart';
@@ -72,6 +77,12 @@ Future<void> init() async {
     ),
   );
 
+  getIt.registerFactory(
+    () => FaqBloc(
+      getAllFaqs: getIt(),
+    ),
+  );
+
   // usecases
   // --- products
   getIt.registerLazySingleton(() => GetAllProductsUsecase(getIt()));
@@ -88,6 +99,8 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => GetCompanyUsecase(getIt()));
   // --- quotes
   getIt.registerLazySingleton(() => GetAllQuotesUsecase(getIt()));
+  // --- faqs
+  getIt.registerLazySingleton(() => GetAllFaqsUsecase(getIt()));
 
   // repositories
   getIt.registerLazySingleton<ProductRepository>(
@@ -100,6 +113,7 @@ Future<void> init() async {
       () => CompanyRepositoryImpl(getIt()));
   getIt.registerLazySingleton<QuoteRepository>(
       () => QuoteRepositoryImpl(getIt()));
+  getIt.registerLazySingleton<FaqRepository>(() => FaqRepositoryImpl(getIt()));
 
   //! core
   //! data
@@ -114,6 +128,8 @@ Future<void> init() async {
       () => CompanyRemoteDataSourceImpl(getIt()));
   getIt.registerLazySingleton<QuoteRemoteDataSource>(
       () => QuoteRemoteDataSourceImpl(getIt()));
+  getIt.registerLazySingleton<FaqRemoteDataSource>(
+      () => FaqRemoteDataSourceImpl(getIt()));
 
   //! external
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);
