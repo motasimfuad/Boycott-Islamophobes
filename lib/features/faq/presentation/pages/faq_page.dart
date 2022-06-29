@@ -13,13 +13,43 @@ class FaqPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KColors.primary.shade100,
-      appBar: const KAppbar(title: 'FAQ'),
+      appBar: const KAppbar(title: 'FAQs'),
       body: SingleChildScrollView(
         primary: true,
         physics: const ClampingScrollPhysics(),
         scrollDirection: Axis.vertical,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: 20.w,
+                right: 20.w,
+                top: 20.h,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Assalamu Alaikum wa Rahmatullah!',
+                    style: TextStyle(
+                      color: KColors.primary.shade800,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 3.h),
+                  Text(
+                    'Dear brothers and sisters, Jazakallahu Khairan for taking part in the movement of boycotting those who defame out Deen and dare to belittle Rasulullah (ﷺ).\n\nHere we have answered some of the frequently asked questions.',
+                    style: TextStyle(
+                      color: KColors.primary.shade800,
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Accordion(
               paddingListHorizontal: 20.w,
               paddingListBottom: 80.h,
@@ -30,15 +60,7 @@ class FaqPage extends StatelessWidget {
               ),
               headerBorderRadius: 20.w,
               disableScrolling: true,
-              // headerTextStyle: const TextStyle(
-              //   color: Colors.white,
-              //   fontSize: 17,
-              //   fontWeight: FontWeight.bold,
-              // ),
-              // leftIcon: const Icon(Icons.question_mark_rounded, color: Colors.white),
-              children:
-                  // [
-                  List.generate(
+              children: List.generate(
                 15,
                 (index) => _buildAccordionSection(
                   question:
@@ -46,20 +68,6 @@ class FaqPage extends StatelessWidget {
                   answer: 'answer 1',
                 ),
               ),
-              // AccordionSection(
-              //   header: const Text(
-              //     'About Us',
-              //     style: TextStyle(color: Colors.white, fontSize: 17),
-              //   ),
-              //   content: Icon(Icons.airline_seat_flat,
-              //       size: 120, color: Colors.blue[200]),
-              // ),
-              // AccordionSection(
-              //   header: const Text('Company Info',
-              //       style: TextStyle(color: Colors.white, fontSize: 17)),
-              //   content: Icon(Icons.airplay, size: 70, color: Colors.green[200]),
-              // ),
-              // ],
             ),
           ],
         ),
@@ -86,15 +94,12 @@ class FaqPage extends StatelessWidget {
           ),
         ],
       ),
-      // rightIcon: const Icon(
-      //   Icons.access_alarm_outlined,
-      // ),
       scrollIntoViewOfItems: ScrollIntoViewOfItems.fast,
       contentBorderRadius: 20.w,
       contentHorizontalPadding: 20.w,
       contentVerticalPadding: 15.w,
-      paddingBetweenOpenSections: 15.h,
-      paddingBetweenClosedSections: 15.h,
+      paddingBetweenOpenSections: 10.h,
+      paddingBetweenClosedSections: 10.h,
     );
   }
 }
