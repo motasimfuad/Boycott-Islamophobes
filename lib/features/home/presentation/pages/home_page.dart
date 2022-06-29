@@ -175,14 +175,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                     KCard(
                       hasShadow: false,
-                      radius: 12.r,
+                      radius: 10.r,
                       onTap: () {
                         _getAllBlacklists();
                       },
                       color: KColors.primary.shade500,
                       child: Icon(
                         Icons.sync_rounded,
-                        size: 22.h,
+                        size: 18.h,
                         color: KColors.primary.shade50,
                       ),
                     ),

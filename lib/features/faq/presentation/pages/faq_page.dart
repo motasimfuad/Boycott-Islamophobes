@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../widgets/faq_header.dart';
 
 class FaqPage extends StatelessWidget {
   const FaqPage({Key? key}) : super(key: key);
@@ -27,28 +28,7 @@ class FaqPage extends StatelessWidget {
                 right: 20.w,
                 top: 20.h,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Assalamu Alaikum wa Rahmatullah!',
-                    style: TextStyle(
-                      color: KColors.primary.shade800,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 3.h),
-                  Text(
-                    'Dear brothers and sisters, Jazakallahu Khairan for taking part in the movement of boycotting those who defame out Deen and dare to belittle Rasulullah (ﷺ).\n\nHere we have answered some of the frequently asked questions.',
-                    style: TextStyle(
-                      color: KColors.primary.shade800,
-                      fontSize: 17.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
+              child: const FaqHeader(),
             ),
             Accordion(
               paddingListHorizontal: 20.w,
