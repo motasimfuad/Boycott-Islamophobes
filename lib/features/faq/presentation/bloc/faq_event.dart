@@ -6,3 +6,5 @@ abstract class FaqEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetAllFaqsEvent extends FaqEvent {}
