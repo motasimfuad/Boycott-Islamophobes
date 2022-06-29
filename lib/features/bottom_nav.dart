@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/features/faq/presentation/pages/faq_page.dart';
 import 'package:boycott_islamophobes/features/home/presentation/pages/home_page.dart';
 import 'package:boycott_islamophobes/features/search/presentation/pages/search_page.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
@@ -20,7 +21,7 @@ class _BottomNavState extends State<BottomNav> {
     const HomePage(),
     const SearchPage(),
     // router.goNamed(AppRouter.searchPage),
-    Container(),
+    const FaqPage(),
     Container(),
   ];
 
