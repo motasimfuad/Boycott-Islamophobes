@@ -1,14 +1,18 @@
-import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
-import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
-import 'package:boycott_islamophobes/features/product/presentation/bloc/product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screenshot/screenshot.dart';
 
+import 'package:boycott_islamophobes/core/constants/extentions.dart';
+import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
+import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
+import 'package:boycott_islamophobes/features/product/presentation/bloc/product_bloc.dart';
+
 import '../../../../core/constants/colors.dart';
 import '../../../../core/widgets/k_badge.dart';
 import '../../../../core/widgets/k_card.dart';
+import '../../../../core/widgets/k_snackbar.dart';
+import '../widgets/product_card_for_download.dart';
 
 class ProductPage extends StatefulWidget {
   final int productId;
@@ -23,7 +27,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   ScreenshotController screenshotController = ScreenshotController();
-  late ProductEntity product;
+  ProductEntity? product;
 
   @override
   void initState() {
@@ -51,20 +55,51 @@ class _ProductPageState extends State<ProductPage> {
           ],
         ),
         onPressed: () async {
-          //   await screenshotController
-          //       .capture(delay: const Duration(milliseconds: 10))
-          //       .then((Uint8List image) async {
-          //     final directory = await getApplicationDocumentsDirectory();
-          //     final imagePath =
-          //         await File('${directory.path}/image.png').create();
-          //     await imagePath.writeAsBytes(image);
+          context.read<ProductBloc>().add(
+                DownloadProductCardEvent(
+                  controller: screenshotController,
+                  productCard: ProductCardForDownload(
+                    product: product!,
+                  ),
+                  product: product!,
+                ),
+              );
+          // screenshotController
+          //     .captureFromWidget(
+          //   ProductCardForDownload(
+          //     product: product!,
+          //   ),
+          // )
+          //     .then((capturedImage) async {
+          //   // await [Permission.storage].request();
 
-          //     /// Share Plugin
-          //     await Share.shareFiles([imagePath.path]);
-          //   });
+          //   ImageGallerySaver.saveImage(
+          //     capturedImage,
+          //     name: "${product?.name} - Boycott Islamophobes",
+          //     quality: 100,
+          //   );
+          // });
         },
       ),
-      body: BlocBuilder<ProductBloc, ProductState>(
+      body: BlocConsumer<ProductBloc, ProductState>(
+        listener: (context, state) {
+          if (state is ProductCardDownloading ||
+              state is ProductCardDownloaded) {
+            kSnackBar(
+              context: context,
+              message: (state is ProductCardDownloading)
+                  ? 'Downloading...'
+                  : 'Card Downloaded for ${product?.name.toCapitalized()}',
+              showSideIndicator:
+                  (state is ProductCardDownloading) ? false : true,
+              showProgress: (state is ProductCardDownloading) ? true : false,
+              durationSeconds: 4,
+              icon: (state is ProductCardDownloading)
+                  ? null
+                  : Icons.check_circle_outline_rounded,
+            );
+          }
+        },
         builder: (context, state) {
           if (state is ProductLoading) {
             return const Center(
@@ -77,85 +112,123 @@ class _ProductPageState extends State<ProductPage> {
           }
           if (state is ProductLoaded) {
             product = state.product;
-
-            return SingleChildScrollView(
-              padding: EdgeInsets.all(20.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Screenshot(
-                    controller: screenshotController,
-                    child: Hero(
-                      tag: product.id,
-                      child: KImageContainer(
-                        imageUrl: product.logoUrl,
-                        height: 300.h,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15.h),
-                  KCard(
-                    width: double.infinity,
-                    hasShadow: false,
-                    color: Colors.black,
-                    xPadding: 20.w,
-                    yPadding: 12.h,
-                    title: 'Boycott this product',
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Boycott this product',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                          ),
-                        ),
-                        Icon(
-                          Icons.not_interested_rounded,
-                          color: Colors.white,
-                          size: 22.w,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-                  Text(
-                    product.name,
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 25.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20.h),
-                  Row(
-                    children: [
-                      Text(
-                        'Country:',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(width: 8.w),
-                      KBadge(
-                        badgeText: product.countryName ?? 'Not specified',
-                        textSize: 14.sp,
-                        xPadding: 10.w,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+          } else if (state is ProductCardDownloaded) {
+            product = state.product;
           }
+          return buildProductDetails();
         },
+      ),
+    );
+  }
+
+  Widget buildProductDetails() {
+    return SingleChildScrollView(
+      padding: EdgeInsets.all(20.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          KImageContainer(
+            imageUrl: product?.logoUrl ?? '',
+            height: 300.h,
+          ),
+          SizedBox(height: 15.h),
+          const ProductPageNotice(
+            radius: 500,
+          ),
+          KCard(
+            width: double.infinity,
+            hasShadow: false,
+            color: Colors.black,
+            xPadding: 20.w,
+            yPadding: 12.h,
+            title: 'Boycott this product',
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Boycott this product',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
+                  ),
+                ),
+                Icon(
+                  Icons.not_interested_rounded,
+                  color: Colors.white,
+                  size: 22.w,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20.h),
+          Text(
+            product?.name.toCapitalized() ?? '',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontSize: 25.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20.h),
+          Row(
+            children: [
+              Text(
+                'Country:',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              SizedBox(width: 8.w),
+              KBadge(
+                badgeText: product?.countryName ?? 'Not specified',
+                textSize: 14.sp,
+                xPadding: 10.w,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ProductPageNotice extends StatelessWidget {
+  final String? title;
+  final double? radius;
+  const ProductPageNotice({
+    Key? key,
+    this.title,
+    this.radius,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return KCard(
+      width: double.infinity,
+      hasShadow: false,
+      color: Colors.black,
+      xPadding: 20.w,
+      yPadding: 12.h,
+      radius: radius ?? 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title ?? 'Boycott this product',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Icon(
+            Icons.not_interested_rounded,
+            color: Colors.red,
+            size: 22.w,
+          ),
+        ],
       ),
     );
   }

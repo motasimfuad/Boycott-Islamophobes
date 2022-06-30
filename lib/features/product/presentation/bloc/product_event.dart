@@ -22,3 +22,14 @@ class GetFilteredProductsEvent extends ProductEvent {
     this.searchText,
   });
 }
+
+class DownloadProductCardEvent extends ProductEvent {
+  final Widget productCard;
+  final ProductEntity product;
+  final ScreenshotController controller;
+  const DownloadProductCardEvent({
+    required this.productCard,
+    required this.product,
+    required this.controller,
+  });
+}

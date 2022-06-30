@@ -12,7 +12,11 @@ kSnackBar({
   String? message,
   bool? isDismissible = true,
   int? durationSeconds,
+  bool? takeRequired,
   bool? showActionButton = false,
+  bool? showProgress = false,
+  bool? showSideIndicator = true,
+  IconData? icon,
   Function()? onActionButtonTap,
   String? actionButtonText,
   Color? iconColor,
@@ -28,22 +32,21 @@ kSnackBar({
         controller: controller,
         margin: EdgeInsets.all(20.h),
         behavior: FlashBehavior.floating,
-        position: position ?? FlashPosition.bottom,
+        position: position ?? FlashPosition.top,
         borderRadius: BorderRadius.circular(15.r),
         boxShadows: kElevationToShadow[4],
         backgroundColor: generateBgColor(type),
-
         onTap: isDismissible == true
             ? () {
                 controller.dismiss();
               }
             : () {},
-        // barrierDismissible: isDismissible == true ? true : false,
-
         forwardAnimationCurve: Curves.easeInOutCubic,
         reverseAnimationCurve: Curves.easeOutQuint,
         useSafeArea: true,
         child: FlashBar(
+          showProgressIndicator: showProgress == true ? true : false,
+          // progressIndicatorBackgroundColor: Colors.red,
           content: Text(
             message ?? generateText(type),
             style: TextStyle(
@@ -52,13 +55,14 @@ kSnackBar({
               fontWeight: FontWeight.w600,
             ),
           ),
-          indicatorColor: generateIndicatorColor(type),
+          indicatorColor:
+              showSideIndicator == true ? generateIndicatorColor(type) : null,
           padding: EdgeInsets.symmetric(
             horizontal: 15.w,
             vertical: 15.h,
           ),
           icon: Icon(
-            generateIcon(type),
+            icon ?? generateIcon(type),
             color: iconColor ?? Colors.white,
             size: 26.w,
           ),

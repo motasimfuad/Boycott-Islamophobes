@@ -6,6 +6,9 @@ import 'package:boycott_islamophobes/features/product/domain/entities/product_en
 import 'package:boycott_islamophobes/features/product/domain/usecases/get_all_products_usecase.dart';
 import 'package:boycott_islamophobes/features/product/domain/usecases/get_filtered_products_usecase.dart';
 import 'package:boycott_islamophobes/features/product/domain/usecases/get_product_usecase.dart';
+import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:screenshot/screenshot.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
@@ -44,6 +47,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         );
       }
 
+      // get filtered products
       if (event is GetFilteredProductsEvent) {
         emit(FilteredProductListLoading());
         final either = await getFilteredProducts(Params(
@@ -58,6 +62,25 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             emit(FilteredProductListLoaded(products: result));
           },
         );
+      }
+
+      // download product card
+      if (event is DownloadProductCardEvent) {
+        emit(ProductCardDownloading());
+        await Future.delayed(const Duration(seconds: 3));
+
+        await event.controller
+            .captureFromWidget(event.productCard)
+            .then((capturedImage) async {
+          await ImageGallerySaver.saveImage(
+            capturedImage,
+            name: "${event.product.name} - Boycott Islamophobes",
+            quality: 100,
+          );
+        });
+
+        print('ok');
+        emit(ProductCardDownloaded(product: event.product));
       }
     });
   }

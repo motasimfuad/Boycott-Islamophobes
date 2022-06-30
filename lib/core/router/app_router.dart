@@ -65,6 +65,7 @@ final router = GoRouter(
             path: ':${RouterParams.id}',
             pageBuilder: (context, state) {
               final productId = state.params[RouterParams.id];
+
               return MaterialPage(
                 key: state.pageKey,
                 child: ProductPage(

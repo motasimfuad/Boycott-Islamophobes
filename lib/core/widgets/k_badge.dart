@@ -8,6 +8,8 @@ class KBadge extends StatelessWidget {
   final double? textSize;
   final double? xPadding;
   final double? yPadding;
+  final double? radius;
+  final Color? badgeColor;
   const KBadge({
     Key? key,
     this.badgeContent,
@@ -15,6 +17,8 @@ class KBadge extends StatelessWidget {
     this.textSize,
     this.xPadding,
     this.yPadding,
+    this.radius,
+    this.badgeColor,
   }) : super(key: key);
 
   @override
@@ -23,8 +27,8 @@ class KBadge extends StatelessWidget {
       toAnimate: false,
       elevation: 0,
       shape: BadgeShape.square,
-      badgeColor: Colors.black,
-      borderRadius: BorderRadius.circular(15.r),
+      badgeColor: badgeColor ?? Colors.black,
+      borderRadius: BorderRadius.circular(radius ?? 15.r),
       padding: EdgeInsets.symmetric(
         horizontal: xPadding ?? 8.w,
         vertical: yPadding ?? 5.h,

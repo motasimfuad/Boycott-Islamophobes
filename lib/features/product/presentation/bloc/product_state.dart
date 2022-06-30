@@ -62,3 +62,21 @@ class FilteredProductListLoaded extends ProductState {
   @override
   List<Object> get props => [products];
 }
+
+class ProductCardDownloading extends ProductState {}
+
+class ProductCardDownloadError extends ProductState {
+  final String message;
+  const ProductCardDownloadError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class ProductCardDownloaded extends ProductState {
+  final ProductEntity product;
+  const ProductCardDownloaded({required this.product});
+
+  @override
+  List<Object> get props => [product];
+}

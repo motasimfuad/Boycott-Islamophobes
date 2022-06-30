@@ -47,8 +47,12 @@ dependencies:
   get_it: ^7.2.0
   go_router: ^4.0.0
   path_provider: ^2.0.11
-  screenshot: ^1.2.3
   shimmer: ^2.0.0
+
+  # for saving product card
+  screenshot: ^1.2.3
+  image_gallery_saver: ^1.7.1
+  permission_handler: ^10.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -62,6 +66,7 @@ flutter:
     - .env
     - assets/icons/
     - assets/backgrounds/
+    - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

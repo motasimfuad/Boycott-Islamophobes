@@ -14,6 +14,9 @@ class KCard extends StatelessWidget {
   final double? radius;
   final Color? color;
   final bool? hasShadow;
+  final bool? hasBorder;
+  final Color? borderColor;
+  final double? borderWidth;
   final Function()? onTap;
   final Widget? child;
   const KCard({
@@ -28,6 +31,9 @@ class KCard extends StatelessWidget {
     this.radius,
     this.color,
     this.hasShadow = true,
+    this.hasBorder = false,
+    this.borderColor,
+    this.borderWidth,
     this.onTap,
     this.child,
   }) : super(key: key);
@@ -50,6 +56,12 @@ class KCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius ?? 26.r),
           color: color ?? KColors.primary.shade200,
+          border: hasBorder == true
+              ? Border.all(
+                  color: borderColor ?? Colors.black,
+                  width: borderWidth ?? 3,
+                )
+              : null,
           boxShadow: hasShadow == true
               ? [
                   BoxShadow(
