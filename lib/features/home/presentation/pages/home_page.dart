@@ -1,11 +1,12 @@
-import 'package:boycott_islamophobes/core/constants/strings.dart';
-import 'package:boycott_islamophobes/features/company/domain/entities/company_entity.dart';
-import 'package:boycott_islamophobes/features/company/presentation/bloc/company_bloc.dart';
-import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:boycott_islamophobes/core/constants/strings.dart';
+import 'package:boycott_islamophobes/features/company/domain/entities/company_entity.dart';
+import 'package:boycott_islamophobes/features/company/presentation/bloc/company_bloc.dart';
+import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/router/app_router.dart';
@@ -19,6 +20,7 @@ import '../../../product/presentation/bloc/product_bloc.dart';
 import '../../../quote/domain/entities/quote_entity.dart';
 import '../../../quote/presentation/bloc/quote_bloc.dart';
 import '../widgets/home_page_card.dart';
+import '../widgets/quote_container.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -52,8 +54,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KColors.primary.shade100,
-      appBar: const KAppbar(
+      appBar: KAppbar(
         title: 'Boycott Islamophobes',
+        height: 60.h,
+        color: KColors.primary,
+        // elevation: 2,
+        content: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 35.h,
+              child: Image.asset('assets/images/logo.png'),
+            ),
+            SizedBox(width: 10.w),
+            const Text(
+              'Boycott Islamophobes',
+              style: TextStyle(
+                // color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         // primary: true,
@@ -63,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             top: 20.h,
             left: 20.w,
             right: 20.w,
-            // bottom: 100.h,
+            bottom: 100.h,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -83,6 +106,9 @@ class _HomePageState extends State<HomePage> {
                     if (state is QuoteListLoaded) {
                       quotes = state.quotes;
                     }
+                    if (state is QuoteListLoading) {
+                      return const QuoteContainer();
+                    }
 
                     return CarouselSlider(
                       options: CarouselOptions(
@@ -96,59 +122,8 @@ class _HomePageState extends State<HomePage> {
                       items: quotes.map((quote) {
                         return Builder(
                           builder: (BuildContext context) {
-                            return Container(
-                              // width: MediaQuery.of(context).size.width,
-                              // margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                              padding: EdgeInsets.symmetric(
-                                vertical: 5.h,
-                                horizontal: 5.w,
-                              ),
-                              child: KCard(
-                                xPadding: 5.w,
-                                yPadding: 5.w,
-                                width: double.infinity,
-                                color: Colors.white,
-                                child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 15.w),
-                                  decoration: const BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/backgrounds/quote_background.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        '" ${quote.quote} "',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: KColors.primary.shade600,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5.h,
-                                      ),
-                                      Text(
-                                        '- ${quote.by}',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.italic,
-                                          color: KColors.primary.shade400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                            return QuoteContainer(
+                              quote: quote,
                             );
                           },
                         );

@@ -1,11 +1,11 @@
 import 'package:boycott_islamophobes/core/constants/extentions.dart';
+import 'package:boycott_islamophobes/features/product/presentation/widgets/product_page_notice.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/k_badge.dart';
 import '../../../../core/widgets/k_card.dart';
 import '../../../../core/widgets/k_image_container.dart';
 import '../../domain/entities/product_entity.dart';
-import '../pages/product_page.dart';
 
 class ProductCardForDownload extends StatelessWidget {
   ProductEntity product;

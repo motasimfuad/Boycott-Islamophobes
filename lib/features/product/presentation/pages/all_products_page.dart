@@ -1,4 +1,5 @@
 import 'package:boycott_islamophobes/core/router/app_router.dart';
+import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
 import 'package:boycott_islamophobes/core/widgets/k_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,9 +30,8 @@ class _AllProductsPageState extends State<AllProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Blacklisted Products'),
-        elevation: 1,
+      appBar: const KAppbar(
+        title: 'Blacklisted Products',
       ),
       body: SafeArea(
         child: BlocBuilder<ProductBloc, ProductState>(

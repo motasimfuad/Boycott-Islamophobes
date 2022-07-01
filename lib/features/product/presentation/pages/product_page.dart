@@ -10,9 +10,9 @@ import 'package:boycott_islamophobes/features/product/presentation/bloc/product_
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/widgets/k_badge.dart';
-import '../../../../core/widgets/k_card.dart';
 import '../../../../core/widgets/k_snackbar.dart';
 import '../widgets/product_card_for_download.dart';
+import '../widgets/product_page_notice.dart';
 
 class ProductPage extends StatefulWidget {
   final int productId;
@@ -129,36 +129,11 @@ class _ProductPageState extends State<ProductPage> {
         children: [
           KImageContainer(
             imageUrl: product?.logoUrl ?? '',
-            height: 300.h,
+            height: 250.h,
           ),
           SizedBox(height: 15.h),
           const ProductPageNotice(
             radius: 500,
-          ),
-          KCard(
-            width: double.infinity,
-            hasShadow: false,
-            color: Colors.black,
-            xPadding: 20.w,
-            yPadding: 12.h,
-            title: 'Boycott this product',
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Boycott this product',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.sp,
-                  ),
-                ),
-                Icon(
-                  Icons.not_interested_rounded,
-                  color: Colors.white,
-                  size: 22.w,
-                ),
-              ],
-            ),
           ),
           SizedBox(height: 20.h),
           Text(
@@ -187,47 +162,34 @@ class _ProductPageState extends State<ProductPage> {
                 xPadding: 10.w,
               ),
             ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class ProductPageNotice extends StatelessWidget {
-  final String? title;
-  final double? radius;
-  const ProductPageNotice({
-    Key? key,
-    this.title,
-    this.radius,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return KCard(
-      width: double.infinity,
-      hasShadow: false,
-      color: Colors.black,
-      xPadding: 20.w,
-      yPadding: 12.h,
-      radius: radius ?? 0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title ?? 'Boycott this product',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w500,
-            ),
           ),
-          Icon(
-            Icons.not_interested_rounded,
-            color: Colors.red,
-            size: 22.w,
-          ),
+          SizedBox(height: 20.h),
+          (product?.reason != null && product!.reason!.isNotEmpty)
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Reason:',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(width: 8.w),
+                    Expanded(
+                      child: Text(
+                        product?.reason ?? '',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : const SizedBox(),
         ],
       ),
     );

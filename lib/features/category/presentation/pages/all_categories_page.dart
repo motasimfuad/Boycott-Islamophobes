@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
 import 'package:boycott_islamophobes/features/category/domain/entities/category_entity.dart';
 import 'package:boycott_islamophobes/features/category/presentation/bloc/category_bloc.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +31,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Categories'),
-        elevation: 1,
-        backgroundColor: Colors.black,
-      ),
+      appBar: const KAppbar(title: 'Categories'),
       body: SafeArea(
         child: BlocBuilder<CategoryBloc, CategoryState>(
           builder: (context, state) {
