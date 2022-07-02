@@ -11,5 +11,5 @@ class InfoEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [name, logoUrl, logoHqUrl];
+  List<Object> get props => [name, logoUrl, logoHqUrl];
 }
