@@ -1,6 +1,8 @@
 import 'package:boycott_islamophobes/core/constants/colors.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
+import 'package:boycott_islamophobes/features/info/presentation/bloc/info_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/widgets/k_snackbar.dart';
@@ -29,17 +31,46 @@ class InfoPage extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      ConstrainedBox(
-                        constraints: BoxConstraints(maxHeight: 250.h),
-                        child: FittedBox(
-                          clipBehavior: Clip.antiAlias,
-                          fit: BoxFit.contain,
-                          child: GestureDetector(
-                            onLongPress: () {
-                              print('tapped');
-                            },
-                            child: Image.asset(
-                              'assets/images/logo.png',
+                      BlocListener<InfoBloc, InfoState>(
+                        listener: (context, state) {
+                          if (state is LogoDownloading) {
+                            kSnackBar(
+                              context: context,
+                              message: 'Downloading...',
+                              showSideIndicator: false,
+                              showProgress: true,
+                              durationSeconds: 4,
+                              icon: null,
+                            );
+                          }
+                          if (state is LogoDownloaded) {
+                            kSnackBar(
+                              context: context,
+                              message: 'Logo Downloaded!',
+                            );
+                          }
+                          if (state is LogoDownloadError) {
+                            kSnackBar(
+                              context: context,
+                              message: state.message,
+                            );
+                          }
+                        },
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(maxHeight: 250.h),
+                          child: FittedBox(
+                            clipBehavior: Clip.antiAlias,
+                            fit: BoxFit.contain,
+                            child: GestureDetector(
+                              onLongPress: () {
+                                print('tapped');
+                                context
+                                    .read<InfoBloc>()
+                                    .add(DownloadHQLogoEvent());
+                              },
+                              child: Image.asset(
+                                'assets/images/logo.png',
+                              ),
                             ),
                           ),
                         ),

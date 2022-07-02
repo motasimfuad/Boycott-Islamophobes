@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'features/category/presentation/bloc/category_bloc.dart';
 import 'features/country/presentation/bloc/country_bloc.dart';
 import 'features/faq/presentation/bloc/faq_bloc.dart';
+import 'features/info/presentation/bloc/info_bloc.dart';
 import 'features/product/presentation/bloc/product_bloc.dart';
 import 'features/quote/presentation/bloc/quote_bloc.dart';
 
@@ -37,6 +38,9 @@ class BlocProviders extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<FaqBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<InfoBloc>(),
         ),
       ],
       child: child,

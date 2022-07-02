@@ -64,21 +64,6 @@ class _ProductPageState extends State<ProductPage> {
                   product: product!,
                 ),
               );
-          // screenshotController
-          //     .captureFromWidget(
-          //   ProductCardForDownload(
-          //     product: product!,
-          //   ),
-          // )
-          //     .then((capturedImage) async {
-          //   // await [Permission.storage].request();
-
-          //   ImageGallerySaver.saveImage(
-          //     capturedImage,
-          //     name: "${product?.name} - Boycott Islamophobes",
-          //     quality: 100,
-          //   );
-          // });
         },
       ),
       body: BlocConsumer<ProductBloc, ProductState>(
@@ -93,7 +78,7 @@ class _ProductPageState extends State<ProductPage> {
               showSideIndicator:
                   (state is ProductCardDownloading) ? false : true,
               showProgress: (state is ProductCardDownloading) ? true : false,
-              durationSeconds: 4,
+              durationSeconds: 3,
               icon: (state is ProductCardDownloading)
                   ? null
                   : Icons.check_circle_outline_rounded,

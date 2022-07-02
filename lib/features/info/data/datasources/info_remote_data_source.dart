@@ -3,13 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/info_model.dart';
 
-abstract class InfoRemoteDatasource {
+abstract class InfoRemoteDataSource {
   Future<InfoModel> getAppInfo();
 }
 
-class InfoRemoteDatasourceImpl implements InfoRemoteDatasource {
+class InfoRemoteDataSourceImpl implements InfoRemoteDataSource {
   final FirebaseFirestore firestore;
-  InfoRemoteDatasourceImpl(this.firestore);
+  InfoRemoteDataSourceImpl(this.firestore);
 
   @override
   Future<InfoModel> getAppInfo() async {

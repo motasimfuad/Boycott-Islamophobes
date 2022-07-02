@@ -18,6 +18,8 @@ import 'package:boycott_islamophobes/features/country/domain/usecases/get_countr
 import 'package:boycott_islamophobes/features/country/presentation/bloc/country_bloc.dart';
 import 'package:boycott_islamophobes/features/faq/domain/usecases/get_all_faqs_usecase.dart';
 import 'package:boycott_islamophobes/features/faq/presentation/bloc/faq_bloc.dart';
+import 'package:boycott_islamophobes/features/info/domain/usecases/get_app_info_usecase.dart';
+import 'package:boycott_islamophobes/features/info/presentation/bloc/info_bloc.dart';
 import 'package:boycott_islamophobes/features/product/data/datasources/product_remote_data_source.dart';
 import 'package:boycott_islamophobes/features/product/data/repositories/product_repository_impl.dart';
 import 'package:boycott_islamophobes/features/product/domain/repositories/product_repository.dart';
@@ -30,6 +32,9 @@ import 'package:get_it/get_it.dart';
 import 'features/faq/data/datasources/faq_remote_data_source.dart';
 import 'features/faq/data/repositories/faq_repository_impl.dart';
 import 'features/faq/domain/repositories/faq_repository.dart';
+import 'features/info/data/datasources/info_remote_data_source.dart';
+import 'features/info/data/repositories/info_repository_impl.dart';
+import 'features/info/domain/repositories/info_repository.dart';
 import 'features/product/domain/usecases/get_all_products_usecase.dart';
 import 'features/product/domain/usecases/get_filtered_products_usecase.dart';
 import 'features/product/domain/usecases/get_product_usecase.dart';
@@ -83,6 +88,12 @@ Future<void> init() async {
     ),
   );
 
+  getIt.registerFactory(
+    () => InfoBloc(
+      getAppInfo: getIt(),
+    ),
+  );
+
   // usecases
   // --- products
   getIt.registerLazySingleton(() => GetAllProductsUsecase(getIt()));
@@ -101,6 +112,8 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => GetAllQuotesUsecase(getIt()));
   // --- faqs
   getIt.registerLazySingleton(() => GetAllFaqsUsecase(getIt()));
+  // --- info
+  getIt.registerLazySingleton(() => GetAppInfoUsecase(getIt()));
 
   // repositories
   getIt.registerLazySingleton<ProductRepository>(
@@ -113,7 +126,12 @@ Future<void> init() async {
       () => CompanyRepositoryImpl(getIt()));
   getIt.registerLazySingleton<QuoteRepository>(
       () => QuoteRepositoryImpl(getIt()));
-  getIt.registerLazySingleton<FaqRepository>(() => FaqRepositoryImpl(getIt()));
+  getIt.registerLazySingleton<FaqRepository>(
+    () => FaqRepositoryImpl(getIt()),
+  );
+  getIt.registerLazySingleton<InfoRepository>(
+    () => InfoRepositoryImpl(getIt()),
+  );
 
   //! core
   //! data
@@ -130,6 +148,8 @@ Future<void> init() async {
       () => QuoteRemoteDataSourceImpl(getIt()));
   getIt.registerLazySingleton<FaqRemoteDataSource>(
       () => FaqRemoteDataSourceImpl(getIt()));
+  getIt.registerLazySingleton<InfoRemoteDataSource>(
+      () => InfoRemoteDataSourceImpl(getIt()));
 
   //! external
   getIt.registerLazySingleton(() => FirebaseFirestore.instance);

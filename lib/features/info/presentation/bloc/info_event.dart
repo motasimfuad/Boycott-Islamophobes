@@ -7,4 +7,4 @@ abstract class InfoEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class DownloadHQLogo extends InfoEvent {}
+class DownloadHQLogoEvent extends InfoEvent {}

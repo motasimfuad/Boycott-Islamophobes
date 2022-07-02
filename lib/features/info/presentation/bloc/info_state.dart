@@ -9,4 +9,14 @@ abstract class InfoState extends Equatable {
 
 class InfoInitial extends InfoState {}
 
+class LogoDownloading extends InfoState {}
+
 class LogoDownloaded extends InfoState {}
+
+class LogoDownloadError extends InfoState {
+  final String message;
+  const LogoDownloadError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
