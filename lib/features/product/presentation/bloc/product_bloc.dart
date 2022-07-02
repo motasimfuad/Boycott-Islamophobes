@@ -79,7 +79,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           );
         });
 
-        print('ok');
         emit(ProductCardDownloaded(product: event.product));
       }
     });

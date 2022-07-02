@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/widgets/k_card.dart';
 
-class FaqHeader extends StatelessWidget {
-  const FaqHeader({
+class FaqNotice extends StatelessWidget {
+  const FaqNotice({
     Key? key,
   }) : super(key: key);
 
@@ -40,7 +40,7 @@ class FaqHeader extends StatelessWidget {
             ),
             SizedBox(height: 5.h),
             Text(
-              'Dear brothers and sisters, Jazakallahu Khairan for taking part in the movement of boycotting those who defame our Deen and dare to belittle Rasulullah (ﷺ). \nMay Allah accept all of our efforts and keep us in the straight path till our last breath.',
+              'Dear brothers and sisters, Jazakallahu Khairan for taking part in the movement of boycotting those who oppose our Deen and dare to defame Rasulullah (ﷺ). \nMay Allah accept all of our efforts and keep us in the straight path till our last breath.',
               style: TextStyle(
                 color: KColors.primary.shade800,
                 fontSize: 17.sp,

@@ -1,6 +1,7 @@
 import 'package:boycott_islamophobes/features/faq/presentation/pages/faq_page.dart';
 import 'package:boycott_islamophobes/features/home/presentation/pages/home_page.dart';
 import 'package:boycott_islamophobes/features/search/presentation/pages/search_page.dart';
+import 'package:boycott_islamophobes/features/info/presentation/pages/info_page.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,7 @@ class _BottomNavState extends State<BottomNav> {
     const SearchPage(),
     // router.goNamed(AppRouter.searchPage),
     const FaqPage(),
-    Container(),
+    const InfoPage(),
   ];
 
   @override
@@ -65,9 +66,9 @@ class _BottomNavState extends State<BottomNav> {
           FloatingNavbarItem(
             icon: Icons.question_answer_outlined,
           ),
-          FloatingNavbarItem(
-            icon: Icons.settings,
-          ),
+          // FloatingNavbarItem(
+          //   icon: Icons.settings,
+          // ),
         ],
       ),
     );

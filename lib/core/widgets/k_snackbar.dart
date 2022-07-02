@@ -21,6 +21,7 @@ kSnackBar({
   String? actionButtonText,
   Color? iconColor,
   FlashPosition? position,
+  bool? showIcon = true,
 }) {
   showFlash(
     context: context,
@@ -61,11 +62,13 @@ kSnackBar({
             horizontal: 15.w,
             vertical: 15.h,
           ),
-          icon: Icon(
-            icon ?? generateIcon(type),
-            color: iconColor ?? Colors.white,
-            size: 26.w,
-          ),
+          icon: showIcon == true
+              ? Icon(
+                  icon ?? generateIcon(type),
+                  color: iconColor ?? Colors.white,
+                  size: 26.w,
+                )
+              : null,
           primaryAction: showActionButton == true || isDismissible == false
               ? GestureDetector(
                   onTap: onActionButtonTap,

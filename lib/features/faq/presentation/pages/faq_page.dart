@@ -1,5 +1,6 @@
 import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
+import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
 import 'package:boycott_islamophobes/core/widgets/k_card.dart';
 import 'package:boycott_islamophobes/core/widgets/k_shimmer.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../bloc/faq_bloc.dart';
-import '../widgets/faq_header.dart';
+import '../widgets/faq_notice.dart';
 
 class FaqPage extends StatefulWidget {
   const FaqPage({Key? key}) : super(key: key);
@@ -32,7 +33,13 @@ class _FaqPageState extends State<FaqPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KColors.primary.shade100,
-      appBar: const KAppbar(title: 'FAQs'),
+      appBar: KAppbar(
+        title: 'FAQs',
+        actionBtn: Icons.info_outline_rounded,
+        onActionPress: () {
+          router.pushNamed(AppRouter.infoPage);
+        },
+      ),
       body: SingleChildScrollView(
         primary: true,
         physics: const ClampingScrollPhysics(),
@@ -46,7 +53,7 @@ class _FaqPageState extends State<FaqPage> {
                 right: 20.w,
                 top: 20.h,
               ),
-              child: const FaqHeader(),
+              child: const FaqNotice(),
             ),
             BlocBuilder<FaqBloc, FaqState>(
               builder: (context, state) {

@@ -3,6 +3,7 @@ import 'package:boycott_islamophobes/features/category/presentation/pages/all_ca
 import 'package:boycott_islamophobes/features/category/presentation/pages/category_page.dart';
 import 'package:boycott_islamophobes/features/company/presentation/pages/all_companies_page.dart';
 import 'package:boycott_islamophobes/features/country/presentation/pages/all_countries_page.dart';
+import 'package:boycott_islamophobes/features/info/presentation/pages/info_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/all_products_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/product_page.dart';
 import 'package:boycott_islamophobes/features/search/presentation/pages/search_page.dart';
@@ -19,7 +20,7 @@ class AppRouter {
   static const String allCompaniesPage = 'companies';
   static const String searchPage = 'search';
   static const String faqPage = 'faqPage';
-  static const String settingsPage = 'settingsPage';
+  static const String infoPage = 'info';
 }
 
 class RouterParams {
@@ -122,6 +123,18 @@ final router = GoRouter(
           child: const AllCompaniesPage(),
         );
       },
-    )
+    ),
+
+    // info
+    GoRoute(
+      name: AppRouter.infoPage,
+      path: '/${AppRouter.infoPage}',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: const InfoPage(),
+        );
+      },
+    ),
   ],
 );

@@ -7,6 +7,8 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
   final double? elevation;
   final Widget? content;
   final Color? color;
+  final IconData? actionBtn;
+  final Function()? onActionPress;
   const KAppbar({
     Key? key,
     required this.title,
@@ -14,6 +16,8 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.elevation,
     this.content,
     this.color,
+    this.actionBtn,
+    this.onActionPress,
   }) : super(key: key);
 
   @override
@@ -28,27 +32,14 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: color ?? Colors.black,
       centerTitle: true,
       toolbarHeight: height ?? 55.h,
-      // leading: router.navigator == null
-      //     ? null
-      //     : GestureDetector(
-      //         onTap: () {
-      //           router.pop();
-      //         },
-      //         child: Icon(
-      //           Icons.arrow_back_ios_rounded,
-      //           size: 20.h,
-      //         ),
-      //       ),
       actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.signal_wifi_off_rounded),
-          iconSize: 18.h,
-          tooltip: 'Internet Connection Status',
-        ),
-        SizedBox(
-          width: 10.w,
-        ),
+        actionBtn != null
+            ? IconButton(
+                onPressed: onActionPress,
+                icon: Icon(actionBtn),
+                padding: EdgeInsets.only(right: 20.w),
+              )
+            : const SizedBox(),
       ],
     );
   }
