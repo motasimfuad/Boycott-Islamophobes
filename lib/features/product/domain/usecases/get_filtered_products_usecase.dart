@@ -12,6 +12,9 @@ class GetFilteredProductsUsecase
   @override
   Future<Either<Failure, List<ProductEntity>>> call(Params params) async {
     return await productRepository.getFilteredProducts(
-        params.id, params.searchText);
+      categoryId: params.id,
+      countryId: params.id,
+      searchText: params.searchText,
+    );
   }
 }

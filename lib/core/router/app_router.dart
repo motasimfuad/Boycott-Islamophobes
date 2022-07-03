@@ -3,6 +3,7 @@ import 'package:boycott_islamophobes/features/category/presentation/pages/all_ca
 import 'package:boycott_islamophobes/features/category/presentation/pages/category_page.dart';
 import 'package:boycott_islamophobes/features/company/presentation/pages/all_companies_page.dart';
 import 'package:boycott_islamophobes/features/country/presentation/pages/all_countries_page.dart';
+import 'package:boycott_islamophobes/features/country/presentation/pages/country_page.dart';
 import 'package:boycott_islamophobes/features/info/presentation/pages/info_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/all_products_page.dart';
 import 'package:boycott_islamophobes/features/product/presentation/pages/product_page.dart';
@@ -15,6 +16,7 @@ class AppRouter {
   static const String allProductsPage = 'products';
   static const String productPage = 'product';
   static const String allCountriesPage = 'countries';
+  static const String countryPage = 'country';
   static const String allCategoriesPage = 'categories';
   static const String categoryPage = 'category';
   static const String allCompaniesPage = 'companies';
@@ -66,9 +68,10 @@ final router = GoRouter(
             path: ':${RouterParams.id}',
             pageBuilder: (context, state) {
               final productId = state.params[RouterParams.id];
+              print('productPage key ------ ${state.pageKey}');
 
               return MaterialPage(
-                key: state.pageKey,
+                // key: state.pageKey,
                 child: ProductPage(
                   productId: int.parse(productId.toString()),
                 ),
@@ -111,6 +114,19 @@ final router = GoRouter(
           child: const AllCountriesPage(),
         );
       },
+      routes: [
+        GoRoute(
+            name: AppRouter.countryPage,
+            path: ':${RouterParams.id}',
+            pageBuilder: (context, state) {
+              final countryId = state.params[RouterParams.id];
+              print('countryPage key ------ ${state.pageKey}');
+              return MaterialPage(
+                // key: state.pageKey,
+                child: CountryPage(id: int.parse(countryId.toString())),
+              );
+            }),
+      ],
     ),
 
     // companies

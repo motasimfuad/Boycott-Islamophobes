@@ -9,6 +9,7 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Color? color;
   final IconData? actionBtn;
   final Function()? onActionPress;
+  final PreferredSizeWidget? bottom;
   const KAppbar({
     Key? key,
     required this.title,
@@ -18,6 +19,7 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.color,
     this.actionBtn,
     this.onActionPress,
+    this.bottom,
   }) : super(key: key);
 
   @override
@@ -41,6 +43,7 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
               )
             : const SizedBox(),
       ],
+      bottom: bottom,
     );
   }
 

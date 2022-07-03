@@ -9,6 +9,7 @@ import 'package:boycott_islamophobes/features/product/domain/entities/product_en
 import 'package:boycott_islamophobes/features/product/presentation/bloc/product_bloc.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/k_badge.dart';
 import '../../../../core/widgets/k_snackbar.dart';
 import '../widgets/product_card_for_download.dart';
@@ -141,10 +142,18 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
               SizedBox(width: 8.w),
-              KBadge(
-                badgeText: product?.countryName ?? 'Not specified',
-                textSize: 14.sp,
-                xPadding: 10.w,
+              GestureDetector(
+                onTap: () {
+                  router.pushNamed(
+                    AppRouter.countryPage,
+                    params: {RouterParams.id: product!.countryId.toString()},
+                  );
+                },
+                child: KBadge(
+                  badgeText: product?.countryName ?? 'Not specified',
+                  textSize: 14.sp,
+                  xPadding: 10.w,
+                ),
               ),
             ],
           ),

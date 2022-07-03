@@ -6,8 +6,11 @@ import '../../../../core/error/exceptions.dart';
 abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
   Future<ProductModel> getProduct(int id);
-  Future<List<ProductModel>> getFilteredProducts(
-      int? categoryId, String? searchText);
+  Future<List<ProductModel>> getFilteredProducts({
+    int? categoryId,
+    int? countryId,
+    String? searchText,
+  });
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -35,11 +38,13 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   }
 
   @override
-  Future<List<ProductModel>> getFilteredProducts(
-      int? categoryId, String? searchText) async {
-    print('searchText $searchText');
+  Future<List<ProductModel>> getFilteredProducts({
+    int? categoryId,
+    int? countryId,
+    String? searchText,
+  }) async {
     QuerySnapshot<Map<String, dynamic>> products;
-    if (searchText != null) {
+    if (searchText != null && categoryId == null && countryId == null) {
       products = await firestore
           .collection('products')
           .where(
@@ -53,15 +58,20 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
                         1),
           )
           .get();
-    } else {
+    } else if (categoryId != null && searchText == null && countryId == null) {
       products = await firestore
           .collection('products')
           .where('categoryId', isEqualTo: categoryId)
           .get();
+    } else {
+      products = await firestore
+          .collection('products')
+          .where('countryId', isEqualTo: countryId)
+          .get();
     }
+
     List<ProductModel> productList =
         products.docs.map((e) => ProductModel.fromMap(e.data())).toList();
-    print('productList $productList');
     return productList;
   }
 }

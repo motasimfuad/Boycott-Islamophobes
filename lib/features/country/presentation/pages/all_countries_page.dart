@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
 import 'package:boycott_islamophobes/core/widgets/k_item_card.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,14 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                             imageUrl: country.flagUrl,
                             imageFit: BoxFit.cover,
                             padding: 0,
+                            onTap: () {
+                              router.pushNamed(
+                                AppRouter.countryPage,
+                                params: {
+                                  RouterParams.id: country.id.toString()
+                                },
+                              );
+                            },
                           );
                         },
                       ),

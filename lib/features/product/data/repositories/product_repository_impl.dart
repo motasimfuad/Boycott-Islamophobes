@@ -31,11 +31,18 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> getFilteredProducts(
-      int? categoryId, String? searchText) async {
+  Future<Either<Failure, List<ProductEntity>>> getFilteredProducts({
+    int? categoryId,
+    int? countryId,
+    String? searchText,
+  }) async {
     try {
       final List<ProductEntity> products =
-          await productDataSource.getFilteredProducts(categoryId, searchText);
+          await productDataSource.getFilteredProducts(
+        categoryId: categoryId,
+        searchText: searchText,
+        countryId: countryId,
+      );
       return Right(products);
     } on RemoteException {
       return Left(RemoteFailure());
