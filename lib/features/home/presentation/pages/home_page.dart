@@ -56,9 +56,9 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: KColors.primary.shade100,
       appBar: KAppbar(
         title: 'Boycott Islamophobes',
-        height: 60.h,
-        color: KColors.primary,
-        // elevation: 2,
+        height: 65.h,
+        color: KColors.primary.shade100,
+        elevation: 0,
         content: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -68,11 +68,12 @@ class _HomePageState extends State<HomePage> {
               child: Image.asset('assets/images/logo.png'),
             ),
             SizedBox(width: 10.w),
-            const Text(
+            Text(
               'Boycott Islamophobes',
               style: TextStyle(
-                // color: Colors.black,
+                color: KColors.primary,
                 fontWeight: FontWeight.bold,
+                fontSize: 22.sp,
               ),
             ),
           ],

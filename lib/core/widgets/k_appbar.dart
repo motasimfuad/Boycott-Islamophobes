@@ -7,6 +7,7 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
   final double? elevation;
   final Widget? content;
   final Color? color;
+  final Color? titleColor;
   final IconData? actionBtn;
   final Function()? onActionPress;
   final PreferredSizeWidget? bottom;
@@ -17,6 +18,7 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.elevation,
     this.content,
     this.color,
+    this.titleColor,
     this.actionBtn,
     this.onActionPress,
     this.bottom,
@@ -29,7 +31,12 @@ class KAppbar extends StatelessWidget implements PreferredSizeWidget {
           ? Container(
               child: content,
             )
-          : Text(title),
+          : Text(
+              title,
+              style: TextStyle(
+                color: titleColor,
+              ),
+            ),
       elevation: elevation ?? 1,
       backgroundColor: color ?? Colors.black,
       centerTitle: true,
