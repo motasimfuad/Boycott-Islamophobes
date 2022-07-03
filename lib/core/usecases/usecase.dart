@@ -15,9 +15,13 @@ class NoParams extends Equatable {
 //! check if the usecase is called with the correct params
 class Params extends Equatable {
   final int? id;
+  final int? categoryId;
+  final int? countryId;
   final String? searchText;
   const Params({
     this.id,
+    this.categoryId,
+    this.countryId,
     this.searchText,
   });
   @override

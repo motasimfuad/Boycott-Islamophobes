@@ -12,8 +12,8 @@ class GetFilteredProductsUsecase
   @override
   Future<Either<Failure, List<ProductEntity>>> call(Params params) async {
     return await productRepository.getFilteredProducts(
-      categoryId: params.id,
-      countryId: params.id,
+      categoryId: params.categoryId,
+      countryId: params.countryId,
       searchText: params.searchText,
     );
   }

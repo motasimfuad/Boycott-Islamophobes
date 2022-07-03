@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +34,9 @@ class _CountryPageState extends State<CountryPage>
   @override
   void initState() {
     context.read<CountryBloc>().add(GetCountryEvent(countryId: widget.id));
-    context.read<ProductBloc>().add(GetAllProductsEvent());
+    context
+        .read<ProductBloc>()
+        .add(GetFilteredProductsEvent(countryId: widget.id));
     super.initState();
   }
 
@@ -75,7 +78,7 @@ class _CountryPageState extends State<CountryPage>
                     image: NetworkImage(country?.flagUrl ?? ''),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.5),
+                      Colors.black.withOpacity(0.7),
                       BlendMode.darken,
                     ),
                   ),
@@ -96,16 +99,58 @@ class _CountryPageState extends State<CountryPage>
                       ],
                     ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        country?.name ?? '',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.sp,
-                          fontWeight: FontWeight.bold,
+                      KImageContainer(
+                        imageUrl: country?.flagUrl ?? '',
+                        height: 55.w,
+                        width: 80.w,
+                        radius: 15.r,
+                        padding: 0,
+                        imageFit: BoxFit.cover,
+                        // hasBorder: true,
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              country?.name ?? '',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 10.h),
+                            BlocBuilder<ProductBloc, ProductState>(
+                              builder: (context, state) {
+                                String? totalProducts;
+
+                                if (state is FilteredProductListLoading) {
+                                  totalProducts = '...';
+                                }
+                                if (state is FilteredProductListLoaded) {
+                                  totalProducts =
+                                      state.products.length.toString();
+                                }
+
+                                return Text(
+                                  'Blacklisted Products ($totalProducts)',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                    // fontStyle: FontStyle.italic,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -140,12 +185,12 @@ class _CountryPageState extends State<CountryPage>
               children: [
                 BlocBuilder<ProductBloc, ProductState>(
                   builder: (context, state) {
-                    if (state is ProductListLoaded) {
+                    if (state is FilteredProductListLoaded) {
                       products = state.products;
                     }
 
                     return CountryAllProductsTab(
-                      isLoading: (state is ProductListLoading),
+                      isLoading: (state is FilteredProductListLoading),
                       products: products,
                     );
                   },
@@ -210,6 +255,14 @@ class CountryDetailsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: KColors.primary.shade100,
+      child: const Center(
+        child: Text(
+          'Details will be added on \nupcoming updates InshaAllah!',
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 }

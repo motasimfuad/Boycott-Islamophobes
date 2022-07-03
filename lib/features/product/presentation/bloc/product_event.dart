@@ -16,9 +16,11 @@ class GetProductEvent extends ProductEvent {
 
 class GetFilteredProductsEvent extends ProductEvent {
   final int? categoryId;
+  final int? countryId;
   final String? searchText;
   const GetFilteredProductsEvent({
     this.categoryId,
+    this.countryId,
     this.searchText,
   });
 }

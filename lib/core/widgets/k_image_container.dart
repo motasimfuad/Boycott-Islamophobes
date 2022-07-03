@@ -8,6 +8,7 @@ import 'package:boycott_islamophobes/core/constants/colors.dart';
 class KImageContainer extends StatelessWidget {
   final String imageUrl;
   final double? height;
+  final double? width;
   final double? radius;
   final double? padding;
   final String? fallBackText;
@@ -17,6 +18,7 @@ class KImageContainer extends StatelessWidget {
     Key? key,
     required this.imageUrl,
     this.height,
+    this.width,
     this.radius,
     this.padding,
     this.fallBackText,
@@ -32,7 +34,7 @@ class KImageContainer extends StatelessWidget {
       child: Container(
         height: height ?? 100.h,
         padding: EdgeInsets.all(padding ?? 15.w),
-        width: double.infinity,
+        width: width ?? double.infinity,
         decoration: BoxDecoration(
           color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(radius ?? 20.r),

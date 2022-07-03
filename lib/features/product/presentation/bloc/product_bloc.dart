@@ -51,7 +51,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       if (event is GetFilteredProductsEvent) {
         emit(FilteredProductListLoading());
         final either = await getFilteredProducts(Params(
-          id: event.categoryId,
+          categoryId: event.categoryId,
+          countryId: event.countryId,
           searchText: event.searchText,
         ));
         either.fold(

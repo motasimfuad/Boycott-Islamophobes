@@ -1,5 +1,6 @@
 import 'package:boycott_islamophobes/bloc_providers.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
+import 'package:boycott_islamophobes/core/services/notification_service.dart';
 import 'package:boycott_islamophobes/dependency_injection.dart' as di;
 import 'package:boycott_islamophobes/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,6 +17,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await di.init();
+  await NotificationService.initialize();
 
   runApp(const MyApp());
 }
