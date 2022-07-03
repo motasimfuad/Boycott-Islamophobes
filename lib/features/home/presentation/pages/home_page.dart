@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: KColors.primary.shade100,
       appBar: KAppbar(
         title: 'Boycott Islamophobes',
-        height: 65.h,
+        height: 85.h,
         color: KColors.primary.shade100,
         elevation: 0,
         content: Row(
@@ -64,18 +64,19 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
-              height: 35.h,
+              height: 50.h,
               child: Image.asset('assets/images/logo.png'),
             ),
-            SizedBox(width: 10.w),
-            Text(
-              'Boycott Islamophobes',
-              style: TextStyle(
-                color: KColors.primary,
-                fontWeight: FontWeight.bold,
-                fontSize: 22.sp,
-              ),
-            ),
+            // SizedBox(width: 10.w),
+            // Text(
+            //   'Boycott Islamophobes',
+            //   style: TextStyle(
+            //     // color: KColors.primary,
+            //     color: Colors.black,
+            //     fontWeight: FontWeight.bold,
+            //     fontSize: 22.sp,
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Container(
           padding: EdgeInsets.only(
-            top: 20.h,
+            top: 5.h,
             left: 20.w,
             right: 20.w,
             bottom: 100.h,
@@ -175,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                   gradient: LinearGradient(
                     colors: [
                       KColors.primary,
-                      KColors.primary.shade600,
+                      KColors.primary.shade700,
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,

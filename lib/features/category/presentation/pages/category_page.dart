@@ -2,6 +2,7 @@ import 'package:boycott_islamophobes/core/constants/colors.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/core/widgets/k_grid.dart';
 import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
+import 'package:boycott_islamophobes/core/widgets/k_loading_indicator.dart';
 import 'package:boycott_islamophobes/core/widgets/k_shimmer.dart';
 import 'package:boycott_islamophobes/features/category/domain/entities/category_entity.dart';
 import 'package:boycott_islamophobes/features/product/presentation/widgets/product_card.dart';
@@ -77,7 +78,7 @@ class _CategoryPageState extends State<CategoryPage> {
             }
             if (state is CategoriesLoading) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: KLoadingIndicator(),
               );
             } else {
               return Row(

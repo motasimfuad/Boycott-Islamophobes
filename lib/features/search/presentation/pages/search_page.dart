@@ -12,6 +12,7 @@ import 'package:boycott_islamophobes/core/widgets/k_text_field.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 import 'package:boycott_islamophobes/features/product/presentation/widgets/product_card.dart';
 
+import '../../../../core/widgets/k_loading_indicator.dart';
 import '../../../product/presentation/bloc/product_bloc.dart';
 
 class SearchPage extends StatefulWidget {
@@ -47,7 +48,6 @@ class _SearchPageState extends State<SearchPage> {
                   '${products.length} blacklisted items found for " $searchText "',
               position: FlashPosition.top,
               durationSeconds: 4,
-              // type: AlertType.success,
             );
           }
           if (state is FilteredProductListLoading) {
@@ -58,7 +58,7 @@ class _SearchPageState extends State<SearchPage> {
         builder: (context, state) {
           if (state is FilteredProductListLoading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: KLoadingIndicator(),
             );
           }
 
@@ -94,7 +94,8 @@ class _SearchPageState extends State<SearchPage> {
                     height: 15.h,
                   ),
                   ((state is FilteredProductListLoaded ||
-                              state is ProductLoaded) &&
+                              state is ProductLoaded ||
+                              state is ProductCardDownloaded) &&
                           products.isNotEmpty)
                       ? Container(
                           padding: EdgeInsets.only(

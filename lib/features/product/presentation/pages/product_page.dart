@@ -11,6 +11,7 @@ import 'package:boycott_islamophobes/features/product/presentation/bloc/product_
 import '../../../../core/constants/colors.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/widgets/k_badge.dart';
+import '../../../../core/widgets/k_loading_indicator.dart';
 import '../../../../core/widgets/k_snackbar.dart';
 import '../widgets/product_card_for_download.dart';
 import '../widgets/product_page_notice.dart';
@@ -89,7 +90,7 @@ class _ProductPageState extends State<ProductPage> {
         builder: (context, state) {
           if (state is ProductLoading) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: KLoadingIndicator(),
             );
           } else if (state is ProductLoadingError) {
             return const Center(
