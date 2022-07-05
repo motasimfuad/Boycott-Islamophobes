@@ -1,4 +1,4 @@
-import 'package:boycott_islamophobes/core/constants/extentions.dart';
+import 'package:boycott_islamophobes/core/constants/extensions.dart';
 import 'package:boycott_islamophobes/features/product/presentation/widgets/product_page_notice.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +8,8 @@ import '../../../../core/widgets/k_image_container.dart';
 import '../../domain/entities/product_entity.dart';
 
 class ProductCardForDownload extends StatelessWidget {
-  ProductEntity product;
-  ProductCardForDownload({
+  final ProductEntity product;
+  const ProductCardForDownload({
     Key? key,
     required this.product,
   }) : super(key: key);

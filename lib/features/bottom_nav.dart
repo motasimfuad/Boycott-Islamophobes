@@ -47,6 +47,7 @@ class _BottomNavState extends State<BottomNav> {
           //   router.pushNamed(AppRouter.searchPage);
           // }
         },
+        backgroundColor: Colors.black,
         selectedBackgroundColor: KColors.primary,
         selectedItemColor: Colors.white,
         padding: EdgeInsets.only(

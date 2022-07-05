@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screenshot/screenshot.dart';
 
-import 'package:boycott_islamophobes/core/constants/extentions.dart';
+import 'package:boycott_islamophobes/core/constants/extensions.dart';
 import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 import 'package:boycott_islamophobes/features/product/presentation/bloc/product_bloc.dart';

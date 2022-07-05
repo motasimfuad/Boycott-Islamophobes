@@ -63,7 +63,6 @@ class InfoPage extends StatelessWidget {
                             fit: BoxFit.contain,
                             child: GestureDetector(
                               onLongPress: () {
-                                print('tapped');
                                 context
                                     .read<InfoBloc>()
                                     .add(DownloadHQLogoEvent());

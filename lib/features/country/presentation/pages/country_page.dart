@@ -30,6 +30,7 @@ class _CountryPageState extends State<CountryPage>
     with TickerProviderStateMixin {
   CountryEntity? country;
   List<ProductEntity> products = [];
+  String? totalProducts;
 
   @override
   void initState() {
@@ -129,8 +130,6 @@ class _CountryPageState extends State<CountryPage>
                             SizedBox(height: 10.h),
                             BlocBuilder<ProductBloc, ProductState>(
                               builder: (context, state) {
-                                String? totalProducts;
-
                                 if (state is FilteredProductListLoading) {
                                   totalProducts = '...';
                                 }
@@ -218,32 +217,39 @@ class CountryAllProductsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: KColors.primary.shade100,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: KGrid(
-                isLoading: isLoading,
-                items: products,
-                itemBuilder: (context, index) {
-                  final product = products[index];
+      child: (products.isNotEmpty)
+          ? Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: KGrid(
+                      isLoading: isLoading,
+                      items: products,
+                      itemBuilder: (context, index) {
+                        final product = products[index];
 
-                  return ProductCard(
-                    product: product,
-                    onTap: () {
-                      router.pushNamed(
-                        AppRouter.productPage,
-                        params: {RouterParams.id: product.id.toString()},
-                      );
-                    },
-                  );
-                },
+                        return ProductCard(
+                          product: product,
+                          onTap: () {
+                            router.pushNamed(
+                              AppRouter.productPage,
+                              params: {RouterParams.id: product.id.toString()},
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                )
+              ],
+            )
+          : const Center(
+              child: Text(
+                'No product found!',
+                textAlign: TextAlign.center,
               ),
             ),
-          ),
-        ],
-      ),
     );
   }
 }

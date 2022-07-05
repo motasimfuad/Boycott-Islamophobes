@@ -68,7 +68,6 @@ final router = GoRouter(
             path: ':${RouterParams.id}',
             pageBuilder: (context, state) {
               final productId = state.params[RouterParams.id];
-              print('productPage key ------ ${state.pageKey}');
 
               return MaterialPage(
                 // key: state.pageKey,
@@ -120,7 +119,6 @@ final router = GoRouter(
             path: ':${RouterParams.id}',
             pageBuilder: (context, state) {
               final countryId = state.params[RouterParams.id];
-              print('countryPage key ------ ${state.pageKey}');
               return MaterialPage(
                 // key: state.pageKey,
                 child: CountryPage(id: int.parse(countryId.toString())),

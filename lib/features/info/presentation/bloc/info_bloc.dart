@@ -21,7 +21,7 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
       if (event is DownloadHQLogoEvent) {
         emit(LogoDownloading());
         InfoEntity? info;
-        var downloadResult;
+        dynamic downloadResult;
         Response? response;
 
         var either = await getAppInfo(NoParams());
@@ -31,8 +31,6 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
             info = r;
           },
         );
-
-        print('info $info');
 
         _save() async {
           response = await Dio().get(
@@ -44,10 +42,7 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
             quality: 100,
             name: "Boycott Islamophobes logo",
           );
-          print(downloadResult);
         }
-
-        print('response $response');
 
         if (info != null) {
           await _save();
