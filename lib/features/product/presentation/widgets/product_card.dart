@@ -51,7 +51,7 @@ class ProductCard extends StatelessWidget {
               bottom: 5.h,
             ),
             child: KBadge(
-              badgeText: product.countryName ?? 'Not specified',
+              badgeText: product.countryName,
             ),
           ),
         ],

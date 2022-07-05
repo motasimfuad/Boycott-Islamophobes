@@ -21,9 +21,13 @@ class HomePageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: KCard(
-        xPadding: 10.w,
-        yPadding: 10.w,
+        xPadding: 12.w,
+        yPadding: 12.w,
         onTap: onTap,
+        color: KColors.primary.shade50,
+        // hasBorder: true,
+        // borderColor: KColors.kBackgroundColorDarker,
+        borderWidth: 2,
         child: Container(
           constraints: BoxConstraints(minHeight: 140.h),
           width: double.infinity,
@@ -42,7 +46,7 @@ class HomePageCard extends StatelessWidget {
                     height: 40.w,
                     width: 40.w,
                     decoration: BoxDecoration(
-                      color: KColors.primary.shade50,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(15.r),
                     ),
                     padding: EdgeInsets.symmetric(
@@ -56,7 +60,8 @@ class HomePageCard extends StatelessWidget {
                     title ?? '',
                     maxLines: 2,
                     style: TextStyle(
-                      color: KColors.primary.shade800,
+                      // color: KColors.primary.shade800,
+                      color: KColors.primary.shade500,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -67,7 +72,8 @@ class HomePageCard extends StatelessWidget {
               Text(
                 '${totalItems ?? 0} listed',
                 style: TextStyle(
-                  color: KColors.primary.shade800,
+                  // color: KColors.primary.shade800,
+                  color: KColors.primary.shade500,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                 ),

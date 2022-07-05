@@ -1,5 +1,6 @@
 import 'package:boycott_islamophobes/core/constants/colors.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
+import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
 import 'package:boycott_islamophobes/core/widgets/k_grid.dart';
 import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
 import 'package:boycott_islamophobes/core/widgets/k_loading_indicator.dart';
@@ -54,12 +55,8 @@ class _CategoryPageState extends State<CategoryPage> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: KColors.primary.shade100,
-        appBar: AppBar(
-          title: const Text('Browse by Category'),
-          backgroundColor: Colors.black,
-          elevation: 1,
-        ),
+        backgroundColor: KColors.kBackgroundColor,
+        appBar: const KAppbar(title: 'Browse by Category'),
         body: BlocConsumer<CategoryBloc, CategoryState>(
           listener: (context, state) {
             if (state is CategoriesLoading) {}
@@ -97,7 +94,8 @@ class _CategoryPageState extends State<CategoryPage> {
                                   minWidth: constraints.maxHeight),
                               child: IntrinsicHeight(
                                 child: NavigationRail(
-                                  backgroundColor: KColors.primary.shade100,
+                                  backgroundColor:
+                                      KColors.kBackgroundColorDarker,
                                   extended: false,
                                   leading: GestureDetector(
                                     onTap: () {
@@ -154,10 +152,11 @@ class _CategoryPageState extends State<CategoryPage> {
                   const VerticalDivider(
                     thickness: 1,
                     width: 1,
+                    color: KColors.primary,
                   ),
                   Expanded(
                     child: Container(
-                      color: KColors.primary.shade100,
+                      color: KColors.kBackgroundColor,
                       child: BlocBuilder<ProductBloc, ProductState>(
                         builder: (context, state) {
                           if (state is ProductListLoaded) {
@@ -183,27 +182,9 @@ class _CategoryPageState extends State<CategoryPage> {
                             );
                           }
 
-                          return KGrid(
-                            items: products,
-                            isLoading: (state is FilteredProductListLoading)
-                                ? true
-                                : false,
-                            loadingItems: 3,
-                            childAspectRatio: 0.65.w,
-                            itemBuilder: (context, index) {
-                              ProductEntity product = products[index];
-                              return ProductCard(
-                                product: product,
-                                onTap: () {
-                                  router.pushNamed(
-                                    AppRouter.productPage,
-                                    params: {
-                                      RouterParams.id: product.id.toString(),
-                                    },
-                                  );
-                                },
-                              );
-                            },
+                          return CategoryPageProductsGrid(
+                            products: products,
+                            isLoading: (state is FilteredProductListLoading),
                           );
                         },
                       ),
@@ -234,6 +215,7 @@ class _CategoryPageState extends State<CategoryPage> {
               child: KImageContainer(
                 imageUrl: category.imageUrl,
                 hasBorder: true,
+                borderClr: KColors.primary,
                 height: 75.h,
               ),
             ),
@@ -260,5 +242,39 @@ class _CategoryPageState extends State<CategoryPage> {
         label: const Text(''),
       );
     });
+  }
+}
+
+class CategoryPageProductsGrid extends StatelessWidget {
+  final List<ProductEntity> products;
+  final bool? isLoading;
+  const CategoryPageProductsGrid({
+    Key? key,
+    required this.products,
+    required this.isLoading,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return KGrid(
+      items: products,
+      isLoading: isLoading,
+      loadingItems: 3,
+      childAspectRatio: 0.65.w,
+      itemBuilder: (context, index) {
+        ProductEntity product = products[index];
+        return ProductCard(
+          product: product,
+          onTap: () {
+            router.pushNamed(
+              AppRouter.productPage,
+              params: {
+                RouterParams.id: product.id.toString(),
+              },
+            );
+          },
+        );
+      },
+    );
   }
 }

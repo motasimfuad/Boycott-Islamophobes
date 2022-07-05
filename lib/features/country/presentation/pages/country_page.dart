@@ -216,41 +216,42 @@ class CountryAllProductsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: KColors.primary.shade100,
-      child: (products.isNotEmpty)
-          ? Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: KGrid(
-                      isLoading: isLoading,
-                      items: products,
-                      itemBuilder: (context, index) {
-                        final product = products[index];
+        color: KColors.kBackgroundColor,
+        child: (products.isEmpty && isLoading != true)
+            ? const Center(
+                child: Text(
+                  'No product found!',
+                  textAlign: TextAlign.center,
+                ),
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: KGrid(
+                        isLoading: isLoading,
+                        items: products,
+                        itemBuilder: (context, index) {
+                          final product = products[index];
 
-                        return ProductCard(
-                          product: product,
-                          onTap: () {
-                            router.pushNamed(
-                              AppRouter.productPage,
-                              params: {RouterParams.id: product.id.toString()},
-                            );
-                          },
-                        );
-                      },
+                          return ProductCard(
+                            product: product,
+                            onTap: () {
+                              router.pushNamed(
+                                AppRouter.productPage,
+                                params: {
+                                  RouterParams.id: product.id.toString()
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                )
-              ],
-            )
-          : const Center(
-              child: Text(
-                'No product found!',
-                textAlign: TextAlign.center,
-              ),
-            ),
-    );
+                  )
+                ],
+              ));
   }
 }
 
@@ -262,7 +263,7 @@ class CountryDetailsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: KColors.primary.shade100,
+      color: KColors.kBackgroundColor,
       child: const Center(
         child: Text(
           'Details will be added on \nupcoming updates InshaAllah!',

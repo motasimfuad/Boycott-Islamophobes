@@ -30,6 +30,7 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: KColors.kBackgroundColor,
       appBar: const KAppbar(
         title: 'Blacklisted Countries',
       ),
@@ -40,7 +41,7 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
               countries = state.countries;
             }
             return Container(
-              color: KColors.primary.shade100,
+              color: KColors.kBackgroundColor,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

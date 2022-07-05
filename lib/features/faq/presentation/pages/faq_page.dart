@@ -32,7 +32,7 @@ class _FaqPageState extends State<FaqPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KColors.primary.shade100,
+      backgroundColor: KColors.kBackgroundColor,
       appBar: KAppbar(
         title: 'FAQs',
         actionBtn: Icons.info_outline_rounded,

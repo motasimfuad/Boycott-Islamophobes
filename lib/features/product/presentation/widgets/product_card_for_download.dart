@@ -60,7 +60,7 @@ class ProductCardForDownload extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       KBadge(
-                        badgeText: product.countryName ?? 'Not specified',
+                        badgeText: product.countryName,
                         textSize: 14,
                         xPadding: 10,
                       ),

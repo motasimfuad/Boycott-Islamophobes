@@ -5,6 +5,7 @@ import 'package:boycott_islamophobes/dependency_injection.dart' as di;
 import 'package:boycott_islamophobes/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,13 +13,13 @@ import 'core/themes/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await dotenv.load();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await di.init();
   await NotificationService.initialize();
-
   runApp(const MyApp());
 }
 

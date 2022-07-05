@@ -32,7 +32,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KColors.primary.shade100,
+      backgroundColor: KColors.kBackgroundColor,
       appBar: const KAppbar(
         title: 'Search Product',
       ),
@@ -67,7 +67,7 @@ class _SearchPageState extends State<SearchPage> {
               top: 20.h,
             ),
             child: Container(
-              color: KColors.primary.shade100,
+              color: KColors.kBackgroundColor,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

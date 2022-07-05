@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screenshot/screenshot.dart';
 
 import 'package:boycott_islamophobes/core/constants/extensions.dart';
+import 'package:boycott_islamophobes/core/widgets/k_card.dart';
 import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 import 'package:boycott_islamophobes/features/product/presentation/bloc/product_bloc.dart';
@@ -42,7 +43,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KColors.primary.shade100,
+      backgroundColor: KColors.kBackgroundColor,
       appBar: AppBar(
         title: const Text('Boycott this product'),
         backgroundColor: Colors.black,
@@ -110,13 +111,24 @@ class _ProductPageState extends State<ProductPage> {
 
   Widget buildProductDetails() {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.only(
+        top: 20.w,
+        left: 20.w,
+        right: 20.w,
+        bottom: 80.w,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          KImageContainer(
-            imageUrl: product?.logoUrl ?? '',
-            height: 250.h,
+          KCard(
+            borderWidth: 0,
+            hasBorder: false,
+            color: Colors.white,
+            // hasShadow: false,
+            child: KImageContainer(
+              imageUrl: product?.logoUrl ?? '',
+              height: 230.h,
+            ),
           ),
           SizedBox(height: 15.h),
           const ProductPageNotice(
@@ -132,60 +144,188 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
           SizedBox(height: 20.h),
-          Row(
-            children: [
-              Text(
-                'Country:',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(width: 8.w),
-              GestureDetector(
-                onTap: () {
-                  router.pushNamed(
-                    AppRouter.countryPage,
-                    params: {RouterParams.id: product!.countryId.toString()},
-                  );
-                },
-                child: KBadge(
-                  badgeText: product?.countryName ?? 'Not specified',
-                  textSize: 14.sp,
-                  xPadding: 10.w,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20.h),
-          (product?.reason != null && product!.reason!.isNotEmpty)
-              ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Reason:',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(width: 8.w),
-                    Expanded(
+          // Row(
+          //   children: [
+          //     Text(
+          //       'Country:',
+          //       textAlign: TextAlign.start,
+          //       style: TextStyle(
+          //         fontSize: 18.sp,
+          //         fontWeight: FontWeight.w500,
+          //       ),
+          //     ),
+          //     SizedBox(width: 8.w),
+          //     GestureDetector(
+          //       onTap: () {
+          //         router.pushNamed(
+          //           AppRouter.countryPage,
+          //           params: {RouterParams.id: product!.countryId.toString()},
+          //         );
+          //       },
+          //       child: KBadge(
+          //         badgeText: product?.countryName ?? 'Not specified',
+          //         textSize: 14.sp,
+          //         xPadding: 10.w,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: 15.h),
+          // Row(
+          //   children: [
+          //     Text(
+          //       'Company:',
+          //       textAlign: TextAlign.start,
+          //       style: TextStyle(
+          //         fontSize: 18.sp,
+          //         fontWeight: FontWeight.w500,
+          //       ),
+          //     ),
+          //     SizedBox(width: 8.w),
+          //     GestureDetector(
+          //       child: KBadge(
+          //         badgeText: (product?.companyName != null &&
+          //                 product!.companyName!.isNotEmpty)
+          //             ? product?.companyName
+          //             : 'Not specified',
+          //         textSize: 14.sp,
+          //         xPadding: 10.w,
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // SizedBox(height: 20.h),
+          ProductInformationContainer(product: product),
+        ],
+      ),
+    );
+  }
+}
+
+class ProductInformationContainer extends StatelessWidget {
+  final ProductEntity? product;
+  const ProductInformationContainer({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return KCard(
+      color: Colors.white,
+      xPadding: 0,
+      yPadding: 0,
+      radius: 20.r,
+      child: Container(
+        padding: EdgeInsets.only(
+          left: 12.w,
+          right: 12.w,
+          top: 12.w,
+        ),
+        child: Column(
+          children: [
+            ProductInformationItem(
+              itemTitle: 'Country',
+              itemValue: product?.countryName,
+              onTap: () {
+                router.pushNamed(
+                  AppRouter.countryPage,
+                  params: {RouterParams.id: product!.countryId.toString()},
+                );
+              },
+            ),
+            (product?.companyName != null && product!.companyName!.isNotEmpty)
+                ? ProductInformationItem(
+                    itemTitle: 'Company',
+                    itemValue: product?.companyName,
+                    onTap: () {},
+                  )
+                : const SizedBox(),
+            (product?.categoryName != null && product!.categoryName.isNotEmpty)
+                ? ProductInformationItem(
+                    itemTitle: 'Category',
+                    itemValue: product?.categoryName,
+                    onTap: () {},
+                  )
+                : const SizedBox(),
+            (product?.reason != null && product!.reason!.isNotEmpty)
+                ? ProductInformationItem(
+                    itemTitle: 'Reason',
+                    showOnlyValue: true,
+                    itemValue: product?.reason,
+                  )
+                : const SizedBox(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProductInformationItem extends StatelessWidget {
+  final Function()? onTap;
+  final String itemTitle;
+  final String? itemValue;
+  final bool? showOnlyValue;
+  final double? btmPadding;
+  const ProductInformationItem({
+    Key? key,
+    this.onTap,
+    required this.itemTitle,
+    this.itemValue,
+    this.showOnlyValue = false,
+    this.btmPadding,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: btmPadding ?? 12.w),
+      child: KCard(
+        color: Colors.grey.shade100,
+        xPadding: 12.h,
+        yPadding: 10.h,
+        hasShadow: false,
+        radius: 20.r,
+        child: showOnlyValue == true
+            ? Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
                       child: Text(
-                        product?.reason ?? '',
-                        textAlign: TextAlign.start,
+                        itemValue ?? '',
                         style: TextStyle(
-                          fontSize: 18.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
-                  ],
-                )
-              : const SizedBox(),
-        ],
+                  )
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '$itemTitle:',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  GestureDetector(
+                    onTap: onTap,
+                    child: KBadge(
+                      badgeText: itemValue ?? 'Not specified',
+                      textSize: 14.sp,
+                      xPadding: 10.w,
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }

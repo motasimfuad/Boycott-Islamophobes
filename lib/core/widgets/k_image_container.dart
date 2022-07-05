@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ class KImageContainer extends StatelessWidget {
   final String? fallBackText;
   final bool? hasBorder;
   final BoxFit? imageFit;
+  final Color? borderClr;
   const KImageContainer({
     Key? key,
     required this.imageUrl,
@@ -24,6 +27,7 @@ class KImageContainer extends StatelessWidget {
     this.fallBackText,
     this.hasBorder = false,
     this.imageFit,
+    this.borderClr,
   }) : super(key: key);
 
   @override
@@ -40,11 +44,11 @@ class KImageContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius ?? 20.r),
           border: hasBorder == true
               ? Border.all(
-                  color: KColors.primary,
+                  color: borderClr ?? KColors.primary,
                   width: 2,
                 )
               : Border.all(
-                  color: Colors.grey.shade100,
+                  color: borderClr ?? Colors.grey.shade100,
                   width: 0,
                 ),
         ),

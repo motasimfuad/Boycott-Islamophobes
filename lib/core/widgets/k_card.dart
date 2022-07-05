@@ -66,7 +66,7 @@ class KCard extends StatelessWidget {
               ? [
                   BoxShadow(
                     offset: Offset(0.w, 3.h),
-                    color: Colors.black26,
+                    color: Colors.black12,
                     blurRadius: 2.5.w,
                     spreadRadius: 0.w,
                   )

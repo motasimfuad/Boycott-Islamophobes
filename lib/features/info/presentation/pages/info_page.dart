@@ -13,7 +13,7 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: KColors.primary.shade100,
+      // backgroundColor: KColors.kBackgroundColor,
       // appBar: const KAppbar(title: ''),
       body: SafeArea(
         child: Stack(
@@ -129,7 +129,8 @@ class InfoPage extends StatelessWidget {
                             'Created with ❤️ for the Muslims',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: KColors.primary,
+                              color: KColors.green,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           SizedBox(
@@ -139,7 +140,8 @@ class InfoPage extends StatelessWidget {
                             'by the Muslims',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: KColors.primary,
+                              color: KColors.green,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],

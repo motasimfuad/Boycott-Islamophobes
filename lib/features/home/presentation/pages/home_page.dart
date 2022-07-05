@@ -53,11 +53,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: KColors.primary.shade100,
+      backgroundColor: KColors.kBackgroundColor,
       appBar: KAppbar(
         title: 'Boycott Islamophobes',
         height: 85.h,
-        color: KColors.primary.shade100,
+        color: KColors.kBackgroundColor,
         elevation: 0,
         content: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -175,8 +175,8 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(30.r),
                   gradient: LinearGradient(
                     colors: [
-                      KColors.primary,
-                      KColors.primary.shade700,
+                      KColors.kBackgroundColorDarker,
+                      KColors.kBackgroundColorDarker,
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,

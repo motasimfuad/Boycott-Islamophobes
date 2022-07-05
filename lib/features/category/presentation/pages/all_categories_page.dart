@@ -43,7 +43,7 @@ class _AllCategoriesPageState extends State<AllCategoriesPage> {
               isLoading = false;
             }
             return Container(
-              color: KColors.primary.shade100,
+              color: KColors.kBackgroundColor,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
