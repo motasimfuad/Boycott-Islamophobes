@@ -56,8 +56,6 @@ class _AllCompaniesPageState extends State<AllCompaniesPage> {
                             tag: company.id,
                             name: company.name,
                             imageUrl: company.logoUrl,
-                            // imageFit: BoxFit.cover,
-                            // padding: 0,
                           );
                         },
                       ),

@@ -44,3 +44,21 @@ class CompanyLoaded extends CompanyState {
   @override
   List<Object> get props => [company];
 }
+
+class FilteredCompanyListLoading extends CompanyState {}
+
+class FilteredCompanyListError extends CompanyState {
+  final String message;
+  const FilteredCompanyListError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class FilteredCompanyListLoaded extends CompanyState {
+  final List<CompanyEntity> companies;
+  const FilteredCompanyListLoaded({required this.companies});
+
+  @override
+  List<Object> get props => [companies];
+}

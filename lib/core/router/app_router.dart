@@ -94,7 +94,7 @@ final router = GoRouter(
             pageBuilder: (context, state) {
               final categoryId = state.params[RouterParams.id];
               return MaterialPage(
-                key: state.pageKey,
+                // key: state.pageKey,
                 child: CategoryPage(
                   categoryId: int.parse(categoryId.toString()),
                 ),

@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               KCard(
-                height: 160.w,
+                height: 170.w,
                 maxHeight: 200,
                 xPadding: 0,
                 yPadding: 0,
@@ -136,8 +136,8 @@ class _HomePageState extends State<HomePage> {
                       'Blacklists',
                       style: TextStyle(
                         fontSize: 20.sp,
-                        fontWeight: FontWeight.bold,
-                        color: KColors.primary.shade800,
+                        fontWeight: FontWeight.w500,
+                        color: KColors.primaryDark,
                       ),
                     ),
                     KCard(
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         _getAllBlacklists();
                       },
-                      color: KColors.primary.shade500,
+                      color: KColors.primaryDark,
                       child: Icon(
                         Icons.sync_rounded,
                         size: 18.h,

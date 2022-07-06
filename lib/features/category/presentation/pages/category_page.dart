@@ -27,9 +27,15 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
+  ScrollController navScrollController = ScrollController();
+
   int? _selectedIndex;
   List<CategoryEntity> categories = [];
   List<ProductEntity> products = [];
+
+  focusCategory() {
+    navScrollController.position.minScrollExtent;
+  }
 
   @override
   void initState() {
@@ -39,11 +45,7 @@ class _CategoryPageState extends State<CategoryPage> {
     context
         .read<ProductBloc>()
         .add(GetFilteredProductsEvent(categoryId: widget.categoryId));
-
     context.read<CategoryBloc>().add(GetAllCategoriesEvent());
-
-    // var selectedCat =
-    //     categories.firstWhere((element) => element.id == widget.categoryId);
     super.initState();
   }
 
@@ -58,9 +60,7 @@ class _CategoryPageState extends State<CategoryPage> {
         backgroundColor: KColors.kBackgroundColor,
         appBar: const KAppbar(title: 'Browse by Category'),
         body: BlocConsumer<CategoryBloc, CategoryState>(
-          listener: (context, state) {
-            if (state is CategoriesLoading) {}
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             if (state is CategoriesLoaded) {
               categories = state.categories;
@@ -89,6 +89,7 @@ class _CategoryPageState extends State<CategoryPage> {
                         return SizedBox(
                           width: 100.w,
                           child: SingleChildScrollView(
+                            controller: navScrollController,
                             child: ConstrainedBox(
                               constraints: BoxConstraints(
                                   minWidth: constraints.maxHeight),
@@ -128,7 +129,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                   selectedIndex: _selectedIndex,
                                   onDestinationSelected: (int index) {
                                     var selectedCat = categories[index];
-
+                                    focusCategory();
                                     context.read<CategoryBloc>().add(
                                         GetCategoryEvent(
                                             categoryId: selectedCat.id));

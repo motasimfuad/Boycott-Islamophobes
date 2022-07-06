@@ -14,7 +14,7 @@ class FaqRemoteDataSourceImpl implements FaqRemoteDataSource {
 
   @override
   Future<List<FaqModel>> getAllFaqs() async {
-    var faqCollection = await firestore.collection('faqs').get();
+    var faqCollection = await firestore.collection('faqs').orderBy('id').get();
     List<FaqModel> faqList =
         faqCollection.docs.map((e) => FaqModel.fromMap(e.data())).toList();
     return faqList;

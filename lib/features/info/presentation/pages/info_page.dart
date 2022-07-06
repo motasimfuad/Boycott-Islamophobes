@@ -126,7 +126,7 @@ class InfoPage extends StatelessWidget {
                       Column(
                         children: [
                           const Text(
-                            'Created with ❤️ for the Muslims',
+                            'Created with ❤️ by the Muslims',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: KColors.green,
@@ -134,10 +134,10 @@ class InfoPage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 5.h,
+                            height: 8.h,
                           ),
                           const Text(
-                            'by the Muslims',
+                            'for the Muslims',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: KColors.green,

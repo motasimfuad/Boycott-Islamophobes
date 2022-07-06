@@ -43,12 +43,9 @@ class _BottomNavState extends State<BottomNav> {
           setState(() {
             currentIndex = val;
           });
-          // if (currentIndex == 1) {
-          //   router.pushNamed(AppRouter.searchPage);
-          // }
         },
         backgroundColor: Colors.black,
-        selectedBackgroundColor: KColors.primary,
+        selectedBackgroundColor: KColors.primaryDark,
         selectedItemColor: Colors.white,
         padding: EdgeInsets.only(
           bottom: 10.h,

@@ -25,6 +25,7 @@ class HomePageCard extends StatelessWidget {
         yPadding: 12.w,
         onTap: onTap,
         color: KColors.primary.shade50,
+
         // hasBorder: true,
         borderColor: KColors.kBackgroundColor,
         borderWidth: 2,
@@ -34,6 +35,15 @@ class HomePageCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             vertical: 5.w,
             horizontal: 5.w,
+          ),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/backgrounds/background_hand.png'),
+              alignment: Alignment.bottomRight,
+              scale: 1,
+              opacity: 0.1,
+              fit: BoxFit.cover,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,9 +70,9 @@ class HomePageCard extends StatelessWidget {
                     title ?? '',
                     maxLines: 2,
                     style: TextStyle(
-                      color: KColors.kPrimaryDark,
+                      color: KColors.secondary,
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
@@ -71,8 +81,8 @@ class HomePageCard extends StatelessWidget {
               Text(
                 '${totalItems ?? 0} listed',
                 style: TextStyle(
-                  color: KColors.kPrimaryDark,
-                  fontSize: 16.sp,
+                  color: KColors.primary,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),

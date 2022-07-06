@@ -28,4 +28,16 @@ class CompanyRepositoryImpl implements CompanyRepository {
       return Left(RemoteFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<CompanyEntity>>> getFilteredCompanies(
+      {required int countryId}) async {
+    try {
+      List<CompanyEntity> companies =
+          await dataSource.getFilteredCompanies(countryId);
+      return Right(companies);
+    } on RemoteException {
+      return Left(RemoteFailure());
+    }
+  }
 }

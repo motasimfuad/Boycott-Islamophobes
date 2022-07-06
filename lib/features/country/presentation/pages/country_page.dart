@@ -1,4 +1,6 @@
 import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
+import 'package:boycott_islamophobes/features/company/domain/entities/company_entity.dart';
+import 'package:boycott_islamophobes/features/country/presentation/widgets/country_all_companies_tab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,10 +12,10 @@ import 'package:boycott_islamophobes/features/country/domain/entities/country_en
 import 'package:boycott_islamophobes/features/country/presentation/bloc/country_bloc.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 
-import '../../../../core/router/app_router.dart';
-import '../../../../core/widgets/k_grid.dart';
+import '../../../company/presentation/bloc/company_bloc.dart';
 import '../../../product/presentation/bloc/product_bloc.dart';
-import '../../../product/presentation/widgets/product_card.dart';
+import '../widgets/country_all_products_tab.dart';
+import '../widgets/country_details_tab.dart';
 
 class CountryPage extends StatefulWidget {
   final int id;
@@ -30,7 +32,9 @@ class _CountryPageState extends State<CountryPage>
     with TickerProviderStateMixin {
   CountryEntity? country;
   List<ProductEntity> products = [];
-  String? totalProducts;
+  List<CompanyEntity> companies = [];
+  String? totalProducts = "0";
+  String? totalCompanies = "0";
 
   @override
   void initState() {
@@ -38,12 +42,15 @@ class _CountryPageState extends State<CountryPage>
     context
         .read<ProductBloc>()
         .add(GetFilteredProductsEvent(countryId: widget.id));
+    context
+        .read<CompanyBloc>()
+        .add(GetFilteredCompaniesEvent(countryId: widget.id));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 2, vsync: this);
+    TabController tabController = TabController(length: 3, vsync: this);
 
     return Scaffold(
       appBar: const KAppbar(
@@ -71,7 +78,7 @@ class _CountryPageState extends State<CountryPage>
               }
 
               return Container(
-                height: 160.h,
+                height: 150.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.black,
@@ -100,57 +107,93 @@ class _CountryPageState extends State<CountryPage>
                       ],
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      KImageContainer(
-                        imageUrl: country?.flagUrl ?? '',
-                        height: 55.w,
-                        width: 80.w,
-                        radius: 15.r,
-                        padding: 0,
-                        imageFit: BoxFit.cover,
-                        // hasBorder: true,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.not_interested_rounded,
+                            color: Colors.red,
+                            size: 20.w,
+                          ),
+                          SizedBox(width: 5.w),
+                          Text(
+                            country?.name ?? '',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              country?.name ?? '',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                            BlocBuilder<ProductBloc, ProductState>(
-                              builder: (context, state) {
-                                if (state is FilteredProductListLoading) {
-                                  totalProducts = '...';
-                                }
-                                if (state is FilteredProductListLoaded) {
-                                  totalProducts =
-                                      state.products.length.toString();
-                                }
+                      SizedBox(height: 10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          KImageContainer(
+                            imageUrl: country?.flagUrl ?? '',
+                            height: 40.w,
+                            width: 55.w,
+                            radius: 8.r,
+                            padding: 0,
+                            imageFit: BoxFit.cover,
+                            // hasBorder: true,
+                          ),
+                          SizedBox(width: 10.w),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BlocBuilder<ProductBloc, ProductState>(
+                                builder: (context, state) {
+                                  if (state is FilteredProductListLoading) {
+                                    totalProducts = '...';
+                                  }
+                                  if (state is FilteredProductListLoaded) {
+                                    totalProducts =
+                                        state.products.length.toString();
+                                  }
 
-                                return Text(
-                                  'Blacklisted Products ($totalProducts)',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    // fontStyle: FontStyle.italic,
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                                  return Text(
+                                    'Products ($totalProducts)',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  );
+                                },
+                              ),
+                              SizedBox(height: 3.h),
+                              BlocBuilder<CompanyBloc, CompanyState>(
+                                builder: (context, state) {
+                                  if (state is FilteredCompanyListLoading) {
+                                    totalCompanies = '...';
+                                  }
+                                  if (state is FilteredCompanyListLoaded) {
+                                    totalCompanies =
+                                        state.companies.length.toString();
+                                  }
+
+                                  return Text(
+                                    'Companies ($totalCompanies)',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -171,6 +214,9 @@ class _CountryPageState extends State<CountryPage>
               tabs: const [
                 Tab(
                   text: 'Products',
+                ),
+                Tab(
+                  text: 'Companies',
                 ),
                 Tab(
                   text: 'Details',
@@ -194,81 +240,23 @@ class _CountryPageState extends State<CountryPage>
                     );
                   },
                 ),
+                BlocBuilder<CompanyBloc, CompanyState>(
+                  builder: (context, state) {
+                    if (state is FilteredCompanyListLoaded) {
+                      companies = state.companies;
+                    }
+
+                    return CountryAllCompaniesTab(
+                      companies: companies,
+                      isLoading: (state is FilteredCompanyListLoading),
+                    );
+                  },
+                ),
                 const CountryDetailsTab(),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CountryAllProductsTab extends StatelessWidget {
-  final List<ProductEntity> products;
-  final bool? isLoading;
-  const CountryAllProductsTab({
-    Key? key,
-    required this.products,
-    this.isLoading,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        color: KColors.kBackgroundColor,
-        child: (products.isEmpty && isLoading != true)
-            ? const Center(
-                child: Text(
-                  'No product found!',
-                  textAlign: TextAlign.center,
-                ),
-              )
-            : Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: KGrid(
-                        isLoading: isLoading,
-                        items: products,
-                        itemBuilder: (context, index) {
-                          final product = products[index];
-
-                          return ProductCard(
-                            product: product,
-                            onTap: () {
-                              router.pushNamed(
-                                AppRouter.productPage,
-                                params: {
-                                  RouterParams.id: product.id.toString()
-                                },
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  )
-                ],
-              ));
-  }
-}
-
-class CountryDetailsTab extends StatelessWidget {
-  const CountryDetailsTab({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: KColors.kBackgroundColor,
-      child: const Center(
-        child: Text(
-          'Details will be added on \nupcoming updates InshaAllah!',
-          textAlign: TextAlign.center,
-        ),
       ),
     );
   }

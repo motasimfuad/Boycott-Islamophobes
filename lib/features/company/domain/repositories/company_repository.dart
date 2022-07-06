@@ -5,4 +5,6 @@ import 'package:dartz/dartz.dart';
 abstract class CompanyRepository {
   Future<Either<Failure, List<CompanyEntity>>> getAllCompanies();
   Future<Either<Failure, CompanyEntity>> getCompany({required int id});
+  Future<Either<Failure, List<CompanyEntity>>> getFilteredCompanies(
+      {required int countryId});
 }

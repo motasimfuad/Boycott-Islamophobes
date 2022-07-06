@@ -73,6 +73,7 @@ class _FaqPageState extends State<FaqPage> {
                   ),
                   scrollIntoViewOfItems: ScrollIntoViewOfItems.fast,
                   headerBorderRadius: 20.w,
+                  headerBackgroundColor: KColors.primaryDark,
                   disableScrolling: true,
                   children: faqs.map((faq) {
                     return _buildAccordionSection(
@@ -99,6 +100,7 @@ class _FaqPageState extends State<FaqPage> {
         style: TextStyle(
           color: Colors.white,
           fontSize: 18.sp,
+          fontWeight: FontWeight.w400,
         ),
       ),
       content: Row(

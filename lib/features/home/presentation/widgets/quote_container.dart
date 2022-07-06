@@ -31,37 +31,41 @@ class QuoteContainer extends StatelessWidget {
           decoration: const BoxDecoration(
             image: DecorationImage(
               image:
-                  AssetImage('assets/backgrounds/quote_background_green.png'),
+                  AssetImage('assets/backgrounds/quote_background_brown.png'),
               fit: BoxFit.cover,
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                quote?.quote != null ? '" ${quote?.quote} "' : '',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                  color: KColors.primary.shade600,
-                ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    quote?.quote != null ? '" ${quote?.quote} "' : '',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: KColors.primary.shade600,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    quote?.by != null ? '- ${quote?.by}' : '',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.italic,
+                      color: KColors.primary.shade400,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Text(
-                quote?.by != null ? '- ${quote?.by}' : '',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.italic,
-                  color: KColors.primary.shade400,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

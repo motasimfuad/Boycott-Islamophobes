@@ -16,3 +16,10 @@ class GetCompanyEvent extends CompanyEvent {
   @override
   List<Object> get props => [companyId];
 }
+
+class GetFilteredCompaniesEvent extends CompanyEvent {
+  final int countryId;
+  const GetFilteredCompaniesEvent({required this.countryId});
+  @override
+  List<Object> get props => [countryId];
+}

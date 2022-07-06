@@ -9,6 +9,7 @@ import 'package:boycott_islamophobes/features/company/data/repositories/company_
 import 'package:boycott_islamophobes/features/company/domain/repositories/company_repository.dart';
 import 'package:boycott_islamophobes/features/company/domain/usecases/get_all_companies_usecase.dart';
 import 'package:boycott_islamophobes/features/company/domain/usecases/get_company_usecase.dart';
+import 'package:boycott_islamophobes/features/company/domain/usecases/get_filtered_companies_usecase.dart';
 import 'package:boycott_islamophobes/features/company/presentation/bloc/company_bloc.dart';
 import 'package:boycott_islamophobes/features/country/data/datasources/country_remote_data_source.dart';
 import 'package:boycott_islamophobes/features/country/data/repositories/country_repository_impl.dart';
@@ -73,6 +74,7 @@ Future<void> init() async {
     () => CompanyBloc(
       getCompanies: getIt(),
       getCompany: getIt(),
+      filteredCompanies: getIt(),
     ),
   );
 
@@ -108,6 +110,7 @@ Future<void> init() async {
   // --- companies
   getIt.registerLazySingleton(() => GetAllCompaniesUsecase(getIt()));
   getIt.registerLazySingleton(() => GetCompanyUsecase(getIt()));
+  getIt.registerLazySingleton(() => GetFilteredCompaniesUsecase(getIt()));
   // --- quotes
   getIt.registerLazySingleton(() => GetAllQuotesUsecase(getIt()));
   // --- faqs

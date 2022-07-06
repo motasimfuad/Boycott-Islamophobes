@@ -16,7 +16,7 @@ class KColors {
   static const secondaryDark = Color(0xff292b38);
 
   static const primary = Colors.red;
-  static final kPrimaryDark = primary.shade700;
+  static final primaryDark = primary.shade700;
   static final kBackgroundColor = primary.shade50;
   static final kBackgroundColorDarker = primary.shade100;
 }

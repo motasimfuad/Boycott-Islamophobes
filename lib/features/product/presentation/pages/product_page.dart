@@ -245,7 +245,12 @@ class ProductInformationContainer extends StatelessWidget {
                 ? ProductInformationItem(
                     itemTitle: 'Category',
                     itemValue: product?.categoryName,
-                    onTap: () {},
+                    onTap: () {
+                      router.pushNamed(
+                        AppRouter.categoryPage,
+                        params: {RouterParams.id: '${product?.categoryId}'},
+                      );
+                    },
                   )
                 : const SizedBox(),
             (product?.reason != null && product!.reason!.isNotEmpty)
