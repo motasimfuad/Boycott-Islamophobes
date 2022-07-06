@@ -1,6 +1,10 @@
+<p align="center"> 
+  <tr>
+     <td><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F82127fd0-aeaf-4495-8487-b68dbae409e9%2Flogo.png?table=block&id=8c8df4f8-b844-4b34-ae40-9f534f698876&spaceId=3107c0c8-1d6e-462e-8ab2-26ba76caa796&width=600&userId=73918c78-f0a6-467b-83c8-c747d80076b1&cache=v2" width=150 ></td>
+  </tr>
+ </p>
 
-
-<h1 align="center">Boycott Islamophobes - Blacklists</h1>
+<h1 align="center">Boycott Islamophobes - Blacklist</h1>
 </br>
 
 <p align="center" > An app with the complete directory of blacklisted products of islamophobe countries and companies. </br> These are being boycotted by the muslims around the world.</p>
@@ -20,11 +24,15 @@
 ## Features
 - Complete directory of blacklisted products
 - View products by category
-- Easily search products
+- View product details
+- Download product cards on the device
+- Easily search products from the blacklist
 - List of islamophobe countries
+- Products of specific country
+- Companies of specific country
 - Islamophobe company lists
 - Faq section for the most asked questions
-- and more...
+- more features coming soon InshaAllah...
 
 </br>
 
