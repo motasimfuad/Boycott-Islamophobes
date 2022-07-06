@@ -206,8 +206,8 @@ class _CountryPageState extends State<CountryPage>
 
 class CountryAllProductsTab extends StatelessWidget {
   final List<ProductEntity> products;
-  bool? isLoading;
-  CountryAllProductsTab({
+  final bool? isLoading;
+  const CountryAllProductsTab({
     Key? key,
     required this.products,
     this.isLoading,

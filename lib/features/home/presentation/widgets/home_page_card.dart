@@ -26,7 +26,7 @@ class HomePageCard extends StatelessWidget {
         onTap: onTap,
         color: KColors.primary.shade50,
         // hasBorder: true,
-        // borderColor: KColors.kBackgroundColorDarker,
+        borderColor: KColors.kBackgroundColor,
         borderWidth: 2,
         child: Container(
           constraints: BoxConstraints(minHeight: 140.h),
@@ -60,8 +60,7 @@ class HomePageCard extends StatelessWidget {
                     title ?? '',
                     maxLines: 2,
                     style: TextStyle(
-                      // color: KColors.primary.shade800,
-                      color: KColors.primary.shade500,
+                      color: KColors.kPrimaryDark,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -72,8 +71,7 @@ class HomePageCard extends StatelessWidget {
               Text(
                 '${totalItems ?? 0} listed',
                 style: TextStyle(
-                  // color: KColors.primary.shade800,
-                  color: KColors.primary.shade500,
+                  color: KColors.kPrimaryDark,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                 ),

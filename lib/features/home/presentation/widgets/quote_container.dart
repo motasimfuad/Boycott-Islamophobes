@@ -30,7 +30,8 @@ class QuoteContainer extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/backgrounds/quote_background.png'),
+              image:
+                  AssetImage('assets/backgrounds/quote_background_green.png'),
               fit: BoxFit.cover,
             ),
           ),

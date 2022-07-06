@@ -67,16 +67,6 @@ class _HomePageState extends State<HomePage> {
               height: 50.h,
               child: Image.asset('assets/images/logo.png'),
             ),
-            // SizedBox(width: 10.w),
-            // Text(
-            //   'Boycott Islamophobes',
-            //   style: TextStyle(
-            //     // color: KColors.primary,
-            //     color: Colors.black,
-            //     fontWeight: FontWeight.bold,
-            //     fontSize: 22.sp,
-            //   ),
-            // ),
           ],
         ),
       ),

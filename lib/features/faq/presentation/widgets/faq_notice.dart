@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/constants/colors.dart';
 import '../../../../core/widgets/k_card.dart';
 
 class FaqNotice extends StatelessWidget {
@@ -23,7 +22,7 @@ class FaqNotice extends StatelessWidget {
         ),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/backgrounds/quote_background.png'),
+            image: AssetImage('assets/backgrounds/quote_background_green.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -33,7 +32,7 @@ class FaqNotice extends StatelessWidget {
             Text(
               'Assalamu Alaikum wa Rahmatullah!',
               style: TextStyle(
-                color: KColors.primary.shade800,
+                color: Colors.teal,
                 fontSize: 20.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -42,7 +41,7 @@ class FaqNotice extends StatelessWidget {
             Text(
               'Dear brothers and sisters, Jazakallahu Khairan for taking part in the movement of boycotting those who oppose our Deen and dare to defame Rasulullah (ﷺ). \nMay Allah accept all of our efforts and keep us in the straight path till our last breath.',
               style: TextStyle(
-                color: KColors.primary.shade800,
+                color: Colors.teal,
                 fontSize: 17.sp,
                 fontWeight: FontWeight.w400,
               ),
@@ -51,7 +50,7 @@ class FaqNotice extends StatelessWidget {
             Text(
               'Fidaka nafsi wa abi wa ummi Ya Rasulullah (sallalahu alaihi wa sallam)',
               style: TextStyle(
-                color: KColors.primary.shade800,
+                color: Colors.teal,
                 fontSize: 17.sp,
                 fontWeight: FontWeight.w500,
               ),
@@ -60,7 +59,7 @@ class FaqNotice extends StatelessWidget {
             Text(
               'Here we have answered some of the frequently asked questions.',
               style: TextStyle(
-                color: KColors.primary.shade800,
+                color: Colors.teal,
                 fontSize: 17.sp,
                 fontWeight: FontWeight.w400,
               ),
