@@ -4,7 +4,7 @@
   </tr>
  </p>
 
-<h1 align="center">Boycott Islamophobes - Blacklist</h1>
+<h1 align="center">Boycott islamophobes - Blacklist</h1>
 </br>
 
 <p align="center" > An app with the complete directory of blacklisted products of islamophobe countries and companies. </br> These are being boycotted by the muslims around the world.</p>
@@ -73,16 +73,17 @@
 </br>
 
 ## Roadmap
-- Individual note lock
-- Full notenook lock
-- App lock functionality
-- Favorite notes view
-- Search notes
-- Add label in notes
-- Custom notebook cover upload
-- Share notes as image/pdf
-- Download notes as text file
-- Export database to drive/excel
+- Country details area
+- Show the country's records of islamophobia
+- Add country feed
+- Show update news of islamophobias on feed
+- Company detail page
+- Show company products on the company page
+- Fully offline support
+- Account system - login/register
+- Personal list of boycotted products
+- New product suggestion area from the users
 
+... InshaAllah
 
 </br>
