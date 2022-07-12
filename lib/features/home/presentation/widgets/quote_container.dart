@@ -15,8 +15,6 @@ class QuoteContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: MediaQuery.of(context).size.width,
-      // margin: const EdgeInsets.symmetric(horizontal: 5.0),
       padding: EdgeInsets.symmetric(
         vertical: 5.h,
         horizontal: 5.w,
@@ -27,7 +25,7 @@ class QuoteContainer extends StatelessWidget {
         width: double.infinity,
         color: Colors.white,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
           decoration: const BoxDecoration(
             image: DecorationImage(
               image:
@@ -50,19 +48,21 @@ class QuoteContainer extends StatelessWidget {
                       color: KColors.primary.shade600,
                     ),
                   ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Text(
-                    quote?.by != null ? '- ${quote?.by}' : '',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.italic,
-                      color: KColors.primary.shade400,
-                    ),
-                  ),
+                  (quote?.by != null && quote!.by.isNotEmpty)
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 5.h),
+                          child: Text(
+                            '- ${quote?.by}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.italic,
+                              color: KColors.primary.shade400,
+                            ),
+                          ),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),

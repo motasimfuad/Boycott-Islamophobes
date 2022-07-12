@@ -1,11 +1,13 @@
+import 'package:boycott_islamophobes/core/constants/environment.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class NotificationService {
   static Future<void> initialize() async {
-    NotificationSettings settings =
-        await FirebaseMessaging.instance.requestPermission();
+    FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await firebaseMessaging.requestPermission();
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('authorized');
+      await firebaseMessaging.subscribeToTopic(Environment.mainTopic);
     }
   }
 }

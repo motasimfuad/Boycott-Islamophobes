@@ -15,7 +15,6 @@ import 'package:boycott_islamophobes/features/product/domain/entities/product_en
 import '../../../company/presentation/bloc/company_bloc.dart';
 import '../../../product/presentation/bloc/product_bloc.dart';
 import '../widgets/country_all_products_tab.dart';
-import '../widgets/country_details_tab.dart';
 
 class CountryPage extends StatefulWidget {
   final int id;
@@ -50,7 +49,7 @@ class _CountryPageState extends State<CountryPage>
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: 2, vsync: this);
 
     return Scaffold(
       appBar: const KAppbar(
@@ -218,9 +217,9 @@ class _CountryPageState extends State<CountryPage>
                 Tab(
                   text: 'Companies',
                 ),
-                Tab(
-                  text: 'Details',
-                ),
+                // Tab(
+                //   text: 'Details',
+                // ),
               ],
             ),
           ),
@@ -252,7 +251,7 @@ class _CountryPageState extends State<CountryPage>
                     );
                   },
                 ),
-                const CountryDetailsTab(),
+                // const CountryDetailsTab(),
               ],
             ),
           ),

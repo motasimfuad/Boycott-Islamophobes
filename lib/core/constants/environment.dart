@@ -11,4 +11,5 @@ class Environment {
 
   static String androidApiKey = dotenv.get('ANDROID_API_KEY');
   static String androidAppId = dotenv.get('ANDROID_APP_ID');
+  static String mainTopic = dotenv.get('MAIN_TOPIC');
 }

@@ -12,7 +12,8 @@ class QuoteRemoteDataSourceImpl implements QuoteRemoteDataSource {
 
   @override
   Future<List<QuoteModel>> getAllQuotes() async {
-    final quoteCollection = await firestore.collection('quotes').get();
+    final quoteCollection =
+        await firestore.collection('quotes').orderBy('id').get();
     List<QuoteModel> quoteList =
         quoteCollection.docs.map((e) => QuoteModel.fromMap(e.data())).toList();
     return quoteList;

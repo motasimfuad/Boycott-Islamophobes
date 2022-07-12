@@ -12,10 +12,7 @@ class CountryDetailsTab extends StatelessWidget {
     return Container(
       color: KColors.kBackgroundColor,
       child: const Center(
-        child: Text(
-          'Details will be added on \nupcoming updates InshaAllah!',
-          textAlign: TextAlign.center,
-        ),
+        child: Text('Coming soon!'),
       ),
     );
   }

@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               KCard(
-                height: 170.w,
+                height: 165.w,
                 maxHeight: 200,
                 xPadding: 0,
                 yPadding: 0,

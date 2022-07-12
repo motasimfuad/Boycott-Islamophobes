@@ -1,7 +1,9 @@
+import 'package:boycott_islamophobes/core/widgets/k_snackbar.dart';
 import 'package:boycott_islamophobes/features/faq/presentation/pages/faq_page.dart';
 import 'package:boycott_islamophobes/features/home/presentation/pages/home_page.dart';
 import 'package:boycott_islamophobes/features/search/presentation/pages/search_page.dart';
 import 'package:boycott_islamophobes/features/info/presentation/pages/info_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,6 +27,19 @@ class _BottomNavState extends State<BottomNav> {
     const FaqPage(),
     const InfoPage(),
   ];
+
+  @override
+  void initState() {
+    FirebaseMessaging.onMessage.listen((message) {
+      kSnackBar(
+        context: context,
+        durationSeconds: 4,
+        message: message.notification?.body,
+        icon: Icons.notifications_active,
+      );
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

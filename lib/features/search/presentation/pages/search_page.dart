@@ -118,10 +118,9 @@ class _SearchPageState extends State<SearchPage> {
                               Chip(
                                 label: Text('$searchText'),
                                 deleteButtonTooltipMessage: 'Delete?',
-                                deleteIconColor: Colors.red.shade800,
-                                backgroundColor: KColors.primary.shade50,
-                                deleteIcon:
-                                    const Icon(Icons.highlight_off_rounded),
+                                deleteIconColor: KColors.primaryDark,
+                                backgroundColor: KColors.kBackgroundColorDarker,
+                                deleteIcon: const Icon(Icons.cancel_rounded),
                                 onDeleted: () {
                                   setState(() {
                                     products.clear();

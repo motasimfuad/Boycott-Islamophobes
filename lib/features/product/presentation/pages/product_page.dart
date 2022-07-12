@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,10 +12,11 @@ import 'package:boycott_islamophobes/features/product/presentation/bloc/product_
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/router/app_router.dart';
-import '../../../../core/widgets/k_badge.dart';
 import '../../../../core/widgets/k_loading_indicator.dart';
 import '../../../../core/widgets/k_snackbar.dart';
 import '../widgets/product_card_for_download.dart';
+import '../widgets/product_information_container.dart';
+import '../widgets/product_information_item.dart';
 import '../widgets/product_page_notice.dart';
 
 class ProductPage extends StatefulWidget {
@@ -44,10 +46,7 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KColors.kBackgroundColor,
-      appBar: AppBar(
-        title: const Text('Boycott this product'),
-        backgroundColor: Colors.black,
-      ),
+      appBar: const KAppbar(title: 'Boycott this product'),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.black,
         label: Row(
@@ -124,213 +123,72 @@ class _ProductPageState extends State<ProductPage> {
             borderWidth: 0,
             hasBorder: false,
             color: Colors.white,
-            // hasShadow: false,
             child: KImageContainer(
               imageUrl: product?.logoUrl ?? '',
-              height: 230.h,
+              height: 220.h,
             ),
           ),
           SizedBox(height: 15.h),
           const ProductPageNotice(
             radius: 500,
           ),
-          SizedBox(height: 20.h),
-          Text(
-            product?.name.toCapitalized() ?? '',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              fontSize: 25.sp,
-              fontWeight: FontWeight.bold,
-            ),
+          SizedBox(height: 25.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                product?.name.toCapitalized() ?? '',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 20.h),
-          // Row(
-          //   children: [
-          //     Text(
-          //       'Country:',
-          //       textAlign: TextAlign.start,
-          //       style: TextStyle(
-          //         fontSize: 18.sp,
-          //         fontWeight: FontWeight.w500,
-          //       ),
-          //     ),
-          //     SizedBox(width: 8.w),
-          //     GestureDetector(
-          //       onTap: () {
-          //         router.pushNamed(
-          //           AppRouter.countryPage,
-          //           params: {RouterParams.id: product!.countryId.toString()},
-          //         );
-          //       },
-          //       child: KBadge(
-          //         badgeText: product?.countryName ?? 'Not specified',
-          //         textSize: 14.sp,
-          //         xPadding: 10.w,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(height: 15.h),
-          // Row(
-          //   children: [
-          //     Text(
-          //       'Company:',
-          //       textAlign: TextAlign.start,
-          //       style: TextStyle(
-          //         fontSize: 18.sp,
-          //         fontWeight: FontWeight.w500,
-          //       ),
-          //     ),
-          //     SizedBox(width: 8.w),
-          //     GestureDetector(
-          //       child: KBadge(
-          //         badgeText: (product?.companyName != null &&
-          //                 product!.companyName!.isNotEmpty)
-          //             ? product?.companyName
-          //             : 'Not specified',
-          //         textSize: 14.sp,
-          //         xPadding: 10.w,
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(height: 20.h),
-          ProductInformationContainer(product: product),
-        ],
-      ),
-    );
-  }
-}
-
-class ProductInformationContainer extends StatelessWidget {
-  final ProductEntity? product;
-  const ProductInformationContainer({
-    Key? key,
-    required this.product,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return KCard(
-      color: Colors.white,
-      xPadding: 0,
-      yPadding: 0,
-      radius: 20.r,
-      child: Container(
-        padding: EdgeInsets.only(
-          left: 12.w,
-          right: 12.w,
-          top: 12.w,
-        ),
-        child: Column(
-          children: [
-            ProductInformationItem(
-              itemTitle: 'Country',
-              itemValue: product?.countryName,
-              onTap: () {
-                router.pushNamed(
-                  AppRouter.countryPage,
-                  params: {RouterParams.id: product!.countryId.toString()},
-                );
-              },
-            ),
-            (product?.companyName != null && product!.companyName!.isNotEmpty)
-                ? ProductInformationItem(
-                    itemTitle: 'Company',
-                    itemValue: product?.companyName,
-                    onTap: () {},
-                  )
-                : const SizedBox(),
-            (product?.categoryName != null && product!.categoryName.isNotEmpty)
-                ? ProductInformationItem(
-                    itemTitle: 'Category',
-                    itemValue: product?.categoryName,
-                    onTap: () {
-                      router.pushNamed(
-                        AppRouter.categoryPage,
-                        params: {RouterParams.id: '${product?.categoryId}'},
-                      );
-                    },
-                  )
-                : const SizedBox(),
-            (product?.reason != null && product!.reason!.isNotEmpty)
-                ? ProductInformationItem(
-                    itemTitle: 'Reason',
-                    showOnlyValue: true,
-                    itemValue: product?.reason,
-                  )
-                : const SizedBox(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProductInformationItem extends StatelessWidget {
-  final Function()? onTap;
-  final String itemTitle;
-  final String? itemValue;
-  final bool? showOnlyValue;
-  final double? btmPadding;
-  const ProductInformationItem({
-    Key? key,
-    this.onTap,
-    required this.itemTitle,
-    this.itemValue,
-    this.showOnlyValue = false,
-    this.btmPadding,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: btmPadding ?? 12.w),
-      child: KCard(
-        color: Colors.grey.shade100,
-        xPadding: 12.h,
-        yPadding: 10.h,
-        hasShadow: false,
-        radius: 20.r,
-        child: showOnlyValue == true
-            ? Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      child: Text(
-                        itemValue ?? '',
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '$itemTitle:',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(width: 8.w),
-                  GestureDetector(
-                    onTap: onTap,
-                    child: KBadge(
-                      badgeText: itemValue ?? 'Not specified',
-                      textSize: 14.sp,
-                      xPadding: 10.w,
-                    ),
-                  ),
-                ],
+          ProductInformationContainer(
+            product: product,
+            items: [
+              ProductInformationItem(
+                itemTitle: 'Country',
+                itemValue: product?.countryName,
+                onTap: () {
+                  router.pushNamed(
+                    AppRouter.countryPage,
+                    params: {RouterParams.id: product!.countryId.toString()},
+                  );
+                },
               ),
+              ProductInformationItem(
+                itemTitle: 'Company',
+                itemValue: product?.companyName,
+                onTap: () {},
+                isVisible: (product?.companyName != null &&
+                    product!.companyName!.isNotEmpty),
+              ),
+              ProductInformationItem(
+                itemTitle: 'Category',
+                itemValue: product?.categoryName,
+                isVisible: (product?.categoryName != null &&
+                    product!.categoryName.isNotEmpty),
+                onTap: () {
+                  router.pushNamed(
+                    AppRouter.categoryPage,
+                    params: {RouterParams.id: '${product?.categoryId}'},
+                  );
+                },
+              ),
+              ProductInformationItem(
+                itemTitle: 'Reason',
+                showOnlyValue: true,
+                itemValue: product?.reason,
+                isVisible:
+                    (product?.reason != null && product!.reason!.isNotEmpty),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

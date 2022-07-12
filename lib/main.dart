@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/themes/app_theme.dart';
@@ -20,12 +21,17 @@ void main() async {
   );
   await di.init();
   await NotificationService.initialize();
+  // ignore: deprecated_member_use
+  FlutterNativeSplash.removeAfter(initialization);
   runApp(const MyApp());
+}
+
+Future initialization(BuildContext context) async {
+  await Future.delayed(const Duration(seconds: 1));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
