@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
+import '../constants/enums.dart';
 import '../error/failures.dart';
 
 abstract class Usecase<Type, Params> {
@@ -12,17 +13,18 @@ class NoParams extends Equatable {
   List<Object> get props => [];
 }
 
-//! check if the usecase is called with the correct params
 class Params extends Equatable {
   final int? id;
   final int? categoryId;
   final int? countryId;
   final String? searchText;
+  final ProductFilterType? filterType;
   const Params({
     this.id,
     this.categoryId,
     this.countryId,
     this.searchText,
+    this.filterType,
   });
   @override
   List<Object> get props => [];

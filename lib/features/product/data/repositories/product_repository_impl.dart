@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/constants/enums.dart';
 import 'package:boycott_islamophobes/core/error/exceptions.dart';
 import 'package:boycott_islamophobes/features/product/data/datasources/product_remote_data_source.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
@@ -35,6 +36,7 @@ class ProductRepositoryImpl implements ProductRepository {
     int? categoryId,
     int? countryId,
     String? searchText,
+    required ProductFilterType filterType,
   }) async {
     try {
       final List<ProductEntity> products =
@@ -42,6 +44,7 @@ class ProductRepositoryImpl implements ProductRepository {
         categoryId: categoryId,
         searchText: searchText,
         countryId: countryId,
+        filterType: filterType,
       );
       return Right(products);
     } on RemoteException {

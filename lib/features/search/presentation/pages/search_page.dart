@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/constants/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController searchController = TextEditingController();
   final FocusNode searchFocusNode = FocusNode(canRequestFocus: false);
   List<ProductEntity> products = [];
-  String? searchText;
+  String? _searchText;
   bool cleared = false;
 
   @override
@@ -41,17 +42,9 @@ class _SearchPageState extends State<SearchPage> {
           if (state is FilteredProductListLoaded) {
             products.clear();
             products = state.products;
-
-            kSnackBar(
-              context: context,
-              message:
-                  '${products.length} blacklisted items found for " $searchText "',
-              position: FlashPosition.top,
-              durationSeconds: 4,
-            );
           }
           if (state is FilteredProductListLoading) {
-            searchText = searchController.text;
+            _searchText = searchController.text;
             searchController.clear();
           }
         },
@@ -79,7 +72,6 @@ class _SearchPageState extends State<SearchPage> {
                       hintText: 'product name...',
                       focusNode: searchFocusNode,
                       controller: searchController,
-                      autofocus: true,
                       suffixIcon: Icons.search_rounded,
                       textInputAction: TextInputAction.search,
                       onSuffixTap: () {
@@ -116,7 +108,7 @@ class _SearchPageState extends State<SearchPage> {
                                 width: 10.w,
                               ),
                               Chip(
-                                label: Text('$searchText'),
+                                label: Text('$_searchText'),
                                 deleteButtonTooltipMessage: 'Delete?',
                                 deleteIconColor: KColors.primaryDark,
                                 backgroundColor: KColors.kBackgroundColorDarker,
@@ -196,6 +188,7 @@ class _SearchPageState extends State<SearchPage> {
     if (searchController.text.isNotEmpty) {
       context.read<ProductBloc>().add(GetFilteredProductsEvent(
             searchText: searchController.text,
+            filterType: ProductFilterType.bySearch,
           ));
       setState(() {
         cleared = false;

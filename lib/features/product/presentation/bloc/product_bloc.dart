@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
 
+import '../../../../core/constants/enums.dart';
+
 part 'product_event.dart';
 part 'product_state.dart';
 
@@ -54,6 +56,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
           categoryId: event.categoryId,
           countryId: event.countryId,
           searchText: event.searchText,
+          filterType: event.filterType,
         ));
         either.fold(
           (failure) {

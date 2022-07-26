@@ -1,4 +1,5 @@
 import 'package:boycott_islamophobes/core/constants/colors.dart';
+import 'package:boycott_islamophobes/core/constants/enums.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
 import 'package:boycott_islamophobes/core/widgets/k_grid.dart';
@@ -42,9 +43,10 @@ class _CategoryPageState extends State<CategoryPage> {
     context
         .read<CategoryBloc>()
         .add(GetCategoryEvent(categoryId: widget.categoryId));
-    context
-        .read<ProductBloc>()
-        .add(GetFilteredProductsEvent(categoryId: widget.categoryId));
+    context.read<ProductBloc>().add(GetFilteredProductsEvent(
+          categoryId: widget.categoryId,
+          filterType: ProductFilterType.byCategory,
+        ));
     context.read<CategoryBloc>().add(GetAllCategoriesEvent());
     super.initState();
   }
@@ -134,9 +136,13 @@ class _CategoryPageState extends State<CategoryPage> {
                                         GetCategoryEvent(
                                             categoryId: selectedCat.id));
 
-                                    context.read<ProductBloc>().add(
-                                        GetFilteredProductsEvent(
-                                            categoryId: selectedCat.id));
+                                    context
+                                        .read<ProductBloc>()
+                                        .add(GetFilteredProductsEvent(
+                                          categoryId: selectedCat.id,
+                                          filterType:
+                                              ProductFilterType.byCategory,
+                                        ));
                                   },
                                   labelType: NavigationRailLabelType.all,
                                   destinations: (state is CategoriesLoading)

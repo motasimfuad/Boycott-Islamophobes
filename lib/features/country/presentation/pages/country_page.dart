@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/constants/enums.dart';
 import 'package:boycott_islamophobes/core/widgets/k_image_container.dart';
 import 'package:boycott_islamophobes/features/company/domain/entities/company_entity.dart';
 import 'package:boycott_islamophobes/features/country/presentation/widgets/country_all_companies_tab.dart';
@@ -38,9 +39,10 @@ class _CountryPageState extends State<CountryPage>
   @override
   void initState() {
     context.read<CountryBloc>().add(GetCountryEvent(countryId: widget.id));
-    context
-        .read<ProductBloc>()
-        .add(GetFilteredProductsEvent(countryId: widget.id));
+    context.read<ProductBloc>().add(GetFilteredProductsEvent(
+          countryId: widget.id,
+          filterType: ProductFilterType.byCountry,
+        ));
     context
         .read<CompanyBloc>()
         .add(GetFilteredCompaniesEvent(countryId: widget.id));

@@ -98,9 +98,6 @@ class _HomePageState extends State<HomePage> {
                     if (state is QuoteListLoaded) {
                       quotes = state.quotes;
                     }
-                    if (state is QuoteListLoading) {
-                      return const QuoteContainer();
-                    }
 
                     return CarouselSlider(
                       options: CarouselOptions(

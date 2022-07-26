@@ -2,8 +2,6 @@ import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/core/widgets/k_appbar.dart';
-import 'package:boycott_islamophobes/core/widgets/k_card.dart';
-import 'package:boycott_islamophobes/core/widgets/k_shimmer.dart';
 import 'package:boycott_islamophobes/features/faq/domain/entities/faq_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../bloc/faq_bloc.dart';
+import '../widgets/faq_loading_list.dart';
 import '../widgets/faq_notice.dart';
 
 class FaqPage extends StatefulWidget {
@@ -116,38 +115,6 @@ class _FaqPageState extends State<FaqPage> {
       contentVerticalPadding: 15.w,
       paddingBetweenOpenSections: 10.h,
       paddingBetweenClosedSections: 10.h,
-    );
-  }
-}
-
-class FaqLoadingList extends StatelessWidget {
-  const FaqLoadingList({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.only(top: 20.h),
-      shrinkWrap: true,
-      primary: false,
-      itemCount: 3,
-      itemBuilder: (BuildContext context, int index) {
-        return KShimmer(
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 20.w,
-              right: 20.w,
-              bottom: 15.h,
-            ),
-            child: KCard(
-              hasShadow: false,
-              height: 60.h,
-              radius: 20.r,
-            ),
-          ),
-        );
-      },
     );
   }
 }

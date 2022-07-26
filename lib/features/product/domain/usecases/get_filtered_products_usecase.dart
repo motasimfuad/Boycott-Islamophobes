@@ -15,6 +15,7 @@ class GetFilteredProductsUsecase
       categoryId: params.categoryId,
       countryId: params.countryId,
       searchText: params.searchText,
+      filterType: params.filterType!,
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:boycott_islamophobes/core/constants/enums.dart';
 import 'package:boycott_islamophobes/core/error/failures.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
 import 'package:dartz/dartz.dart';
@@ -9,5 +10,6 @@ abstract class ProductRepository {
     int? categoryId,
     int? countryId,
     String? searchText,
+    required ProductFilterType filterType,
   });
 }

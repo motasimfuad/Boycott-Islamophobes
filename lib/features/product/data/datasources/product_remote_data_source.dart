@@ -1,6 +1,7 @@
 import 'package:boycott_islamophobes/features/product/data/models/product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../core/constants/enums.dart';
 import '../../../../core/error/exceptions.dart';
 
 abstract class ProductRemoteDataSource {
@@ -10,6 +11,7 @@ abstract class ProductRemoteDataSource {
     int? categoryId,
     int? countryId,
     String? searchText,
+    required ProductFilterType filterType,
   });
 }
 
@@ -42,9 +44,10 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     int? categoryId,
     int? countryId,
     String? searchText,
+    required ProductFilterType filterType,
   }) async {
     QuerySnapshot<Map<String, dynamic>> products;
-    if (searchText != null && categoryId == null && countryId == null) {
+    if (filterType == ProductFilterType.bySearch && searchText != null) {
       products = await firestore
           .collection('products')
           .where(
@@ -58,7 +61,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
                         1),
           )
           .get();
-    } else if (categoryId != null && searchText == null && countryId == null) {
+    } else if (filterType == ProductFilterType.byCategory &&
+        categoryId != null) {
       products = await firestore
           .collection('products')
           .where('categoryId', isEqualTo: categoryId)
