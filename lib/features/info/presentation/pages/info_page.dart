@@ -4,6 +4,7 @@ import 'package:boycott_islamophobes/features/info/presentation/bloc/info_bloc.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../core/widgets/k_snackbar.dart';
 
@@ -62,7 +63,15 @@ class InfoPage extends StatelessWidget {
                             clipBehavior: Clip.antiAlias,
                             fit: BoxFit.contain,
                             child: GestureDetector(
-                              onLongPress: () {
+                              onLongPress: () async {
+                                if (await isNetworkAvailable() == false) {
+                                  toast(
+                                    'Not connected to the internet!',
+                                    bgColor: KColors.primary,
+                                    gravity: ToastGravity.TOP,
+                                  );
+                                  return;
+                                }
                                 context
                                     .read<InfoBloc>()
                                     .add(DownloadHQLogoEvent());

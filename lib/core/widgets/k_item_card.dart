@@ -11,6 +11,9 @@ class KItemCard extends StatelessWidget {
   final double? padding;
   final Function()? onTap;
   final BoxFit? imageFit;
+  final Color? borderColor;
+  final bool? hasBorder;
+  final double? borderWidth;
   const KItemCard({
     Key? key,
     required this.tag,
@@ -19,12 +22,18 @@ class KItemCard extends StatelessWidget {
     this.padding,
     this.onTap,
     this.imageFit,
+    this.borderColor,
+    this.hasBorder,
+    this.borderWidth,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return KCard(
       color: Colors.white,
+      hasBorder: hasBorder,
+      borderColor: borderColor ?? Colors.transparent,
+      borderWidth: borderWidth,
       onTap: onTap,
       child: Column(
         children: [

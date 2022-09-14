@@ -1,4 +1,5 @@
 import 'package:boycott_islamophobes/bloc_providers.dart';
+import 'package:boycott_islamophobes/core/constants/colors.dart';
 import 'package:boycott_islamophobes/core/router/app_router.dart';
 import 'package:boycott_islamophobes/core/services/notification_service.dart';
 import 'package:boycott_islamophobes/dependency_injection.dart' as di;
@@ -7,8 +8,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import 'core/themes/app_theme.dart';
 
@@ -16,18 +17,20 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await dotenv.load();
+  if (await isNetworkAvailable() == false) {
+    toast(
+      'No Internet Connection. Internet is required to run this app properly!',
+      bgColor: KColors.primary,
+      length: Toast.LENGTH_LONG,
+      gravity: ToastGravity.TOP,
+    );
+  }
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await di.init();
   await NotificationService.initialize();
-  // ignore: deprecated_member_use
-  FlutterNativeSplash.removeAfter(initialization);
   runApp(const MyApp());
-}
-
-Future initialization(BuildContext context) async {
-  await Future.delayed(const Duration(seconds: 1));
 }
 
 class MyApp extends StatelessWidget {
@@ -44,7 +47,6 @@ class MyApp extends StatelessWidget {
             routerDelegate: router.routerDelegate,
             routeInformationParser: router.routeInformationParser,
             routeInformationProvider: router.routeInformationProvider,
-
             debugShowCheckedModeBanner: false,
             title: 'Boycott Islamophobes',
             theme: AppTheme.lightTheme,

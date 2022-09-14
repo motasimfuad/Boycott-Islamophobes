@@ -7,6 +7,7 @@ class CountryModel extends CountryEntity {
     required super.id,
     required super.flagUrl,
     required super.name,
+    required super.isBlacklisted,
     super.reason,
   });
 
@@ -15,12 +16,14 @@ class CountryModel extends CountryEntity {
     String? name,
     String? flagUrl,
     String? reason,
+    bool? isBlacklisted,
   }) {
     return CountryModel(
       id: id ?? this.id,
       name: name ?? this.name,
       flagUrl: flagUrl ?? this.flagUrl,
       reason: reason ?? this.reason,
+      isBlacklisted: isBlacklisted ?? this.isBlacklisted,
     );
   }
 
@@ -30,6 +33,7 @@ class CountryModel extends CountryEntity {
       'name': name,
       'flagUrl': flagUrl,
       'reason': reason,
+      'isBlacklisted': isBlacklisted,
     };
   }
 
@@ -39,6 +43,7 @@ class CountryModel extends CountryEntity {
       name: map['name'] ?? '',
       flagUrl: map['flagUrl'] ?? '',
       reason: map['reason'],
+      isBlacklisted: map['isBlacklisted'] ?? true,
     );
   }
 
@@ -49,6 +54,6 @@ class CountryModel extends CountryEntity {
 
   @override
   String toString() {
-    return 'CountryModel(id: $id, name: $name, flagUrl: $flagUrl, reason: $reason)';
+    return 'CountryModel(id: $id, name: $name, flagUrl: $flagUrl, reason: $reason, isBlacklisted: $isBlacklisted)';
   }
 }

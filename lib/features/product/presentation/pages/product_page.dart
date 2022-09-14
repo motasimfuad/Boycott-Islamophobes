@@ -46,7 +46,13 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: KColors.kBackgroundColor,
-      appBar: const KAppbar(title: 'Boycott this product'),
+      appBar: KAppbar(
+        title: 'Boycott this product',
+        actionBtn: Icons.close_fullscreen_rounded,
+        onActionPress: () {
+          router.goNamed(AppRouter.homePage);
+        },
+      ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.black,
         label: Row(

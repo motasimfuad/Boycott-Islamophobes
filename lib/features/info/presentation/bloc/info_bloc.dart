@@ -32,7 +32,7 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
           },
         );
 
-        _save() async {
+        save() async {
           response = await Dio().get(
             info!.logoHqUrl,
             options: Options(responseType: ResponseType.bytes),
@@ -45,7 +45,7 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
         }
 
         if (info != null) {
-          await _save();
+          await save();
           if (downloadResult['isSuccess'] == true) {
             emit(LogoDownloaded());
           } else {

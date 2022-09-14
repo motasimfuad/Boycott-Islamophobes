@@ -7,6 +7,7 @@ import 'package:boycott_islamophobes/core/constants/strings.dart';
 import 'package:boycott_islamophobes/features/company/domain/entities/company_entity.dart';
 import 'package:boycott_islamophobes/features/company/presentation/bloc/company_bloc.dart';
 import 'package:boycott_islamophobes/features/product/domain/entities/product_entity.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/router/app_router.dart';
@@ -71,7 +72,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: SingleChildScrollView(
-        // primary: true,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Container(
           padding: EdgeInsets.only(
@@ -140,8 +140,20 @@ class _HomePageState extends State<HomePage> {
                     KCard(
                       hasShadow: false,
                       radius: 10.r,
-                      onTap: () {
+                      onTap: () async {
+                        if (await isNetworkAvailable() == false) {
+                          toast(
+                            'Not connected to the internet!',
+                            bgColor: KColors.primary,
+                            gravity: ToastGravity.TOP,
+                          );
+                          return;
+                        }
                         _getAllBlacklists();
+                        toast(
+                          'Blacklists updated!',
+                          gravity: ToastGravity.TOP,
+                        );
                       },
                       color: KColors.primaryDark,
                       child: Icon(

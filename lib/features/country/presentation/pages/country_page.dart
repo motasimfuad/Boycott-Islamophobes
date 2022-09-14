@@ -38,15 +38,26 @@ class _CountryPageState extends State<CountryPage>
 
   @override
   void initState() {
+    totalProducts = "0";
+    totalCompanies = "0";
+    products.clear();
+    companies.clear();
     context.read<CountryBloc>().add(GetCountryEvent(countryId: widget.id));
+    context
+        .read<CompanyBloc>()
+        .add(GetFilteredCompaniesEvent(countryId: widget.id));
     context.read<ProductBloc>().add(GetFilteredProductsEvent(
           countryId: widget.id,
           filterType: ProductFilterType.byCountry,
         ));
-    context
-        .read<CompanyBloc>()
-        .add(GetFilteredCompaniesEvent(countryId: widget.id));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    products.clear();
+    companies.clear();
+    super.dispose();
   }
 
   @override
@@ -54,8 +65,12 @@ class _CountryPageState extends State<CountryPage>
     TabController tabController = TabController(length: 2, vsync: this);
 
     return Scaffold(
-      appBar: const KAppbar(
-        title: 'Blacklisted Country ',
+      appBar: KAppbar(
+        title: 'Country Details',
+        actionBtn: Icons.info_outline,
+        onActionPress: () {
+          showDialog(context: context, builder: (context) => _buildDialog());
+        },
       ),
       body: Column(
         children: [
@@ -114,18 +129,24 @@ class _CountryPageState extends State<CountryPage>
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.not_interested_rounded,
-                            color: Colors.red,
-                            size: 20.w,
-                          ),
-                          SizedBox(width: 5.w),
-                          Text(
-                            country?.name ?? '',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22.sp,
-                              fontWeight: FontWeight.bold,
+                          country?.isBlacklisted == true
+                              ? Padding(
+                                  padding: EdgeInsets.only(right: 8.w),
+                                  child: Icon(
+                                    Icons.not_interested_rounded,
+                                    color: Colors.red,
+                                    size: 20.w,
+                                  ),
+                                )
+                              : const SizedBox(),
+                          Expanded(
+                            child: Text(
+                              country?.name ?? '',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -219,9 +240,6 @@ class _CountryPageState extends State<CountryPage>
                 Tab(
                   text: 'Companies',
                 ),
-                // Tab(
-                //   text: 'Details',
-                // ),
               ],
             ),
           ),
@@ -259,6 +277,112 @@ class _CountryPageState extends State<CountryPage>
           ),
         ],
       ),
+    );
+  }
+
+  _buildDialog() {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.r),
+        side: BorderSide(
+          color: country?.isBlacklisted == true ? Colors.red : Colors.green,
+          width: 2.w,
+        ),
+      ),
+      content: SizedBox(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            country?.isBlacklisted == true
+                ? Column(
+                    children: [
+                      Icon(
+                        Icons.not_interested_rounded,
+                        color: Colors.red,
+                        size: 40.w,
+                      ),
+                      SizedBox(height: 15.w),
+                      Text(
+                        '${country?.name} is blacklisted.\n\nIt also has products and companies that are blacklisted.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 40.w),
+                      (country?.id == 1)
+                          ? _buildIllegalSettlerMessage()
+                          : _buildBlacklistedMessage(),
+                    ],
+                  )
+                : _buildNotBlacklistedMessage(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column _buildIllegalSettlerMessage() {
+    return Column(
+      children: [
+        Text(
+          'If you are an illegal settler living forcefully in the home of a Palestinian family,\nPlease get back to the h*llhole you came from!',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.grey.shade400,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
+        SizedBox(height: 30.w),
+        Text(
+          'Khaybar will return!'.toUpperCase(),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.grey.shade200,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Text _buildBlacklistedMessage() {
+    return Text(
+      'If you live in ${country?.name},\nPlease try to avoid buying products from known and recognized islamophobe individuals/companies/groups of people.\nLook for similar alternative products that are available in the market!',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Colors.grey.shade500,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+        fontStyle: FontStyle.italic,
+      ),
+    );
+  }
+
+  _buildNotBlacklistedMessage() {
+    return Column(
+      children: [
+        Icon(
+          Icons.check_circle_outline_rounded,
+          color: Colors.green,
+          size: 40.w,
+        ),
+        SizedBox(height: 15.w),
+        Text(
+          '${country?.name} is not blacklisted.\n\nBut it might have products and companies that are blacklisted.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -23,7 +23,6 @@ class _BottomNavState extends State<BottomNav> {
   final screens = [
     const HomePage(),
     const SearchPage(),
-    // router.goNamed(AppRouter.searchPage),
     const FaqPage(),
     const InfoPage(),
   ];
@@ -43,46 +42,55 @@ class _BottomNavState extends State<BottomNav> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: screens[currentIndex],
-      bottomNavigationBar: FloatingNavbar(
-        borderRadius: 20.w,
-        itemBorderRadius: 15.w,
-        margin: EdgeInsets.symmetric(
-          horizontal: 20.h,
-          vertical: 15.w,
-        ),
-        iconSize: 24.w,
-        onTap: (int val) {
+    return WillPopScope(
+      onWillPop: () async {
+        if (currentIndex == 0) {
+          return true;
+        } else {
           setState(() {
-            currentIndex = val;
+            currentIndex = 0;
           });
-        },
-        backgroundColor: Colors.black,
-        selectedBackgroundColor: KColors.primaryDark,
-        selectedItemColor: Colors.white,
-        padding: EdgeInsets.only(
-          bottom: 10.h,
-          top: 10.h,
-          left: 0.w,
-          right: 0.w,
+          return false;
+        }
+      },
+      child: Scaffold(
+        extendBody: true,
+        body: screens[currentIndex],
+        bottomNavigationBar: FloatingNavbar(
+          borderRadius: 20.w,
+          itemBorderRadius: 15.w,
+          margin: EdgeInsets.symmetric(
+            horizontal: 20.h,
+            vertical: 15.w,
+          ),
+          iconSize: 24.w,
+          onTap: (int val) {
+            setState(() {
+              currentIndex = val;
+            });
+          },
+          backgroundColor: Colors.black,
+          selectedBackgroundColor: KColors.primaryDark,
+          selectedItemColor: Colors.white,
+          padding: EdgeInsets.only(
+            bottom: 10.h,
+            top: 10.h,
+            left: 0.w,
+            right: 0.w,
+          ),
+          currentIndex: currentIndex,
+          items: [
+            FloatingNavbarItem(
+              icon: Icons.home,
+            ),
+            FloatingNavbarItem(
+              icon: Icons.search_rounded,
+            ),
+            FloatingNavbarItem(
+              icon: Icons.question_answer_outlined,
+            ),
+          ],
         ),
-        currentIndex: currentIndex,
-        items: [
-          FloatingNavbarItem(
-            icon: Icons.home,
-          ),
-          FloatingNavbarItem(
-            icon: Icons.search_rounded,
-          ),
-          FloatingNavbarItem(
-            icon: Icons.question_answer_outlined,
-          ),
-          // FloatingNavbarItem(
-          //   icon: Icons.settings,
-          // ),
-        ],
       ),
     );
   }

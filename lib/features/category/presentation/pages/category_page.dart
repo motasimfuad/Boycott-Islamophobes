@@ -60,7 +60,13 @@ class _CategoryPageState extends State<CategoryPage> {
       },
       child: Scaffold(
         backgroundColor: KColors.kBackgroundColor,
-        appBar: const KAppbar(title: 'Browse by Category'),
+        appBar: KAppbar(
+          title: 'Browse by Category',
+          actionBtn: Icons.close_fullscreen_rounded,
+          onActionPress: () {
+            router.goNamed(AppRouter.homePage);
+          },
+        ),
         body: BlocConsumer<CategoryBloc, CategoryState>(
           listener: (context, state) {},
           builder: (context, state) {

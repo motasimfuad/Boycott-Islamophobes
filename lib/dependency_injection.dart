@@ -17,6 +17,7 @@ import 'package:boycott_islamophobes/features/country/domain/repositories/countr
 import 'package:boycott_islamophobes/features/country/domain/usecases/get_all_countries_usecase.dart';
 import 'package:boycott_islamophobes/features/country/domain/usecases/get_country_usecase.dart';
 import 'package:boycott_islamophobes/features/country/presentation/bloc/country_bloc.dart';
+import 'package:boycott_islamophobes/features/faq/data/models/faq_model.dart';
 import 'package:boycott_islamophobes/features/faq/domain/usecases/get_all_faqs_usecase.dart';
 import 'package:boycott_islamophobes/features/faq/presentation/bloc/faq_bloc.dart';
 import 'package:boycott_islamophobes/features/info/domain/usecases/get_app_info_usecase.dart';
@@ -45,7 +46,13 @@ import 'features/quote/domain/repositories/quote_repository.dart';
 
 final getIt = GetIt.instance;
 
+class GlobalFaqs {
+  static List<FaqModel> globalFaqs = [];
+}
+
 Future<void> init() async {
+  getIt.registerLazySingleton(() => GlobalFaqs.globalFaqs);
+
   //! features
   // blocs
   getIt.registerFactory(

@@ -32,7 +32,7 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
     return Scaffold(
       backgroundColor: KColors.kBackgroundColor,
       appBar: const KAppbar(
-        title: 'Blacklisted Countries',
+        title: 'Countries',
       ),
       body: SafeArea(
         child: BlocBuilder<CountryBloc, CountryState>(
@@ -59,6 +59,11 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                             name: country.name,
                             imageUrl: country.flagUrl,
                             imageFit: BoxFit.cover,
+                            hasBorder: true,
+                            borderWidth: 1.5,
+                            borderColor: country.isBlacklisted == true
+                                ? Colors.red
+                                : Colors.green,
                             padding: 0,
                             onTap: () {
                               router.pushNamed(
